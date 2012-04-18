@@ -118,6 +118,9 @@ public class Point {
    * @return double representing the distance
    */
   public double distance(Point p) {
+//	System.out.println("Math.abs(" + p._x + "-" + _x + ") + " + "Math.abs(" + p._y + " - " + _y + ") = " + (Math.abs(p._x - _x) + Math.abs(p._y - _y)));
+//	System.out.println("Math.abs(" + p._x + "-" + _x + ") = " + Math.abs(p._x - _x));
+//	System.out.println("Math.abs(" + p._y + "-" + _y + ") = " + Math.abs(p._y - _y));
     return Math.abs(p._x - _x) + Math.abs(p._y - _y);
   }
 

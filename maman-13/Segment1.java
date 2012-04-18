@@ -3,9 +3,10 @@ public class Segment1 {
 	private Point _poRight;
 	
 	public static void main(String[] args) {
-		Segment1 obj1  = new Segment1(2,4,6,4);
-		Segment1 obj2 = new Segment1(obj1);
-		Segment1 obj3 = new Segment1(1,9,2,15);
+//		Segment1 obj1  = new Segment1(2,4,6,4);
+//		Segment1 obj2 = new Segment1(obj1);
+//		Segment1 obj3 = new Segment1(1,9,2,15);
+//		Segment1 obj4 = new Segment1(-1,-10,2,15);
 //		System.out.println(obj.getLength());
 //		System.out.println(new Segment1(2,9,6,15));
 //		System.out.println(obj);
@@ -14,7 +15,15 @@ public class Segment1 {
 //		System.out.println(obj1);
 //		obj1.changeSize(-5);
 //		System.out.println( obj1.pointOnSegment( new Point(6,4) ) );
-		System.out.println( obj1.isBigger(obj3));
+//		System.out.println( obj1.isBigger(obj3));
+//        System.out.println( new Segment1(-1,1,2,1).overlap(new Segment1(-1,1,-1,1)) );
+//		System.out.println( new Segment1(1,1,3,1).overlap(new Segment1(2,1,4,1)) );
+//		System.out.println( new Segment1(2,2,4,2).overlap(new Segment1(1,2,3,2)) );
+//		System.out.println( new Segment1(-3,1,-1,1).overlap(new Segment1(-4,1,-2,1)) );
+//		System.out.println( new Segment1(-4,1,-2,1).overlap(new Segment1(-3,1,-1,1)) );
+//		System.out.println( new Segment1(-2,-2,1,-2).overlap(new Segment1(-1,-2,2,-2)) );
+//		System.out.println( new Segment1(-2,-2,1,-2).overlap(new Segment1(-3,-2,2,-2)) );
+		System.out.println( new Segment1(1,1,1,1).overlap(new Segment1(1,1,1,1)) );
 	}
 	
 	public Segment1(Point left, Point right) {
@@ -37,7 +46,9 @@ public class Segment1 {
 	private void registerNewPoints(double leftX ,double leftY,  double rightX ,double rightY) {
 		if ( leftY != rightY )
 			rightY = leftY;
-			
+
+		System.out.println("INIT left point " + new Point(leftX, leftY));
+		System.out.println("INIT right point " + new Point(rightX, rightY));
 		_poLeft  = new Point(leftX, leftY);
 		_poRight = new Point(rightX, rightY);
 	}
@@ -90,11 +101,11 @@ public class Segment1 {
 	}
 	
 	public void changeSize(double delta) {
-		if ( size() >= Math.abs(delta))
+		if ( segmentSize() >= Math.abs(delta))
 			_poRight.setX(_poRight.getX() + delta);
 	}
 	
-	private double size() {
+	private double segmentSize() {
 		return _poRight.distance(_poLeft);
 	}
 	
@@ -105,11 +116,27 @@ public class Segment1 {
 	}
 	
 	public boolean isBigger(Segment1 other) {
-		return size() > other.size();
+		return segmentSize() > other.segmentSize();
 	}
 	
 	public double overlap(Segment1 other) {
+		// TODO: deal with zero
+		double value = 0.0;
 		
+		if ( pointOnSegment( other.getPoLeft() ) )
+		{
+			System.out.println("in here");
+			value =  _poRight.distance( other.getPoLeft() );
+		} else if ( pointOnSegment( other.getPoRight() ) ) {
+			System.out.println("in there");
+			value = _poLeft.distance( other.getPoRight() );   
+		} else if ( other.getPoRight().isRight(_poRight) &&
+					other.getPoLeft().isLeft(_poLeft))
+	  	{
+			value = segmentSize();
+		}
+
+		return value;
 	}
 	
 }
