@@ -172,8 +172,8 @@ public class Segment1 {
      */	
 	public boolean pointOnSegment(Point p) {
 		return _poLeft.getY()  == p.getY() && 
-			   _poLeft.getX()  <= p.getX() &&
-			   _poRight.getX() >= p.getX();
+               _poLeft.getX()  <= p.getX() &&
+               _poRight.getX() >= p.getX();
 	}
 	
     /**
