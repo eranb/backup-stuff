@@ -9,6 +9,10 @@ public class Segment1 {
 	private Point _poLeft;
 	private Point _poRight;
 	
+	public static void main(String[] args) {
+		System.out.println( new Segment1(-2,0,10,0).overlap(new Segment1(-3,0,4,0)) );
+	}
+	
     /**
      * Constructs a segment. Constructs a new segment using two Points
      * @param left the left point of the segment
@@ -203,9 +207,19 @@ public class Segment1 {
 		// both segments overlap for sure
 		if ( overlapsWithEach(other) ) 
 		{	
-			Point startPoint = _poLeft;
+           /* 
+           * After we figured out that both segments overlap in at aleast one point
+           * We need to "cut" the overlapping segment.
+           * for this we need to find two point, start and stop points.
+		   * the starting point is the righter left point.
+		   * the stoping point is the lefter right point.
+           */
+
+			// Defalts
+			Point startPoint = _poLeft; 
 			Point stopPoint  = _poRight;
 			
+			// finding points
 			if (other.getPoLeft().isRight(startPoint))
 				startPoint = other.getPoLeft();
 			if (other.getPoRight().isLeft(stopPoint))
