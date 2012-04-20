@@ -1,3 +1,10 @@
+/**
+ * A segment1 represent a line (parallel to the x-axis) using two Points
+ *
+ * @author Barak Levi
+ * @version 1
+ */
+
 public class Segment1 {
 	private Point _poLeft;
 	private Point _poRight;
