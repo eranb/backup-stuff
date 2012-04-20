@@ -204,13 +204,13 @@ public class Segment1 {
 		// both segments overlap for sure
 		if ( overlapsWithEach(other) ) 
 		{	
-           /* 
-           * After we figured out that both segments overlap in at aleast one point
-           * We need to "cut" the overlapping segment, for this we need to find two point
-           * start and stop (left and right) points of the overlapping segment.
-           * the starting point is the righter left point.
-           * the stoping point is the lefter right point.
-           */
+		  /* 
+		   * After we figured out that both segments overlap in at aleast one point
+		   * We need to "cut" the overlapping segment, for this we need to find two point
+		   * start and stop (left and right) points of the overlapping segment.
+		   * the starting point is the righter left point.
+		   * the stoping point is the lefter right point.
+		   */
 
 			// we got to start with something...
 			Point startPoint = _poLeft; 
