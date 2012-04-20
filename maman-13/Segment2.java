@@ -1,78 +1,90 @@
 /**
- * A segment1 represent a line (parallel to the x-axis) using two Points
+ * A segment2 represent a line (parallel to the x-axis) using a center point and length
  *
  * @author Barak Levi
  * @version 1
  */
 
-public class Segment1 {
-	private Point _poLeft;
-	private Point _poRight;
+public class Segment2 {
+	private Point _poCenter;
+	private double _length;
 		
-    /**
-     * Constructs a segment. Constructs a new segment using two Points
-     * @param left the left point of the segment
-     * @param right the right point of the segment
-     */
-	public Segment1(Point left, Point right) {
-		registerNewPoints(left.getX(),left.getY(),right.getX(),right.getY());
+   /**
+    * Constructs a segment. Constructs a new segment using a center point and the segment length
+    * @param poCenter the Center Point
+    * @param length the segment length
+    */
+	public Segment2(Point poCenter, double length) {
+		_poCenter = new Point(poCenter);
+        _length = length;
 	}
 	
-    /**
-     * Constructs a segment. Constructs a new segment using 4 specified x y coordinates:
-     * two coordinates for the left point and two coordinates for the right point.
-     * @param leftX  X value of left point
-     * @param leftY  Y value of left point
-     * @param rightX X value of right point
-     * @param rightY Y value of right point
-     */
-	public Segment1(double leftX ,double leftY,  double rightX ,double rightY) {
-		registerNewPoints(leftX ,leftY, rightX ,rightY);
+   /**
+    * Constructs a segment. Constructs a new segment using two Points
+    * @param left the left point of the segment
+    * @param right the right point of the segment
+    */
+    public Segment2(Point left, Point right) {
+		initializeVariables(left, right);
 	}
 	
-    /**
+   /**
+    * Constructs a segment. Constructs a new segment using 4 specified x y coordinates: two coordinates for the left point and two coordinates for the right point
+    * @param leftX X value of left point
+    * @param leftY Y value of left point
+    * @param rightX X value of right point
+    * @param rightY Y value of right point
+    */
+    public Segment2(double leftX, double leftY, double rightX, double rightY) {
+		initializeVariables(new Point(leftX,leftY), new Point(rightX,rightY));
+	}
+	
+	/**
      * Copy Constructor. Construct a segment using a reference segment
      * @param other  the reference segment
      */
-	public Segment1(Segment1 other) {
-		registerNewPoints(
-			other.getPoLeft().getX(),
-			other.getPoLeft().getY(),
-			other.getPoRight().getX(),
-			other.getPoRight().getY()
-		);
+    Segment2(Segment2 other) {
+  		_length = other._length;
+		_poCenter = other._poCenter;
+    }
+	
+	// helper method to initialize new Segmet2 using two points.
+	private void initializeVariables(Point left, Point right) {
+		// using the distance between the points to set the length.
+		_length = left.distance(right);
+		
+		/* Creating the center point
+		 * formula to get x => taking the left X and adding it the length divided by 2
+		 * formula to get y => we are always taking the Y of the left point.
+		 */ 
+		_poCenter = new Point( (left.getX() + _length / 2), left.getY() );
 	}
 	
-    /*
-     * Gateway for creating new objects.
-     * By pushing all new objects into this function we get the benefits of:
-     *  - No aliasing to input points.
-     *  - Making sure both Y points are equal.
-     *  - No code duplication.
-     */
-	private void registerNewPoints(double lx ,double ly,  double rx ,double ry) {
-		// normalizing both Ys
-		if ( ly != ry )
-			ry = ly;
-
-		_poLeft  = new Point(lx, ly);
-		_poRight = new Point(rx, ry);
-	}
-
-    /**
-     * Returns the left point of the segment
-     * @return The left point of the segment
-     */	
+	/**
+	* Returns the left point of the segment
+	* @return The left point of the segment
+	*/
 	public Point getPoLeft() {
-		return _poLeft;
+		return fetchOuterPoint(-halfLength());
 	}
-
-    /**
-     * Returns the right point of the segment
-     * @return  The right point of the segment
-     */
+	
+	/**
+	* Returns the left point of the segment
+	* @return The left point of the segment
+	*/
 	public Point getPoRight() {
-		return _poRight;
+		return fetchOuterPoint(halfLength());
+	}
+	
+	// helper function to fetch the outer points
+	// right or left by delta by negative / positive delta
+	private Point fetchOuterPoint(double delta) {
+		return new Point(_poCenter.getX() + delta, _poCenter.getY());
+	}
+	
+	// divide the length by two, to prevent duplication in code
+	private double halfLength() {
+		return _length / 2;
 	}
 	
     /**
@@ -80,52 +92,52 @@ public class Segment1 {
      * @return The segment length
      */
 	public double getLength() {
-		return _poRight.distance(_poLeft);
+		return getPoRight().distance(getPoLeft());
 	}
 	
-    /**
+	/**
      * Return a string representation of this segment. i.e. (3,4)---(3,6)
      * @return  String representation of this segment
      */
 	public String toString() {
-		return _poLeft + "---" + _poRight;
+		return getPoLeft() + "---" + getPoRight();
 	}
-
-    /**
+    
+	/**
      * Check if the reference segment is equal to this segment
      * @param other  the reference segment
      * @return True if the reference segment is equal to this segment
      */
-	public boolean equals(Segment1 other) {
-		return _poLeft.equals( other.getPoLeft() ) &&
-		 	   _poRight.equals( other.getPoRight() );
+	public boolean equals(Segment2 other) {
+		return getPoLeft().equals( other.getPoLeft() ) &&
+		 	   getPoRight().equals( other.getPoRight() );
 	}
-
+    
     /**
      * Check if this segment is above a reference segment
      * @param other  the reference segment
      * @return  True if this segment is above the reference segment
      */
-	public boolean isAbove(Segment1 other) {
-		return _poLeft.isAbove( other.getPoLeft() );
+	public boolean isAbove(Segment2 other) {
+		return getPoLeft().isAbove( other.getPoLeft() );
 	}
 	
-    /**
+	/**
      * Check if this segment is under a reference segment.
      * @param  other  the reference segment
      * @return True if this segment is under the reference segment
      */
-	public boolean isUnder(Segment1 other) {
+	public boolean isUnder(Segment2 other) {
 		return other.isAbove(this);
 	}
-	
-    /**
+    
+	/**
      * Check if this segment is left of a received segment
      * @param  other  the reference segment
      * @return True if this segment is left to the reference segment
      */
-	public boolean isLeft(Segment1 other) {
-		return _poRight.getX() < other.getPoLeft().getX();
+	public boolean isLeft(Segment2 other) {
+		return getPoRight().getX() < other.getPoLeft().getX();
 	}
 	
     /**
@@ -133,8 +145,8 @@ public class Segment1 {
      * @param  other the reference segment
      * @return True if this segment is right to the reference segment
      */
-	public boolean isRight(Segment1 other) {
-		return _poLeft.getX() > other.getPoRight().getX();
+	public boolean isRight(Segment2 other) {
+		return getPoLeft().getX() > other.getPoRight().getX();
 	}
 	
     /**
@@ -142,8 +154,8 @@ public class Segment1 {
      * @param  delta  the displacement size
      */
 	public void moveHorisontal(double delta) {
-		_poLeft.setX(_poLeft.getX()  + delta);
-		_poRight.setX(_poRight.getX() + delta);
+		getPoLeft().setX(getPoLeft().getX()  + delta);
+		getPoRight().setX(getPoRight().getX() + delta);
 	}
 	
     /**
@@ -151,8 +163,8 @@ public class Segment1 {
      * @param delta  the displacement size
      */
 	public void moveVertical(double delta) {
-		_poLeft.setY(_poLeft.getY()  + delta);
-		_poRight.setY(_poRight.getY() + delta);
+		getPoLeft().setY(getPoLeft().getY()  + delta);
+		getPoRight().setY(getPoRight().getY() + delta);
 	}
 	
     /**
@@ -163,7 +175,7 @@ public class Segment1 {
 	public void changeSize(double delta) {
 		// verifying input to prevent cases which the right point is no longer right
 		if (!(delta < 0 && getLength() < Math.abs(delta)))
-			_poRight.setX(_poRight.getX() + delta);			
+			getPoRight().setX(getPoRight().getX() + delta);			
 	}
 
     /**
@@ -172,9 +184,9 @@ public class Segment1 {
      * @return True if p is on this segment
      */	
 	public boolean pointOnSegment(Point p) {
-		return _poLeft.getY()  == p.getY() && 
-               _poLeft.getX()  <= p.getX() &&
-               _poRight.getX() >= p.getX();
+		return getPoLeft().getY()  == p.getY() && 
+               getPoLeft().getX()  <= p.getX() &&
+               getPoRight().getX() >= p.getX();
 	}
 	
     /**
@@ -182,14 +194,14 @@ public class Segment1 {
      * @param  other  the reference segment
      * @return  True if this segment is bigger than the reference segment
      */
-	public boolean isBigger(Segment1 other) {
+	public boolean isBigger(Segment2 other) {
 		return getLength() > other.getLength();
 	}
 		
     /* helper function that manage to determine if a given segment
      * overlaps this segment (in at least one point).
 	*/
-	private boolean overlapsWithEach(Segment1 other) {
+	private boolean overlapsWithEach(Segment2 other) {
 		return pointOnSegment(other.getPoLeft()) || pointOnSegment(other.getPoRight());
 	}
 	
@@ -198,7 +210,7 @@ public class Segment1 {
      * @param  other the reference segment
      * @return  The overlap size
      */
-	public double overlap(Segment1 other) {
+	public double overlap(Segment2 other) {
 		double value = 0.0;
 		
 		// both segments overlap for sure
@@ -213,8 +225,8 @@ public class Segment1 {
            */
 
 			// we got to start with something...
-			Point startPoint = _poLeft; 
-			Point stopPoint  = _poRight;
+			Point startPoint = getPoLeft(); 
+			Point stopPoint  = getPoRight();
 			
 			// finding points
 			if (other.getPoLeft().isRight(startPoint))
@@ -234,12 +246,13 @@ public class Segment1 {
      * @param other  the reference segment
      * @return The trapez perimeter
      */
-	public double trapezePerimeter(Segment1 other) {
+	public double trapezePerimeter(Segment2 other) {
 		// returing the distance between, by using this formula:
 		// (my.x to is.x ) + (my.y to is.y ) + my size + is size
-         return _poLeft.distance(other.getPoLeft()) +
-                _poRight.distance(other.getPoRight()) +
+         return getPoLeft().distance(other.getPoLeft()) +
+                getPoRight().distance(other.getPoRight()) +
                 getLength() + 
                 other.getLength();
 	}
+
 }
