@@ -200,7 +200,7 @@ public class Segment2 {
 		
     /* helper function that manage to determine if a given segment
      * overlaps this segment (in at least one point).
-	*/
+     */
 	private boolean overlapsWithEach(Segment2 other) {
 		return pointOnSegment(other.getPoLeft()) || pointOnSegment(other.getPoRight());
 	}
@@ -220,8 +220,8 @@ public class Segment2 {
            * After we figured out that both segments overlap in at aleast one point
            * We need to "cut" the overlapping segment, for this we need to find two point
            * start and stop (left and right) points of the overlapping segment.
-		   * the starting point is the righter left point.
-		   * the stoping point is the lefter right point.
+           * the starting point is the righter left point.
+           * the stoping point is the lefter right point.
            */
 
 			// we got to start with something...
@@ -247,7 +247,7 @@ public class Segment2 {
      * @return The trapez perimeter
      */
 	public double trapezePerimeter(Segment2 other) {
-		// returing the distance between, by using this formula:
+		//  using this formula to calculate trapeze:
 		// (my.x to is.x ) + (my.y to is.y ) + my size + is size
          return getPoLeft().distance(other.getPoLeft()) +
                 getPoRight().distance(other.getPoRight()) +
