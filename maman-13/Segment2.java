@@ -6,9 +6,9 @@
  */
 
 public class Segment2 {
-	private Point _poCenter;
+	private Point  _poCenter;
 	private double _length;
-		
+	
    /**
     * Constructs a segment. Constructs a new segment using a center point and the segment length
     * @param poCenter the Center Point
@@ -25,7 +25,7 @@ public class Segment2 {
     * @param right the right point of the segment
     */
     public Segment2(Point left, Point right) {
-		initializeVariables(left, right);
+		initialize(left, right);
 	}
 	
    /**
@@ -36,7 +36,7 @@ public class Segment2 {
     * @param rightY Y value of right point
     */
     public Segment2(double leftX, double leftY, double rightX, double rightY) {
-		initializeVariables(new Point(leftX,leftY), new Point(rightX,rightY));
+		initialize(new Point(leftX,leftY), new Point(rightX,rightY));
 	}
 	
 	/**
@@ -44,12 +44,11 @@ public class Segment2 {
      * @param other  the reference segment
      */
     Segment2(Segment2 other) {
-  		_length = other._length;
-		_poCenter = other._poCenter;
+		initialize(other.getPoLeft(), other.getPoRight());
     }
 	
 	// helper method to initialize new Segmet2 using two points.
-	private void initializeVariables(Point left, Point right) {
+	private void initialize(Point left, Point right) {
 		// using the distance between the points to set the length.
 		_length = left.distance(right);
 		
@@ -57,7 +56,7 @@ public class Segment2 {
 		 * formula to get x => taking the left X and adding it the length divided by 2
 		 * formula to get y => we are always taking the Y of the left point.
 		 */ 
-		_poCenter = new Point( (left.getX() + _length / 2), left.getY() );
+		_poCenter = new Point(left.getX() + halfLength(), left.getY() );
 	}
 	
 	/**
@@ -77,7 +76,7 @@ public class Segment2 {
 	}
 	
 	// helper function to fetch the outer points
-	// right or left by delta by negative / positive delta
+	// get right/left point by suppling negative/positive delta
 	private Point fetchOuterPoint(double delta) {
 		return new Point(_poCenter.getX() + delta, _poCenter.getY());
 	}
@@ -248,7 +247,7 @@ public class Segment2 {
      */
 	public double trapezePerimeter(Segment2 other) {
 		//  using this formula to calculate trapeze:
-		// (my.x to is.x ) + (my.y to is.y ) + my size + is size
+		// my.x to it.x + my.y to it.y  + my.size + it.size
          return getPoLeft().distance(other.getPoLeft()) +
                 getPoRight().distance(other.getPoRight()) +
                 getLength() + 

@@ -15,7 +15,7 @@ public class Segment1 {
      * @param right the right point of the segment
      */
 	public Segment1(Point left, Point right) {
-		registerNewPoints(left.getX(),left.getY(),right.getX(),right.getY());
+		initialize(left.getX(),left.getY(),right.getX(),right.getY());
 	}
 	
     /**
@@ -27,7 +27,7 @@ public class Segment1 {
      * @param rightY Y value of right point
      */
 	public Segment1(double leftX ,double leftY,  double rightX ,double rightY) {
-		registerNewPoints(leftX ,leftY, rightX ,rightY);
+		initialize(leftX ,leftY, rightX ,rightY);
 	}
 	
     /**
@@ -35,7 +35,7 @@ public class Segment1 {
      * @param other  the reference segment
      */
 	public Segment1(Segment1 other) {
-		registerNewPoints(
+		initialize(
 			other.getPoLeft().getX(),
 			other.getPoLeft().getY(),
 			other.getPoRight().getX(),
@@ -50,7 +50,7 @@ public class Segment1 {
      *  - Making sure both Y points are equal.
      *  - No code duplication.
      */
-	private void registerNewPoints(double lx ,double ly,  double rx ,double ry) {
+	private void initialize(double lx ,double ly,  double rx ,double ry) {
 		// normalizing both Ys
 		if ( ly != ry )
 			ry = ly;
@@ -236,7 +236,7 @@ public class Segment1 {
      */
 	public double trapezePerimeter(Segment1 other) {
 		//  using this formula to calculate trapeze:
-		// (my.x to is.x ) + (my.y to is.y ) + my size + is size
+		// my.x to it.x + my.y to it.y  + my.size + it.size
          return _poLeft.distance(other.getPoLeft()) +
                 _poRight.distance(other.getPoRight()) +
                 getLength() + 
