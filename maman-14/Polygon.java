@@ -103,12 +103,12 @@ public class Polygon {
   }
 	
   /**
-   * Returns a string representation of this Polygon
-   * @return a string representation of this Polygon
-   */
-	public String toString() {
-		String str = "The polygon has 0 vertices.";
-		if ( isNotEmpty() ) {
+  * Returns a string representation of this Polygon
+  * @return a string representation of this Polygon
+  */
+  public String toString() {
+    String str = "The polygon has 0 vertices.";
+    if ( isNotEmpty() ) {
 			str = "The polygon has " + _noOfVertices + " vertices:\n(";
 			for ( int i = 0; i < _noOfVertices; i++ ) {
 				if (i !=0)
