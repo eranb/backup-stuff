@@ -165,7 +165,7 @@ public class Polygon {
   }
 	
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * /
-  /                      Private methods	                       /
+  /                       Private Area                           /
   / * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
   /* Creates an array of points that represent the perimeter.
