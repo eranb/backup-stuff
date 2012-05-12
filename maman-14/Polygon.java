@@ -109,114 +109,113 @@ public class Polygon {
   public String toString() {
     String str = "The polygon has 0 vertices.";
     if ( isNotEmpty() ) {
-			str = "The polygon has " + _noOfVertices + " vertices:\n(";
-			for ( int i = 0; i < _noOfVertices; i++ ) {
-				if (i !=0)
-					str += ",";
+      str = "The polygon has " + _noOfVertices + " vertices:\n(";
+      for ( int i = 0; i < _noOfVertices; i++ ) {
+        if (i !=0)
+          str += ",";
 					
-				str += _vertices[i];
-			}
-			str += ")";
-		}
-		return str;
-		
-	}
+        str += _vertices[i];
+      }
+      str += ")";
+    }
+    return str;		
+  }
 	
 
   /**
-   * Calculates and returns the perimeter of the Polygon. In the event that there are only 2 verticies, it calculates the distance of the line represented by the two verticies. In the event that there are less than 2 verticies it returns 0.
-   * @return the perimeter of the Polygon if the Polygon has 3 or more verticies; otherwise if it has 2 verticies returns the distance between the verticies; otherwise 0
-   */	
-	public double calcPerimeter2() {
-		double perimeter = 0;
-		
-		if ( _noOfVertices > 1 ) {
-			int targetVerticIndex;
-			
-			for ( int i = 0; i < _noOfVertices; i++ ) {
-				targetVerticIndex = i + 1;
+  * Calculates and returns the perimeter of the Polygon. In the event that there are only 2 verticies, it calculates the distance of the line represented by the two verticies. In the event that there are less than 2 verticies it returns 0.
+  * @return the perimeter of the Polygon if the Polygon has 3 or more verticies; otherwise if it has 2 verticies returns the distance between the verticies; otherwise 0
+  */	
+  public double calcPerimeter2() {
+    double perimeter = 0;
+    
+    if ( _noOfVertices > 1 ) {
+      int targetVerticIndex;
+      
+      for ( int i = 0; i < _noOfVertices; i++ ) {
+        targetVerticIndex = i + 1;
 				
-				// if it's the last vertic - calc the distance to the first
-				if (targetVerticIndex == _noOfVertices)
-					targetVerticIndex = 0;
-				
-				perimeter += _vertices[i].distance(_vertices[targetVerticIndex]);	
-			}
-		}
+        // if it's the last vertic - calc the distance to the first
+        if (targetVerticIndex == _noOfVertices)
+          targetVerticIndex = 0;
+        
+        perimeter += _vertices[i].distance(_vertices[targetVerticIndex]);	
+      }
+    }
 		
-		return perimeter;
-	}
+    return perimeter;
+  }
 	
-	public double calcPerimeter() {
-		double perimeterSize = 0;
-		Point[] myPerimeterArray = perimeterArray();
-		for ( int i = 0; i < (myPerimeterArray.length - 1); i++ )
-			perimeterSize += myPerimeterArray[i].distance(myPerimeterArray[i+1]);
-	
-		return perimeterSize;
-	}
+  public double calcPerimeter() {
+    double perimeterSize = 0;
+    Point[] myPerimeterArray = perimeterArray();
+    for ( int i = 0; i < (myPerimeterArray.length - 1); i++ )
+      perimeterSize += myPerimeterArray[i].distance(myPerimeterArray[i+1]);
+    
+    return perimeterSize;
+  }
 	
 	
   /**
-   * Calculates and returns the area of the Polygon. In the event that the Polygon has less than 3 verticies, it returns 0.
-   * @return  the area of the Polygon if the Polygon has 3 or more verticies; otherwise 0.
-   */
-	public double calcArea() {
-		return 0.0;
-	}
+  * Calculates and returns the area of the Polygon. In the event that the Polygon has less than 3 verticies, it returns 0.
+  * @return  the area of the Polygon if the Polygon has 3 or more verticies; otherwise 0.
+  */
+  public double calcArea() {
+    return 0.0;
+  }
 	
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * /
-	/                      Private methods	                       /
-	/ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * /
+  /                      Private methods	                       /
+  / * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-	/* Creates an array of points that represent the perimeter.
-	* For example:
-	* Polygon[(1,3), (2,3), (3,4)].perimeterArray() => [(1,3), (2,3), (3,4), (1,3)]
-	* Also will return empty array if the number of vertics is smaller than one.
-	*/
-	private Point[] perimeterArray() {
-		Point[] myArray;
+  /* Creates an array of points that represent the perimeter.
+  * For example:
+  * Polygon[(1,3), (2,3), (3,4)].perimeterArray() => [(1,3), (2,3), (3,4), (1,3)]
+  * Also will return empty array if the number of vertics is smaller than one.
+  */
+  private Point[] perimeterArray() {
+    Point[] myArray;
 		
-		if ( _noOfVertices > 1 ) {
-			myArray = new Point[_noOfVertices + 1];
-			for ( int i = 0; i < _noOfVertices; i++ )
-				myArray[i] = _vertices[i];
-				
-			myArray[_noOfVertices] = _vertices[0];
-		} else
-			myArray = new Point[0];
-			
-		return myArray;
-	}
+    if ( _noOfVertices > 1 ) {
+      myArray = new Point[_noOfVertices + 1];
+      for ( int i = 0; i < _noOfVertices; i++ )
+        myArray[i] = _vertices[i];
+      
+      myArray[_noOfVertices] = _vertices[0];
+    } else
+      myArray = new Point[0];
+
+    return myArray;
+  }
 	
 	
-	// helper method to add new points to the _vertices array
-	private boolean push(Point point) {
-		if ( isNotFull() ) {
-			_vertices[_noOfVertices++] = point;
-			return true;
-		} else
-			return false;
-	}
+  // helper method to add new points to the _vertices array
+  private boolean push(Point point) {
+    if ( isNotFull() ) {
+      _vertices[_noOfVertices++] = point;
+      return true;
+    } else
+      return false;
+  }
 	
 	// vertics array full?
-	private boolean isFull() {
-		return _noOfVertices == _vertices.length;
-	}
+  private boolean isFull() {
+    return _noOfVertices == _vertices.length;
+  }
 	
-	// vertics array is not full?
-	private boolean isNotFull() {
-		return !isFull();
-	}
+  // vertics array is not full?
+  private boolean isNotFull() {
+    return !isFull();
+  }
 	
-	// vertics array empty?
-	private boolean isEmpty() {
-		return _noOfVertices == 0;
-	}
+  // vertics array empty?
+  private boolean isEmpty() {
+    return _noOfVertices == 0;
+  }
 	
-	// vertics array is not empty?
-	private boolean isNotEmpty() {
-		return !isEmpty();
-	}
+  // vertics array is not empty?
+  private boolean isNotEmpty() {
+    return !isEmpty();
+  }
 	
 }
