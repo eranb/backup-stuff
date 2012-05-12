@@ -6,78 +6,8 @@
 
 public class Polygon {
 	private Point[] _vertices;
-	private int _noOfVertices; // set to 0 by default
+	private int _noOfVertices; // initialized to 0 by default
 	private final int VERTICS_MAX_SIZE = 10;
-	
-	public static void main(String[] args) {
-/*
-		Polygon shuki = new Polygon();
-		System.out.println(shuki);
-		System.out.println(shuki.addVertex(1,1));
-		System.out.println(shuki.addVertex(2,2));
-		System.out.println(shuki.addVertex(3,3));
-		System.out.println(shuki.addVertex(4,4));
-		System.out.println(shuki.addVertex(5,5));
-		System.out.println(shuki.addVertex(6,6));
-		System.out.println(shuki.addVertex(7,7));
-		System.out.println(shuki.addVertex(8,8));
-		System.out.println(shuki.addVertex(9,9));
-//		System.out.println(shuki.addVertex(10,10));
-		System.out.println(shuki.addVertex(11,11));
-		System.out.println(shuki.highestVertex());
-		System.out.println(shuki);
-		System.out.println(shuki.calcPerimeter());
-*/
-		final double EPSILON = 0.00001;
-        boolean success = true;
-          System.out.println("start");
-        Polygon polygon = new Polygon();
-        polygon.addVertex(2, 1);
-        polygon.addVertex(5, 0);
-        polygon.addVertex(7, 5);
-        polygon.addVertex(4, 6);
-        polygon.addVertex(1, 4);
-
-        Point actualHighest = new Point(4, 6);
-        Point highest = polygon.highestVertex();
-      
-        if (!actualHighest.equals(highest)) {
-            System.out.println("Failed the test of The method \"highestVertex()\" of class \"Polygon\".");
-            success = false;
-        }
-
-        String actualStringPresentation = "The polygon has 5 vertices:\n((2,1),(5,0),(7,5),(4,6),(1,4))";
-        String stringPresentation = polygon.toString();
-        if (!actualStringPresentation.equals(stringPresentation)) {
-            System.out.println("Failed the test of The method \"toString()\" of class \"Polygon\".");
-            success = false;
-        }
-
-        double actualPerimeter = 18.47754906310363;
-        double perimeter = polygon.calcPerimeter();
-        //System.out.println("perimeter is " + perimeter + " instead of " + actualPerimeter);
-        if (Math.abs(actualPerimeter - perimeter) > EPSILON) {
-            System.out.println("Failed the test of The method \"calcPerimeter()\" of class \"Polygon\".");
-            success = false;
-        }
-        
-        double actualArea = 22.499999999999996;
-        double area = polygon.calcArea();
-        //System.out.println("Calc area is " + area + " instead of " + actualArea);
-        if (Math.abs(actualArea - area) > EPSILON) {
-            System.out.println("Failed the test of The method \"calcArea()\" of class \"Polygon\".");
-            success = false;
-        }
-
-    Polygon moshe = new Polygon();
-    moshe.addVertex(3,4);
-    moshe.addVertex(5,11);
-//    moshe.addVertex(12,8);
-//    moshe.addVertex(9,5);
-//    moshe.addVertex(5,6);
-    System.out.println(moshe.calcArea());
-
-	}
 	
   /**
   * Constructor for objects of class Polygon
@@ -153,7 +83,7 @@ public class Polygon {
 	
   /**
   * Calculates and returns the area of the Polygon. In the event that the Polygon has less than 3 verticies, it returns 0.
-  * @return  the area of the Polygon if the Polygon has 3 or more verticies; otherwise 0.
+  * @return the area of the Polygon if the Polygon has 3 or more verticies; otherwise 0.
   */
   public double calcArea() {
     // based on http://en.wikipedia.org/wiki/Shoelace_formula
@@ -172,6 +102,90 @@ public class Polygon {
     return area;
   }
 	
+	
+  /**
+  * Determines whether or not the area of Polygon is bigger than the area of the instance of Polygon it is to be compared with.
+  * @param other an object to be compared with this Polygon
+  * @return true if this Polygon has an area larger than the object to be compared with; false otherwise
+  */
+  public boolean isBigger(Polygon other) {
+    return this.calcArea() > other.calcArea();
+  }
+  
+  /**
+  * Finds and returns the index of a vertex.
+  * @param p the Point whose index will be returned
+  * @return the index of p if the Point exists in the Polygon; otherwise-1
+  */
+  public int findVertex(Point p) {
+    int index = -1; // default
+    for ( int i = 0; i < _noOfVertices; i++ ) {
+      if (_vertices[i].equals(p))
+        index = i;
+    }
+    return index;
+  }
+  
+  /**
+  * Finds and returns a copy of the successor of a Point in the Polygon.
+  * @param p the Point whose successor will be returned
+  * @return the successor of p if Point exists in the Polygon; otherwise null
+  */
+   public Point getNextVertex(Point p) {
+     Point successor = null;
+     
+     int index = this.findVertex(p);
+     if (index > 0) { // point exists 
+       int targetIndex = index + 1;
+       if (targetIndex == _noOfVertices) {
+         successor = _vertices[0]; // taking the first point on last index
+       } else {
+         successor = _vertices[targetIndex];
+       }
+       
+       successor = new Point(successor); // copying...
+     }
+     return successor;
+   }
+   
+  /**
+  * Calculates and returns a Polygon which represents the bounding box of this Polygon. The bounding box is the smallest Rectangle whose sides are parallel to the x and y axes of the coordinate space, and can completely contain the Polygon.
+  * @return a Polygon (in the shape of a rectangle) that defines the bounds of this Polygon
+  */
+   public Polygon getBoundingBox() {
+     Polygon boundingBox = null;
+     
+     if (_noOfVertices < 3)
+       return boundingBox;
+     
+     // Setting up defaults for the outer points
+     Point maxY = _vertices[0];
+     Point maxX = _vertices[0];
+     Point minY = maxY;
+     Point minX = maxX;
+     
+     // finding the outer points
+     for ( int i = 1; i < _noOfVertices; i++ ) {
+       Point myPoint = _vertices[i];
+       if (myPoint.isAbove(maxY))
+         maxY = myPoint;
+       if (myPoint.isUnder(minY))
+         minY = myPoint;
+       if (myPoint.isLeft(minX))
+         minX = myPoint;
+       if (myPoint.isRight(maxX))
+         maxX = myPoint;
+     }
+     
+     // Building the new polygon based on the points we found
+     boundingBox = new Polygon();
+     boundingBox.addVertex( minX.getX(), minY.getY() );
+     boundingBox.addVertex( minX.getX(), maxY.getY() );
+     boundingBox.addVertex( maxX.getX(), maxY.getY() );
+     boundingBox.addVertex( maxX.getX(), minY.getY() );
+     return boundingBox;
+   }
+   
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * /
   /                       Private Area                           /
   / * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -179,7 +193,7 @@ public class Polygon {
   /* Creates an array of points that represent the perimeter.
   * For example:
   * Polygon[(1,3), (2,3), (3,4)].perimeterArray() => [(1,3), (2,3), (3,4), (1,3)]
-  * Also will return empty array if the number of vertics is smaller than one.
+  * Also will return empty array if the number of vertices is smaller than one.
   */
   private Point[] perimeterArray() {
     Point[] myArray;
@@ -198,31 +212,18 @@ public class Polygon {
 	
   // helper method to add new points to the _vertices array
   private boolean push(Point point) {
-    if ( isNotFull() ) {
+    if (_noOfVertices == _vertices.length) {
+        return false;
+    } else {
       _vertices[_noOfVertices++] = point;
       return true;
-    } else
-      return false;
-  }
-	
-  // vertics array full?
-  private boolean isFull() {
-    return _noOfVertices == _vertices.length;
-  }
-	
-  // vertics array is not full?
-  private boolean isNotFull() {
-    return !isFull();
-  }
-	
-  // vertics array empty?
-  private boolean isEmpty() {
-    return _noOfVertices == 0;
+    }
   }
 	
   // vertics array is not empty?
   private boolean isNotEmpty() {
-    return !isEmpty();
+    return _noOfVertices > 0;
   }
+  
 	
 }
