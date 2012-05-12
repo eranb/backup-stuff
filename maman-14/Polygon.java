@@ -123,13 +123,15 @@ public class Polygon {
   * @return a string representation of this Polygon
   */
   public String toString() {
-    String str = "The polygon has 0 vertices.";
+    String str = "";
     if ( isNotEmpty() ) {
       str = "The polygon has " + _noOfVertices + " vertices:\n(" + _vertices[0];
       for ( int i = 1; i < _noOfVertices; i++ )
         str += "," + _vertices[i];
         
       str += ")";
+    } else {
+      str = "The polygon has 0 vertices.";
     }
     return str;		
   }
@@ -139,7 +141,6 @@ public class Polygon {
   * Calculates and returns the perimeter of the Polygon. In the event that there are only 2 verticies, it calculates the distance of the line represented by the two verticies. In the event that there are less than 2 verticies it returns 0.
   * @return the perimeter of the Polygon if the Polygon has 3 or more verticies; otherwise if it has 2 verticies returns the distance between the verticies; otherwise 0
   */	
-	
   public double calcPerimeter() {
     double perimeterSize = 0;
     Point[] myPerimeterArray = perimeterArray();
