@@ -204,7 +204,7 @@ public class Polygon {
       return false;
   }
 	
-	// vertics array full?
+  // vertics array full?
   private boolean isFull() {
     return _noOfVertices == _vertices.length;
   }
