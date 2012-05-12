@@ -155,7 +155,7 @@ public class Polygon {
   * @return  the area of the Polygon if the Polygon has 3 or more verticies; otherwise 0.
   */
   public double calcArea() {
-	  // based on http://en.wikipedia.org/wiki/Shoelace_formula
+    // based on http://en.wikipedia.org/wiki/Shoelace_formula
     Point[] myPerimeterArray = perimeterArray();
     double area = 0.0;
 
