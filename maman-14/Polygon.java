@@ -5,9 +5,9 @@
  */
 
 public class Polygon {
-	private Point[] _vertices;
-	private int _noOfVertices; // initialized to 0 by default
-	private final int VERTICS_MAX_SIZE = 10;
+  private Point[] _vertices;
+  private int _noOfVertices; // initialized to 0 by default
+  private final int VERTICS_MAX_SIZE = 10;
 	
   /**
   * Constructor for objects of class Polygon
