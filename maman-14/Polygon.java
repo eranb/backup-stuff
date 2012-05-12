@@ -67,9 +67,9 @@ public class Polygon {
   * Constructor for objects of class Polygon
   * Creates an empty polygon.
   */
-	public Polygon() {
-		_vertices = new Point[VERTICS_MAX_SIZE];
-	}
+  public Polygon() {
+    _vertices = new Point[VERTICS_MAX_SIZE];
+  }
 	
   /**
    * Adds a new Point to the Polygon with the given x and y values
