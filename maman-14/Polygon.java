@@ -55,7 +55,7 @@ public class Polygon {
 
         double actualPerimeter = 18.47754906310363;
         double perimeter = polygon.calcPerimeter();
-		System.out.println("perimeter is " + perimeter + " instead of " + actualPerimeter);
+        System.out.println("perimeter is " + perimeter + " instead of " + actualPerimeter);
         if (Math.abs(actualPerimeter - perimeter) > EPSILON) {
             System.out.println("Failed the test of The method \"calcPerimeter()\" of class \"Polygon\".");
             success = false;
@@ -64,9 +64,9 @@ public class Polygon {
 	}
 	
   /**
-   * Constructor for objects of class Polygon
-   * Creates an empty polygon.
-   */
+  * Constructor for objects of class Polygon
+  * Creates an empty polygon.
+  */
 	public Polygon() {
 		_vertices = new Point[VERTICS_MAX_SIZE];
 	}
