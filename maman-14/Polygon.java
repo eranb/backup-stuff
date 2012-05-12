@@ -135,7 +135,7 @@ public class Polygon {
      Point successor = null;
      
      int index = this.findVertex(p);
-     if (index > 0) { // point exists 
+     if (index > -1) { // point exists 
        int targetIndex = index + 1;
        if (targetIndex == _noOfVertices) {
          successor = _vertices[0]; // taking the first point on last index
@@ -201,11 +201,12 @@ public class Polygon {
     if ( _noOfVertices > 1 ) {
       myArray = new Point[_noOfVertices + 1];
       for ( int i = 0; i < _noOfVertices; i++ )
-        myArray[i] = _vertices[i];
+        myArray[i] = _vertices[i]; // start filling
       
-      myArray[_noOfVertices] = _vertices[0];
-    } else
-      myArray = new Point[0];
+      myArray[_noOfVertices] = _vertices[0]; // we want to tie the last point with the first
+    } else {
+      myArray = new Point[0]; // returning empty array
+    }
 
     return myArray;
   }
