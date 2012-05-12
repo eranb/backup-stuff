@@ -72,35 +72,35 @@ public class Polygon {
   }
 	
   /**
-   * Adds a new Point to the Polygon with the given x and y values
-   * @param x - the specified x coordinate
-   * @param y - the specified y coordinate
-   * @return true if the point was added successfully; false otherwise.
-   */
-	public boolean addVertex(int x,int y) {
-		return push( new Point(x,y) );
-	}	
-	
+  * Adds a new Point to the Polygon with the given x and y values
+  * @param x - the specified x coordinate
+  * @param y - the specified y coordinate
+  * @return true if the point was added successfully; false otherwise.
+  */
+  public boolean addVertex(int x,int y) {
+    return push( new Point(x,y) );
+  }	
+
   /**
-   *  Finds and returns a copy of the highest Point on the Polygon if such a point exists. If it does not exist, returns null. In the event that more than one such point exists, it returns the first point it finds.
-   *  @return a Point which represents the highest vertex on the polygon if such a point exists; false otherwise.
-   */
-	public Point highestVertex() {
-		Point highestPoint = null;
-		
-		if ( isNotEmpty() ) {
-			highestPoint = _vertices[0]; // first one as default
+  *  Finds and returns a copy of the highest Point on the Polygon if such a point exists. If it does not exist, returns null. In the event that more than one such point exists, it returns the first point it finds.
+  *  @return a Point which represents the highest vertex on the polygon if such a point exists; false otherwise.
+  */
+  public Point highestVertex() {
+    Point highestPoint = null;
+    
+    if ( isNotEmpty() ) {
+      highestPoint = _vertices[0]; // first one as default
 			
-			// iterating and finding the highest vertic
-			for ( int i = 1; i < _noOfVertices; i++ )
-				if ( _vertices[i].isAbove(highestPoint) )
-					highestPoint = _vertices[i];
+    // iterating and finding the highest vertic
+    for ( int i = 1; i < _noOfVertices; i++ )
+      if ( _vertices[i].isAbove(highestPoint) )
+        highestPoint = _vertices[i];
 			
-			highestPoint = new Point(highestPoint);
-		}
+      highestPoint = new Point(highestPoint);
+    }
 		
-		return highestPoint;
-	}
+    return highestPoint;
+  }
 	
   /**
    * Returns a string representation of this Polygon
