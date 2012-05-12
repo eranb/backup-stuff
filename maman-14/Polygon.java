@@ -10,7 +10,7 @@ public class Polygon {
 	private final int VERTICS_MAX_SIZE = 10;
 	
 	public static void main(String[] args) {
-/*		
+/*
 		Polygon shuki = new Polygon();
 		System.out.println(shuki);
 		System.out.println(shuki.addVertex(1,1));
@@ -27,7 +27,7 @@ public class Polygon {
 		System.out.println(shuki.highestVertex());
 		System.out.println(shuki);
 		System.out.println(shuki.calcPerimeter());
-*/		
+*/
 		final double EPSILON = 0.00001;
         boolean success = true;
           System.out.println("start");
@@ -55,12 +55,28 @@ public class Polygon {
 
         double actualPerimeter = 18.47754906310363;
         double perimeter = polygon.calcPerimeter();
-        System.out.println("perimeter is " + perimeter + " instead of " + actualPerimeter);
+        //System.out.println("perimeter is " + perimeter + " instead of " + actualPerimeter);
         if (Math.abs(actualPerimeter - perimeter) > EPSILON) {
             System.out.println("Failed the test of The method \"calcPerimeter()\" of class \"Polygon\".");
             success = false;
         }
         
+        double actualArea = 22.499999999999996;
+        double area = polygon.calcArea();
+        //System.out.println("Calc area is " + area + " instead of " + actualArea);
+        if (Math.abs(actualArea - area) > EPSILON) {
+            System.out.println("Failed the test of The method \"calcArea()\" of class \"Polygon\".");
+            success = false;
+        }
+
+    Polygon moshe = new Polygon();
+    moshe.addVertex(3,4);
+    moshe.addVertex(5,11);
+//    moshe.addVertex(12,8);
+//    moshe.addVertex(9,5);
+//    moshe.addVertex(5,6);
+    System.out.println(moshe.calcArea());
+
 	}
 	
   /**
@@ -109,13 +125,10 @@ public class Polygon {
   public String toString() {
     String str = "The polygon has 0 vertices.";
     if ( isNotEmpty() ) {
-      str = "The polygon has " + _noOfVertices + " vertices:\n(";
-      for ( int i = 0; i < _noOfVertices; i++ ) {
-        if (i !=0)
-          str += ",";
-					
-        str += _vertices[i];
-      }
+      str = "The polygon has " + _noOfVertices + " vertices:\n(" + _vertices[0];
+      for ( int i = 1; i < _noOfVertices; i++ )
+        str += "," + _vertices[i];
+        
       str += ")";
     }
     return str;		
@@ -126,25 +139,6 @@ public class Polygon {
   * Calculates and returns the perimeter of the Polygon. In the event that there are only 2 verticies, it calculates the distance of the line represented by the two verticies. In the event that there are less than 2 verticies it returns 0.
   * @return the perimeter of the Polygon if the Polygon has 3 or more verticies; otherwise if it has 2 verticies returns the distance between the verticies; otherwise 0
   */	
-  public double calcPerimeter2() {
-    double perimeter = 0;
-    
-    if ( _noOfVertices > 1 ) {
-      int targetVerticIndex;
-      
-      for ( int i = 0; i < _noOfVertices; i++ ) {
-        targetVerticIndex = i + 1;
-				
-        // if it's the last vertic - calc the distance to the first
-        if (targetVerticIndex == _noOfVertices)
-          targetVerticIndex = 0;
-        
-        perimeter += _vertices[i].distance(_vertices[targetVerticIndex]);	
-      }
-    }
-		
-    return perimeter;
-  }
 	
   public double calcPerimeter() {
     double perimeterSize = 0;
@@ -161,7 +155,20 @@ public class Polygon {
   * @return  the area of the Polygon if the Polygon has 3 or more verticies; otherwise 0.
   */
   public double calcArea() {
-    return 0.0;
+	  // based on http://en.wikipedia.org/wiki/Shoelace_formula
+    Point[] myPerimeterArray = perimeterArray();
+    double area = 0.0;
+
+    // Iterating over the perimeter and summing (x * y - y * x)
+    if (_noOfVertices > 2) {
+      for ( int i = 0; i < (myPerimeterArray.length - 1); i++ ) {
+        area += myPerimeterArray[i].getX() * myPerimeterArray[i+1].getY();
+        area -= myPerimeterArray[i].getY() * myPerimeterArray[i+1].getX();
+      }
+      area = Math.abs( area / 2);
+    }
+    
+    return area;
   }
 	
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * /
@@ -187,7 +194,6 @@ public class Polygon {
 
     return myArray;
   }
-	
 	
   // helper method to add new points to the _vertices array
   private boolean push(Point point) {
