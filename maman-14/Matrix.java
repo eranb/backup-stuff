@@ -28,9 +28,9 @@ public class Matrix {
     _matrix = new int[array.length][array[0].length]; // initializing the matrix
     
     // copying cells
-    for (int i = 0; i < array.length; i++)
-      for (int z = 0; z < array[0].length; z++)
-        _matrix[i][z] = array[i][z];
+    for (int x = 0; x < array.length; x++)
+      for (int y = 0; y < array[0].length; y++)
+        _matrix[x][y] = array[x][y];
 
   }
 
@@ -51,12 +51,12 @@ public class Matrix {
     String str = "";
 
     // looping through the matrix ( until max-index - 1 )
-    for (int i = 0; i < size(); i++) {
-      for (int z = 0; z < innerSize() - 1; z++) 
-        str += _matrix[i][z] + "\t";
+    for (int x = 0; x < size(); x++) {
+      for (int y = 0; y < innerSize() - 1; y++) 
+        str += _matrix[x][y] + "\t";
 
       //last one
-      str += _matrix[i][innerSize() - 1] + "\n";
+      str += _matrix[x][innerSize() - 1] + "\n";
     }
     
     return str;
@@ -70,9 +70,9 @@ public class Matrix {
     int[][] myArray = new int[size()][innerSize()];
     
     // fill the array with negative values
-    for (int i = 0; i < size(); i++)
-      for (int z = 0; z < innerSize(); z++)
-        myArray[i][z] = negativeOf( _matrix[i][z] );
+    for (int x = 0; x < size(); x++)
+      for (int y = 0; y < innerSize(); y++)
+        myArray[x][y] = negativeOf( _matrix[x][y] );
     
     return new Matrix(myArray);
   }
