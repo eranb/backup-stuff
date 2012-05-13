@@ -72,8 +72,10 @@ public class Polygon {
   * @return the perimeter of the Polygon if the Polygon has 3 or more verticies; otherwise if it has 2 verticies returns the distance between the verticies; otherwise 0
   */	
   public double calcPerimeter() {
-    double perimeterSize = 0;
+    double perimeterSize = 0; 
     Point[] myPerimeterArray = perimeterArray();
+    
+    // looping through the premiter (expect the last point) and summing the distances
     for ( int i = 0; i < (myPerimeterArray.length - 1); i++ )
       perimeterSize += myPerimeterArray[i].distance(myPerimeterArray[i+1]);
     
