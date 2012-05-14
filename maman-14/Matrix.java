@@ -7,19 +7,7 @@
 public class Matrix {
   int[][] _matrix;
   private final int MAX_INT = 255; // max int for each cell
-  
-  public static void main(String[] args) {
-    int[][] shuki = {
-      {10,20,30,40,50},
-      {11,21,31,41,51},
-      {12,22,32,42,52},
-      {13,23,33,43,53},
-      {14,24,34,44,54},
-    };
-    System.out.println(new Matrix(shuki).neighborsOf(2,2).length);
     
-  }
-  
   /**
   * Constructs a Matrix from a two-dimensional array; the dimensions as well as the values of this Matrix will be the same as the dimensions and values of the two-dimensional array.
   * @param array A two dimensional array. It is the source of the initial values for Matrix

@@ -98,7 +98,7 @@ public class Polygon {
         area += myPerimeterArray[i].getX() * myPerimeterArray[i+1].getY();
         area -= myPerimeterArray[i].getY() * myPerimeterArray[i+1].getX();
       }
-      area = Math.abs( area / 2);
+      area = Math.abs( area / 2 );
     }
     
     return area;
