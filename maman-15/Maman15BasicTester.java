@@ -5,6 +5,7 @@
  */
 public class Maman15BasicTester {
     public static void main(String[] args) {
+
         int itemsCounter = 0;
 
         CD cd1 = new CD("21", 2011, "Adele", 15);
