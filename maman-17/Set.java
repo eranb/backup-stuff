@@ -7,9 +7,8 @@
 public class Set {
   IntNode _head;
   IntNode _tail;
+  int _numElements; // elements counter
   
-  int _numElements;
-
   // NOTE: I implemented this class, so that the set is always sorted ( ascending )
   // the logic of each function depends on it.
     
@@ -116,7 +115,7 @@ public class Set {
    */  
   public void addToSet(int x) {
     // Verifying candidate
-    if ( invalidCandidate( x ) || find( x ) != null ) return; 
+    if ( invalidCandidate( x ) || isMember( x ) ) return; 
     
     // Initializing new member 
     IntNode myCandidate = new IntNode(x,null);
