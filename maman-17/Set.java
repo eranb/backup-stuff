@@ -5,13 +5,13 @@
  */
 
 public class Set {
-  IntNode _head;
-  IntNode _tail;
-  int _numElements; // elements counter
+  private IntNode _head;
+  private IntNode _tail;
+  private int _numElements; // elements counter
   
-  // NOTE: I implemented this class, so that the set is always sorted ( ascending )
+  // NOTE: This class is implemented, so that the set is always sorted ( ascending )
   // the logic of each function depends on it.
-    
+  
   /**
    * Determines whether or not the set is empty
    * Complexity: none
