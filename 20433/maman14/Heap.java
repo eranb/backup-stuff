@@ -1,7 +1,6 @@
 /**
  * The "Heap" class partially implements the Max-Heap data structure
  * as widely described @ http://en.wikipedia.org/wiki/Binary_heap
- * @author Barak Eran Levi
  * @version 1
  */
 public class Heap {
