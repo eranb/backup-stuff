@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Job {
   // initializing static variables
-  public static int randomJobsCounter = 0;
+  public static int randomJobs = 0;
   public static final Random random = new Random();
   
   // declaring instance variables
@@ -31,10 +31,7 @@ public class Job {
   * Create new random Job.
   */
   public Job() {
-    this.name = "W" + ++randomJobsCounter;
-    this.priority = random.nextInt(11);
-    this.time = random.nextInt(51);
-    this.timeOffset = 0;
+    this("W" + ++randomJobs, random.nextInt(11), random.nextInt(51));
   }
 
   /**
