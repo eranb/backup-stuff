@@ -31,7 +31,7 @@ public class Job {
   * Create new random Job.
   */
   public Job() {
-    this("W" + ++randomJobs, random.nextInt(11), random.nextInt(51));
+    this("W" + ++randomJobs, random.nextInt(10)+1, random.nextInt(50)+1);
   }
 
   /**

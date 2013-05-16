@@ -28,7 +28,7 @@ public class Maman14 {
       while ( clockTicks-- != 0 ) {
 
         // will add random job to queue for 3% of the clock ticks
-        if ( random.nextInt(101) < 3 ) {
+        if ( random.nextInt( 100 ) < 3 ) {
           Job randomJob = new Job();
           // setting the time offset for calculation the stats right later
           randomJob.setTimeOffset( -systemTime + -clockTicks);
