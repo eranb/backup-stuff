@@ -1,0 +1,197 @@
+# base of 10 ( decimal ) we add number to increase the value
+0 1 2 3 4 5 ....
+10 11 12 ...
+100 101....
+
+19 dec =  19_10 = 1*10^1 + 9*10^0
+2341 dec = 2*10^3 + 3*10^2 + 4*10^1 + 1*10^0
+
+# base 8
+0 1 2 3 4 5 6 7 
+10..17
+..100
+
+23_8 = 2*8^1 + 3*8^0 ==> 19_10 = 1*10^1 + 9*10^0
+
+# base 16
+0..9,A..F
+1A,1B..1F
+FF..100
+
+# base 2 binary
+0 1
+10 11
+100 101 110 111
+
+# How to convert positive numbers between bases
+X_10 => ?_y:
+43 base 10 to base 8 ==>
+  43 mod 8 = 3
+  5 mod 8 = 5
+  = 53_8
+
+43 base 10 to base 4
+  43 mod 4 = 3
+  10 mod 4 = 2
+  2 mod 4 = 2
+  0
+  = 223_4
+
+43 on base 10 to base 16
+  43 mod 16 = 11
+  2 mod 16 = 2
+  0
+  = 2B base 16
+
+43on base 10 to base 2:
+  43 mod 2 = 1
+  21 mod 2 = 1
+  10 mod 2 = 0
+  5 mod 2 = 1
+  2 mod 2 = 0
+  1 mod 2 = 1
+  = 101011 base 2
+
+53 on base 8 to base 10
+  53_8 = 5*8^1 + 3*8^0
+       = 40 + 3 = 43 on base 10
+
+101011 on base 2 to base 10
+  101011_2 = 1*2^5 + 0*2^4 + 1*2^3...
+
+2B on base 16 to base:
+  2*16^1 + 11(B) *16^0 = 32 + 11 = 43 on base 10
+
+# We also have direct way, if few conditions met
+ taking the small base in our case 2 and we power it we reach to the big number
+   in our case 8
+
+101011 base 2 to base 8
+Base 2 Base 8
+000     0
+001     1
+010     2 
+011     3
+100     4
+101     5
+110     6
+111     7
+
+101011 so we split to 3 ( we can add 0 if its not whole)
+011 => 3
+101 => 5
+
+53
+
+Another one
+101011 base 2 to base 16
+
+2^4 = 16:
+Base 2 Base 16
+0000    0
+0001    1
+0010    2
+0011    3
+0100    4
+0101    5
+0110    6
+0111    7
+1000    8
+1001    9
+1010    A
+1011    B
+1100    C
+1101    D
+1110    E
+1111    F
+
+0010 1011
+2B
+
+# We can also do multuple direct instead of one long
+# 223 on base 4 to base 8
+# first we do base 4 to 2 and than to 8
+
+# IN C:
+int x = 5;
+2 slots of memory each one is a byte 8 bits
+5 is in base 10 so we need to convert it
+5 in base 10 to base 2
+= 101 = 00000000 00000101
+
+int y = 0X18;
+so 18 on base 16 to base 2
+2^4=16 so we need 4 for each digit
+0001 1000
+
+so in memory
+00000000 00011000
+
+char ch = 'A'
+only one slot for char
+A is 65 in base 10
+128 64 32 16 8 4 2 1
+ 0  1  0   0 0 0 0 1 
+
+# For negative numbers
+int x = -4
+the computer use mashlim to 2
+if we use memory cell with the size of 3
+
+0110100 have mashlim to 1 and mashlim to 2
+to 1 is 1001011
+to 2 is find the first 1 from right to left and leave it as is 1001 100
+
+-4 => +3
+0(2)^n-1 -> 2^(n-1) - 1 
+the left digit in our case cause the number to be positive or not
+
+(2) 010
++
+(-1) 101
+= 111
+
+so 1 is 001 mashlim le 2 is 111 -1
+010 # 2
++
+111 # -1
+= 001 ( we trim the rest beacuse we use 3 bits...)
+
+sigined binary unsigned
+ 0 <= 0 0 0 => 0
+ 1 <= 0 0 1 => 1
+ 2 <= 0 1 1 => 2
+ 3 <= 0 1 0 => 3
+-4 <= 0 1 1 => 4
+-3 <= 1 0 0 => 5
+-2 <= 1 1 0 => 6
+-1 <= 1 1 1 => 7
+
+if we use only positive number we can store 7 digits
+
+So for 4 bits not we have 16 combinations
+sigined    unsigned
+0 <= 0000 => 0
+1 <= 0001 => 1
+2 <= 0010 => 2
+3 <= 0011 => 3
+4 <= 0100 => 4
+5 <= 0101 => 5
+6 <= 0110 => 6
+7 <= 0111 => 7
+
+-8 <= 1000 => 8
+-7 <= 1001 => 9
+-6 <= 1010 => 10
+-5 <= 1011 => 11
+-4 <= 1100 => 12
+-3 <= 1101 => 13
+-2 <= 1110 => 14
+-1 <= 1111 => 15
+
+-2^(n-1) -> 2^(n-1)-1 
+-8 => +7
+
+so -4 in memory 2 slots
+11111100
+1------1
