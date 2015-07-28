@@ -269,7 +269,7 @@ void print_entry(char *s, int c) {
   complete_to_12(tmp);
   convert_binary_string_to_base_4_string(tmp, line_num);
   fprintf(ent_file, "%s:	%d\n", s, (atoi(line_num)));
-update_tmlml(entry_list, s,2);
+  update_tml(entry_list, s,2);
   return;
 }
 
