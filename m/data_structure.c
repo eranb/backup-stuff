@@ -10,14 +10,14 @@ void clean_list(List * list) {
   
   if(node->next == NULL) {
     free(node);
-    return;
+  } else {
+    do {	
+      node = *list;
+      *list = node->next;
+      free(node);
+    } while (!*list);
+    
   }
-  
-  do {	
-    node = *list;
-    *list = node->next;
-    free(node);
-  } while (!*list);
 }
 
 void add(List * H, char *s, int line, int is_inst) {
