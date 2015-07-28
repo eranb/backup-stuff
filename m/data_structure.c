@@ -11,7 +11,9 @@ void clean_list(List * list) {
   if(node->next == NULL) {
     free(node);
     return;
-  } do {	
+  }
+  
+  do {	
     node = *list;
     *list = node->next;
     free(node);
