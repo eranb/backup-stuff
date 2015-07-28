@@ -34,17 +34,20 @@ void add(List * list, char * data, int line, int itype) {
   }
 }	
 
-int search_list(List H, char *s) {
-  List p;
-  if (!H)
-    return -1;
-  p=H;
-  while (p->data != NULL)
-  {
-    if (!(strcmp(s, p->data)))
-      return p->line;
-    p=p->next;
+// search shit in list, if it can't find it, it returns -1
+// otherwise retruns its postion 
+int search_list(List list, char * data) {
+  Node * node;
+  
+  if (!list) return -1;
+  
+  node = list;
+  
+  while (node->data != NULL) {
+    if (!(strcmp(data, node->data))) return node->line;
+    node=node->next;
   }
+  
   return -1;
 }
 
