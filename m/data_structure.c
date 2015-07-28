@@ -1,7 +1,7 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void add(List * list, char *s, int line, int is_inst) {
+void add(List * list, char * data, int line, int itype) {
   Node *node, *tmp;
   
   node=(List) malloc(sizeof(Node));
@@ -11,10 +11,9 @@ void add(List * list, char *s, int line, int is_inst) {
     exit(1);
   }
   
-  strcpy(node->data, s);
-  node->line = line;
-  
-  node->instruction = is_inst;
+  strcpy(node->data, data);
+  node->line = line;  
+  node->instruction = itype;
 
   if (*list == NULL) {
     *list=node;
@@ -23,8 +22,7 @@ void add(List * list, char *s, int line, int is_inst) {
   } else {
     tmp = *list;	
     while (tmp->next != NULL) {
-      if (!(strcmp(s, tmp->data)))
-        return;
+      if (!(strcmp(data, tmp->data))) return;
       tmp = tmp->next;
     }
 
@@ -33,7 +31,6 @@ void add(List * list, char *s, int line, int is_inst) {
     node->prev = tmp;
     
   }
-
 }	
 
 int search_list(List H, char *s) {
