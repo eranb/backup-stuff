@@ -1,7 +1,7 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void add(List * list, char *s, int line, int is_inst) {
+void add(List * list, char *s, int line, int instruction) {
   List node, p1;
   
   node = (Node *) malloc(sizeof(Node));
@@ -11,11 +11,8 @@ void add(List * list, char *s, int line, int is_inst) {
     exit(1);
   }
   
-  if (is_inst)
-    node->is_inst = 1;
-  else
-    node->is_inst = 0;
-  
+  node->instruction = instruction
+
   strcpy(node->data, s);
   node->line = line;
 
@@ -58,7 +55,7 @@ int verify(List H, char *s) {
   p=H;
 
   while (p->data != NULL) {
-    if (!(strcmp(s, p->data))) p->is_inst = 2;
+    if (!(strcmp(s, p->data))) p->instruction = 2;
     p=p->next;
   }
   return 0;

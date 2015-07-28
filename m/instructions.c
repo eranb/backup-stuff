@@ -308,7 +308,7 @@ void normalize_line_numbers() {
   if (!p) return;
 
   while (p->next != NULL) {
-    if (p->is_inst == 1) p->line += IC;
+    if (p->instruction == 1) p->line += IC;
     p=p->next;
   }
   return;
@@ -319,7 +319,7 @@ int check_entry_list() {
   if (!p) return 0;
 
   while (p->next != NULL) {
-    if (p->is_inst != 2) return 2;
+    if (p->instruction != 2) return 2;
     p=p->next;
   }
   return 1;
@@ -330,7 +330,7 @@ int check_extern_list() {
   if (!p) return 0;
 
   while (p->data != NULL) {
-    if (p->is_inst != 2) return 2;
+    if (p->instruction != 2) return 2;
     p=p->next;
   }
 
