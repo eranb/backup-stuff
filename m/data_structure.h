@@ -2,7 +2,8 @@ typedef struct node {
   char data[30];
   int line;
   int is_inst;
-  struct node next,prev;
+  struct node * next;
+  struct node * prev;
 } Node;
 
 typedef Node * List;
