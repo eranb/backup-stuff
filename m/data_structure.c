@@ -2,11 +2,9 @@
 #include "data_structure.h"
 
 void add(List * list, char * data, int line, int itype) {
-  Node *node, *tmp;
+  Node *tmp, *node = ( List ) malloc( sizeof( Node ) );
   
-  node = (List) malloc(sizeof(Node));
-  
-  if (node == NULL) {
+  if ( node == NULL ) {
     printf("panic: cannot allocate memory...");
     exit(1);
   }
