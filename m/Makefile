@@ -1,7 +1,7 @@
-assembler: main.o utils.o instructions.o commands.o lists.o
-	gcc -g -Wall main.o utils.o instructions.o commands.o lists.o -o assembler
-lists.o: lists.c
-	gcc -g -c -Wall lists.c -o lists.o
+assembler: main.o utils.o instructions.o commands.o data_structure.o
+	gcc -g -Wall main.o utils.o instructions.o commands.o data_structure.o -o assembler
+data_structure.o: data_structure.c
+	gcc -g -c -Wall data_structure.c -o data_structure.o
 instructions.o: instructions.c 
 	gcc -g -c -Wall instructions.c -o instructions.o
 commands.o: commands.c
