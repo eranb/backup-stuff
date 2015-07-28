@@ -44,7 +44,9 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
     tmp[j++]=current_command[i];
 
   num = atoi(tmp);
-  current_command[10] = current_command[11] = '0';
+
+
+
   switch(num) {
     case 1110: case 1111: { 
       deal_with_no_operands();
@@ -72,6 +74,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
       break;
     }
   }
+    current_command[10] = current_command[11] = '0';
   print_command(file);
   return;
 }
