@@ -25,7 +25,7 @@ void add(List * list, char *s, int line, int instruction) {
   strcpy(node->data, s);
 
   node->next = *list;
-  if (*list != NULL) *list->prev = node;
+  if (*list != NULL) (*list)->prev = node;
   *list = node;
   node->prev = NULL;
 }	
