@@ -14,10 +14,7 @@ void add(List * list, char *s, int line, int is_inst) {
   strcpy(node->data, s);
   node->line = line;
   
-  if (is_inst)
-    node->instruction = 1;
-  else
-    node->instruction = 0;
+  node->instruction = is_inst;
 
   if (*list == NULL) {
     *list=node;
