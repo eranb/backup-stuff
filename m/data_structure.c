@@ -1,33 +1,39 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void add(List * list, char *s, int line, int instruction) {
-  List node;
+void add(List * H, char *s, int line, int is_inst) {
+  List T, p1;
   
-  // tyring to find identical value
-  if (*list != NULL) {
-    node = *list;
-    while (node != NULL) {
-      if (!strcmp(s,node->data)) return;
-      node = node->next;
-    }
-  }
+  T=(List) malloc(sizeof(node));
   
-  node = (Node *) malloc(sizeof(Node));
-  
-  if (node == NULL) {
+  if (T == NULL) {
     printf("panic: cannot allocate memory...");
     exit(1);
   }
-  
-  node->instruction = instruction;
-  node->line = line;
-  strcpy(node->data, s);
+  if (is_inst)
+    T->is_inst = 1;
+  else
+    T->is_inst = 0;
+  strcpy(T->data, s);
+  T->line = line;
 
-  node->next = *list;
-  if (*list != NULL) (*list)->prev = node;
-  *list = node;
-  node->prev = NULL;
+  if ((*H) == NULL) {
+    *H=T;
+    T->next = NULL;
+    T->prev = NULL;
+    return;
+  }
+
+  p1 = *H;	
+  while (p1->next != NULL) {
+    if (!(strcmp(s, p1->data)))
+      return;
+    p1 = p1->next;
+  }
+
+  p1->next = T;
+  T->prev = p1;
+  T->next = NULL;
 }	
 
 int search_list(List H, char *s) {
