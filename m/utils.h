@@ -7,7 +7,6 @@
 
 #define MAXLINE 70
 
-char command_arr[13];
 char first_operand[13];
 char second_operand[13];
 char word[MAXLINE];

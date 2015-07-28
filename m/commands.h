@@ -21,8 +21,9 @@ void jsr();
 char group_check;
 char the_last_first_operand = 0;
 char the_last_second_operand = 0;
-int times_to_code = 0;
+char command_arr[13];
 
+int times_to_code = 0;
 
 void which_command(FILE *file, int);
 void get_first_operand(FILE *file);
