@@ -1,58 +1,39 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void clean_list(List * list) {
-  Node * node;
-
-  if(!*list) return;
-
-  node = *list;
+void add(List * list, char *s, int line, int is_inst) {
+  Node * node, tmp;
   
-  if(node->next == NULL) {
-    free(node);
-  } else {
-    do {	
-      node = *list;
-      *list = node->next;
-      free(node);
-    } while (!*list);
-    
-  }
-}
-
-void add(List * H, char *s, int line, int is_inst) {
-  List T, p1;
+  node = (Node *) malloc(sizeof(Node));
   
-  T=(List) malloc(sizeof(Node));
-  
-  if (T == NULL) {
+  if (node == NULL) {
     printf("panic: cannot allocate memory...");
     exit(1);
   }
   if (is_inst)
-    T->instruction = 1;
+    node->instruction = 1;
   else
-    T->instruction = 0;
-  strcpy(T->data, s);
-  T->line = line;
+    node->instruction = 0;
+  strcpy(node->data, s);
+  node->line = line;
 
-  if ((*H) == NULL) {
-    *H=T;
-    T->next = NULL;
-    T->prev = NULL;
+  if (*list == NULL) {
+    *list=node;
+    node->next = NULL;
+    node->prev = NULL;
     return;
   }
 
-  p1 = *H;	
-  while (p1->next != NULL) {
-    if (!(strcmp(s, p1->data)))
+  tmp = *list;	
+  while (tmp->next != NULL) {
+    if (!(strcmp(s, tmp->data)))
       return;
-    p1 = p1->next;
+    tmp = tmp->next;
   }
 
-  p1->next = T;
-  T->prev = p1;
-  T->next = NULL;
+  tmp->next = node;
+  node->prev = tmp;
+  node->next = NULL;
 }	
 
 int search_list(List H, char *s) {
@@ -79,4 +60,23 @@ int verify(List H, char *s) {
     p=p->next;
   }
   return 0;
+}
+
+void clean_list(List * list) {
+  Node * node;
+
+  if(!*list) return;
+
+  node = *list;
+  
+  if(node->next == NULL) {
+    free(node);
+  } else {
+    do {	
+      node = *list;
+      *list = node->next;
+      free(node);
+    } while (!*list);
+    
+  }
 }
