@@ -11,7 +11,7 @@ void add(List * list, char *s, int line, int instruction) {
     exit(1);
   }
   
-  node->instruction = instruction
+  node->instruction = instruction;
 
   strcpy(node->data, s);
   node->line = line;
