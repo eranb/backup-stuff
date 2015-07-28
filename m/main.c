@@ -1,6 +1,5 @@
 #include "utils.h"
 #include "instructions.h"
-#include "commands.h"
 #include "main.h"
 
 int main(int argc, char *argv[]) {
