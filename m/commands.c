@@ -8,9 +8,9 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   int i,j,num;
   char tmp[4];
 
-  
   times_to_code = atoi(&word[strlen(word)-1]);
   
+  // based on https://en.wikipedia.org/wiki/De_Morgan%27s_laws
   if (!(times_to_code == 1 || times_to_code == 2)) {
     fprintf(efile, "%d: how many times to run the cmd ?\n", line_num); 
     got_error = 1;
@@ -22,9 +22,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   iter_num = iteration;
 
   convert_cmd_to_code(word, command);
-  
 
-  
   if (command[0] == '\0') {
     fprintf(efile, "%d: unknown command\n", line_num);
     got_error = 1;
@@ -556,7 +554,7 @@ void jsr(FILE *file) {
 
 int get_value_of_tag(char *s, int op_kind) {
   int c;
-  extern int times_to_code;
+  int times_to_code;
   extern List symbol_list, extern_list;
   c = find(symbol_list, s);
   if (c == -1) {
