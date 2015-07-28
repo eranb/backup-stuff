@@ -1,7 +1,6 @@
 #include "utils.h"
 #include "data_structure.h"
 
-extern FILE *error_file;
 extern int line_num;
 
 void printup(ptr H, FILE *file) {
@@ -33,10 +32,12 @@ void freelist(ptr *Hptr) {
 
 void add_2_list(ptr *H, char *s, int line, int is_inst) {
   ptr T, p1;
+  
   T=(ptr) malloc(sizeof(item));
+  
   if (T == NULL) {
-    fprintf(error_file, "at_line: %d, error: cannot allocate memory for %s", line_num, s);
-    exit(0);
+    printf("panic: cannot allocate memory...");
+    exit(1);
   }
   if (is_inst)
     T->is_inst = 1;
