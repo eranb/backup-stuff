@@ -36,7 +36,7 @@ void add(List * list, char * data, int line, int itype) {
 
 // search shit in list, if it can't find it, it returns -1
 // otherwise retruns its postion 
-int search_list(List list, char * data) {
+int find(List list, char * data) {
   Node * node;
   
   if (!list) return -1;
