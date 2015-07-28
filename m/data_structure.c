@@ -1,8 +1,8 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void clean_list(ptr *Hptr) {
-  ptr p;
+void clean_list(List *Hptr) {
+  List p;
   if(!(*Hptr))
     return;
   p=*Hptr;
