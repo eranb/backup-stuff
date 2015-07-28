@@ -12,7 +12,7 @@ void add(List * list, char * data, int line, int itype) {
   // some initialization
   strcpy(node->data, data);
   node->line = line;  
-  node->instruction = itype;
+  node->tml = itype;
 
   // if we are on an empty list
   if (*list == NULL) {
@@ -36,7 +36,7 @@ void add(List * list, char * data, int line, int itype) {
 
 int verify(Node *  node, char *data) {
   while (node->data != NULL) {
-    if (!(strcmp(data, node->data))) node->instruction = 2;
+    if (!(strcmp(data, node->data))) node->tml = 2;
     node=node->next;
   }
   return 0;

@@ -1,7 +1,7 @@
 typedef struct node {
   char data[30];
   int line;
-  int instruction;
+  int tml;
   struct node * next;
   struct node * prev;
 } Node;
@@ -9,6 +9,6 @@ typedef struct node {
 typedef Node * List;
 
 void clean_list(List *);
-void add(List *H, char *s, int num, int instruction);
+void add(List *H, char *s, int num, int tml);
 int find(List H, char *s);
 int verify(List H, char *s);
