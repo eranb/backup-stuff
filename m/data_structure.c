@@ -1,6 +1,21 @@
 #include "utils.h"
 #include "data_structure.h"
 
+void clean_list(ptr *Hptr) {
+  ptr p;
+  if(!(*Hptr))
+    return;
+  p=*Hptr;
+  if(p->next == NULL) {
+    free(p);
+    return;
+  } do {	
+    p=*Hptr;
+    *Hptr=p->next;
+    free(p);
+  } while (!(*Hptr));
+}
+
 void add(List * H, char *s, int line, int is_inst) {
   List T, p1;
   
@@ -60,17 +75,4 @@ int verify(List H, char *s) {
     p=p->next;
   }
   return 0;
-}
-
-void clean_list(List * list) {
-  Node * node = *list;
-  
-  if(*list == NULL)
-    return;
-  
-  while (node != NULL){
-    node = (*list)->next;
-    free(*list);
-    *list = node;    
-  }
 }
