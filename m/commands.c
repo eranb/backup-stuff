@@ -446,8 +446,7 @@ void deal_with_no_operands(FILE *file) {
   command_arr[6]=command_arr[7]=command_arr[8]=command_arr[9]='0';
   the_last_first_operand = -1;
   the_last_second_operand = -1;
-  while (line[my_index] != '\0') {
-    if (!isspace(line[my_index])) {
+  while (!(line[my_index] == '\0' || isspace(line[my_index]))) {
       fprintf(error_file, "at_line: %d, error: wasnt expecting anything after command\n", line_num);
       got_error = 1;	
       return;
