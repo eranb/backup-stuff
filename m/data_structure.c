@@ -2,7 +2,7 @@
 #include "data_structure.h"
 
 void add(List * list, char *s, int line, int is_inst) {
-  Node * T, p1;
+  Node * T, * p1;
   
   T=(List) malloc(sizeof(Node));
   
