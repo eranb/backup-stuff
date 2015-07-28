@@ -127,8 +127,6 @@ void do_data(FILE *file) {
   return;			
 }
 
-
-
 /* a function that deals with ".string" instruction. prints all the letters following on the same line as a base 4 strings. */
 void do_string(FILE *file) {
   extern int my_index, DC;	
@@ -244,7 +242,7 @@ void print_extern(char *s, int op_kind, int times) {
   complete_to_12(tmp);
   convert_binary_string_to_base_4_string(tmp, line_num);
   fprintf(ext_file, "%s:	%d\n", s, (atoi(line_num)));
-  verify(extern_list, s);
+  set_tml((extern_list, s);
 
   if (times == 2) {
     if (op_kind == 1)
@@ -271,7 +269,7 @@ void print_entry(char *s, int c) {
   complete_to_12(tmp);
   convert_binary_string_to_base_4_string(tmp, line_num);
   fprintf(ent_file, "%s:	%d\n", s, (atoi(line_num)));
-  verify(entry_list, s);
+  set_tml((entry_list, s);
   return;
 }
 

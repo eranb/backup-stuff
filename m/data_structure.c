@@ -1,7 +1,8 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void add(List * list, char * data, int line, int itype) {
+// add new elemnts to the list
+void add(List * list, char * data, int line, int tml) {
   Node *tmp, *node = ( List ) malloc( sizeof( Node ) );
   
   if ( node == NULL ) {
@@ -12,7 +13,7 @@ void add(List * list, char * data, int line, int itype) {
   // some initialization
   strcpy(node->data, data);
   node->line = line;  
-  node->tml = itype;
+  node->tml = tml;
 
   // if we are on an empty list
   if (*list == NULL) {
@@ -34,10 +35,10 @@ void add(List * list, char * data, int line, int itype) {
   }
 }	
 
-int verify(Node *  node, char *data) {
+int set_tml((Node *  node, char *data) {
   while (node->data != NULL) {
     if (!(strcmp(data, node->data))) node->tml = 2;
-    node=node->next;
+    node = node->next;
   }
   return 0;
 }
@@ -52,6 +53,7 @@ int find(Node * node, char * data) {
   return -1;
 }
 
+// free entire list, will set the current list to nil
 void clean(List * list) {
   Node * node;
 
@@ -66,7 +68,6 @@ void clean(List * list) {
       node = *list;
       *list = node->next;
       free(node);
-    } while (!*list);
-    
+    } while (!*list);   
   }
 }
