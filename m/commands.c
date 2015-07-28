@@ -7,8 +7,6 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   extern int my_index;	
   int i,j,num;
   char tmp[4];
-
-  times_to_code = atoi(&word[strlen(word)-1]);
   
   // based on https://en.wikipedia.org/wiki/De_Morgan%27s_laws
   if (!(times_to_code == 1 || times_to_code == 2)) {
@@ -44,7 +42,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
 
   num = atoi(tmp);
 
-
+  times_to_code = atoi(&word[strlen(word)-1]);
 
   switch(num) {
     case 1110: case 1111: { 
