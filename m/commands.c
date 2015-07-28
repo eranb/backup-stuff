@@ -9,7 +9,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   int j, num;
   char tmp[4];
 
-  //command_arr[10] = command_arr[11] = '0';
+  command_arr[10] = command_arr[11] = '0';
 
   iter_num = iteration;
 
