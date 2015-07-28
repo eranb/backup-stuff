@@ -22,4 +22,4 @@ FILE *final_file;
 FILE *as_file;
 
 int time_to_code;
-void which_command(FILE *, int);
+void command_type(FILE *, int);
