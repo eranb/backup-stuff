@@ -130,8 +130,8 @@ int read_word(int i) {
 }
 
 void cleanup(char * baseName) {
-  remove(with_extension(baseName,".temp"));
-  remove(with_extension(baseName,".dat"));
+  remove(with_extension(baseName,"temp"));
+  remove(with_extension(baseName,"dat"));
 
   if (got_error) {
     remove(with_extension(baseName,"ob"));
