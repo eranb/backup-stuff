@@ -1,9 +1,7 @@
 #include "utils.h"
 #include "data_structure.h"
 
-
-
-void add_2_list(List *H, char *s, int line, int is_inst) {
+void add(List *H, char *s, int line, int is_inst) {
   List T, p1;
   
   T=(List) malloc(sizeof(Node));

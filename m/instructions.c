@@ -211,7 +211,7 @@ void do_entry(FILE *file) {
     got_error = 1;
     return;
   }
-  add_2_list(&entry_list, tmp, 0, 1);
+  add(&entry_list, tmp, 0, 1);
 }
 
 void do_extern(FILE *file) {
@@ -229,7 +229,7 @@ void do_extern(FILE *file) {
     return;
   }
 
-  if(iteration == 1) add_2_list(&extern_list, tmp, IC, 1);
+  if(iteration == 1) add(&extern_list, tmp, IC, 1);
 }
 
 void print_extern(char *s, int op_kind, int times) {
@@ -281,9 +281,9 @@ void add_symbol(char *s, int inst_or_command, int value) {
 
   if (c == -1) {
     if (inst_or_command == 2)
-      add_2_list(&symbol_list, s, value, 0);
+      add(&symbol_list, s, value, 0);
     if (inst_or_command == 1)
-      add_2_list(&symbol_list, s, value, 1);
+      add(&symbol_list, s, value, 1);
   }
 }
 
