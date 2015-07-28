@@ -37,9 +37,7 @@ void add(List * list, char * data, int line, int itype) {
 // search shit in list, if it can't find it, it returns -1
 // otherwise retruns its postion 
 int find(Node * node, char * data) {  
-  if (!node) return -1;
-  
-  while (node->data != NULL) {
+  while (node != NULL && node->data != NULL) {
     if (!(strcmp(data, node->data))) return node->line;
     node=node->next;
   }
