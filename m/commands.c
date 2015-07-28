@@ -172,7 +172,7 @@ void get_second_operand(FILE *file) {
     }
     else
     {
-      if (iteration == 1)
+      if (iter_num == 1)
       {
         second_operand[0]='1';
         second_operand[1] = '\0';
@@ -297,7 +297,7 @@ void get_first_operand(FILE *file) {
         the_last_first_operand = 3;
       }
     } else {
-      if (iteration == 1) {
+      if (iter_num == 1) {
         first_operand[0]='1';
         first_operand[1] = '\0';
         current_command[6] = '0';
