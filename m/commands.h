@@ -1,4 +1,4 @@
-int iter_num = 1;
+int iteration = 1;
 int first_operand_exists = 0;
 int second_operand_exists = 0;
 int second_operand_exists_again = 0;
