@@ -2,7 +2,16 @@
 #include "data_structure.h"
 
 void add(List * list, char *s, int line, int instruction) {
-  List node, p1;
+  List node;
+  
+  // tyring to find identical value
+  if (*list != NULL) {
+    node = *list;
+    while (node != NULL) {
+      if (!strcmp(s,node->data)) return;
+      node = node->next;
+    }
+  }
   
   node = (Node *) malloc(sizeof(Node));
   
@@ -12,27 +21,13 @@ void add(List * list, char *s, int line, int instruction) {
   }
   
   node->instruction = instruction;
-
-  strcpy(node->data, s);
   node->line = line;
+  strcpy(node->data, s);
 
-  if (*list == NULL) {
-    *list = node;
-    node->next = NULL;
-    node->prev = NULL;
-    return;
-  }
-
-  p1 = *list;	
-  while (p1->next != NULL) {
-    if (!(strcmp(s, p1->data)))
-      return;
-    p1 = p1->next;
-  }
-
-  p1->next = node;
-  node->prev = p1;
-  node->next = NULL;
+  node->next = *list;
+  if (*list != NULL) *list->prev = node;
+  *list = node;
+  node->prev = NULL;
 }	
 
 int search_list(List H, char *s) {
