@@ -3,7 +3,7 @@
 #include "instructions.h"
 #include "data_structure.h"
 
-void exec_cmd(FILE *file, File * efile, int iteration) {
+void exec_cmd(FILE *file, FILE * efile, int iteration) {
   extern int my_index;	
   int i = strlen(word) - 1;
   int j, num;
