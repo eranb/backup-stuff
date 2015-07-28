@@ -4,16 +4,16 @@
 void add(List * H, char *s, int line, int is_inst) {
   List T, p1;
   
-  T=(List) malloc(sizeof(node));
+  T=(List) malloc(sizeof(Node));
   
   if (T == NULL) {
     printf("panic: cannot allocate memory...");
     exit(1);
   }
   if (is_inst)
-    T->is_inst = 1;
+    T->instruction = 1;
   else
-    T->is_inst = 0;
+    T->instruction = 0;
   strcpy(T->data, s);
   T->line = line;
 
