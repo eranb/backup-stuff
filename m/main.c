@@ -65,7 +65,7 @@ int eval(int time) {
   reset_str(line, MAXLINE);
   reset_str(word, MAXLINE);
   reset_str(tag, MAXLINE);
-  reset_str(command, 5);
+  //reset_str(command, 5);
   reset_str(group, 3);
 
   while (!feof(as_file)) {                       
