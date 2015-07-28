@@ -6,7 +6,6 @@ void do_extern(FILE *file);
 void print_extern(char *s, int num, int times);
 void print_entry(char *s, int c);
 void cleanlists();
-void print_symbol_list(FILE *file);
 void add_symbol(char *s, int inst_or_command, int value);
 void search_in_entry_list(char *s);
 int get_value_of_tag(char *s, int a);

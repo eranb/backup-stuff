@@ -296,15 +296,10 @@ void search_in_entry_list(char *s) {
   }
 }
 
-void print_symbol_list(FILE *file) {
-  printup(symbol_list, file);
-  freelist(&symbol_list);
-}
-
 void cleanlists() {
-  freelist(&symbol_list);
-  freelist(&entry_list);
-  freelist(&extern_list);
+  clean_list(&symbol_list);
+  clean_list(&entry_list);
+  clean_list(&extern_list);
 }
 
 void normalize_line_numbers() {

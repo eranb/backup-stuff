@@ -7,12 +7,7 @@ typedef struct node
 	ptr next, prev; 		
 } item;
 
-
-
-
-
-void printup(ptr, FILE *);
-void freelist(ptr *);
+void clean_list(ptr *);
 void add_2_list(ptr *H, char *s, int num, int is_inst);
 int search_list(ptr H, char *s);
 int verify(ptr H, char *s);

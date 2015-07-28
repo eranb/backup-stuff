@@ -1,21 +1,7 @@
 #include "utils.h"
 #include "data_structure.h"
 
-extern int line_num;
-
-void printup(ptr H, FILE *file) {
-  ptr p;
-  if (!H)
-    return;
-  p=H;
-  while (p != NULL)
-  {
-    fprintf(file, "line: %d, the tag: %s \n", p->line, p->data);
-    p=p->next;
-  }
-}
-
-void freelist(ptr *Hptr) {
+void clean_list(ptr *Hptr) {
   ptr p;
   if(!(*Hptr))
     return;
