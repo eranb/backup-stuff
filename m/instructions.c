@@ -297,9 +297,9 @@ void search_in_entry_list(char *s) {
 }
 
 void cleanlists() {
-  clean_list(&symbol_list);
-  clean_list(&entry_list);
-  clean_list(&extern_list);
+  clean(&symbol_list);
+  clean(&entry_list);
+  clean(&extern_list);
 }
 
 void normalize_line_numbers() {

@@ -42,20 +42,17 @@ int verify(Node *  node, char *data) {
   return 0;
 }
 
-
-
 // find shit in list, if it can't find it, it returns -1
 // otherwise retruns its postion 
 int find(Node * node, char * data) {  
   while (node != NULL && node->data != NULL) {
     if (!(strcmp(data, node->data)))return node->line;
     node=node->next;
-  }
-  
+  } 
   return -1;
 }
 
-void clean_list(List * list) {
+void clean(List * list) {
   Node * node;
 
   if(!*list) return;
