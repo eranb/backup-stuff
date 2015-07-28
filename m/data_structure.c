@@ -34,10 +34,10 @@ void add(List * list, char * data, int line, int itype) {
   }
 }	
 
-int verify(Node *  node, char *s) {
-  while (p->data != NULL) {
-    if (!(strcmp(s, p->data))) p->instruction = 2;
-    p=p->next;
+int verify(Node *  node, char *data) {
+  while (node->data != NULL) {
+    if (!(strcmp(data, node->data))) node->instruction = 2;
+    node=node->next;
   }
   return 0;
 }
