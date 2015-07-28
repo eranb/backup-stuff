@@ -25,6 +25,6 @@ char command_arr[13];
 
 int times_to_code = 0;
 
-void command_type(FILE *file, int);
+void exec_cmd(FILE *file, int);
 void get_first_operand(FILE *file);
 void get_second_operand(FILE *file);
