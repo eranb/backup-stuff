@@ -34,27 +34,29 @@ void add(List * list, char * data, int line, int itype) {
   }
 }	
 
-// search shit in list, if it can't find it, it returns -1
-// otherwise retruns its postion 
-int find(Node * node, char * data) {  
-  while (node != NULL && node->data != NULL) {
-    if (!(strcmp(data, node->data))) return node->line;
-    node=node->next;
-  }
-  
-  return -1;
-}
-
-int verify(List H, char *s) {
+int verify(Node *  node, char *s) {
   List p;
-  if (!H) return 0;
-  p=H;
+  if (!node) return 0;
+  p=node;
 
   while (p->data != NULL) {
     if (!(strcmp(s, p->data))) p->instruction = 2;
     p=p->next;
   }
   return 0;
+}
+
+
+
+// find shit in list, if it can't find it, it returns -1
+// otherwise retruns its postion 
+int find(Node * node, char * data) {  
+  while (node != NULL && node->data != NULL) {
+    if (!(strcmp(data, node->data)))return node->line;
+    node=node->next;
+  }
+  
+  return -1;
 }
 
 void clean_list(List * list) {
