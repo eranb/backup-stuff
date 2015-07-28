@@ -1,7 +1,7 @@
 #include "utils.h"
 #include "commands.h"
 #include "instructions.h"
-#include "lists.h"
+#include "data_structure.h"
 
 void which_command(FILE *file, int iteration) {
   extern int my_index;	

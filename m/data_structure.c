@@ -1,5 +1,6 @@
 #include "utils.h"
-#include "lists.h"
+#include "data_structure.h"
+
 extern FILE *error_file;
 extern int line_num;
 

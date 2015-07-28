@@ -1,6 +1,6 @@
 #include "utils.h"
 #include "instructions.h"
-#include "lists.h"
+#include "data_structure.h"
 
 struct {
   char *name;
