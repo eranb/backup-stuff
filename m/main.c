@@ -54,9 +54,7 @@ int run() {
     got_error = 1;
   }
 
-  clean(&symbol_list);
-  clean(&entry_list);
-  clean(&extern_list);
+  cleanlists();
 
   return 1;
 }

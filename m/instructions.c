@@ -296,6 +296,12 @@ void search_in_entry_list(char *s) {
   }
 }
 
+void cleanlists() {
+  clean(&symbol_list);
+  clean(&entry_list);
+  clean(&extern_list);
+}
+
 void normalize_line_numbers() {
   extern int IC;	
   List p = symbol_list;
