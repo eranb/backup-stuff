@@ -29,7 +29,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
     got_error = 1;
     return;
   }
-  current_command[10] = current_command[11] = '0';
+
   for (j=2, i=0; j<6; j++, i++) current_command[j] = command[i];
 
   check_group(command, group);
@@ -44,7 +44,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
     tmp[j++]=current_command[i];
 
   num = atoi(tmp);
-
+  current_command[10] = current_command[11] = '0';
   switch(num) {
     case 1110: case 1111: { 
       deal_with_no_operands();
