@@ -277,7 +277,7 @@ void print_entry(char *s, int c) {
 
 void add_symbol(char *s, int inst_or_command, int value) {
   char c;
-  c = search_list(symbol_list, s);
+  c = find(symbol_list, s);
 
   if (c == -1) {
     if (inst_or_command == 2)
@@ -289,9 +289,9 @@ void add_symbol(char *s, int inst_or_command, int value) {
 
 void search_in_entry_list(char *s) {
   int c;
-  c = search_list(entry_list, s);
+  c = find(entry_list, s);
   if (c != -1) {
-    c = search_list(symbol_list, s);
+    c = find(symbol_list, s);
     print_entry(s, c);
   }
 }

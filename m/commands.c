@@ -556,9 +556,9 @@ int get_value_of_tag(char *s, int op_kind) {
   int c;
   extern int times_to_code;
   extern List symbol_list, extern_list;
-  c = search_list(symbol_list, s);
+  c = find(symbol_list, s);
   if (c == -1) {
-    c = search_list(extern_list, s);
+    c = find(extern_list, s);
     if (c != -1) {	
       if ((op_kind == 2) && (first_operand_exists))
         print_extern(s, op_kind, times_to_code);
