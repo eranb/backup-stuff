@@ -20,18 +20,16 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   
   iter_num = iteration;
 
-
-  
   convert_cmd_to_code(word, command);
   
-  current_command[10] = current_command[11] = '0';
+
   
   if (command[0] == '\0') {
     fprintf(efile, "%d: unknown command\n", line_num);
     got_error = 1;
     return;
   }
-
+  current_command[10] = current_command[11] = '0';
   for (j=2, i=0; j<6; j++, i++) current_command[j] = command[i];
 
   check_group(command, group);
