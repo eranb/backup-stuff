@@ -1,25 +1,25 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void clean_list(ptr *Hptr) {
-  ptr p;
-  if(!(*Hptr))
+void clean_list(List *HList) {
+  List p;
+  if(!(*HList))
     return;
-  p=*Hptr;
+  p=*HList;
   if(p->next == NULL) {
     free(p);
     return;
   } do {	
-    p=*Hptr;
-    *Hptr=p->next;
+    p=*HList;
+    *HList=p->next;
     free(p);
-  } while (!(*Hptr));
+  } while (!(*HList));
 }
 
-void add_2_list(ptr *H, char *s, int line, int is_inst) {
-  ptr T, p1;
+void add_2_list(List *H, char *s, int line, int is_inst) {
+  List T, p1;
   
-  T=(ptr) malloc(sizeof(item));
+  T=(List) malloc(sizeof(Node));
   
   if (T == NULL) {
     printf("panic: cannot allocate memory...");
@@ -52,8 +52,8 @@ void add_2_list(ptr *H, char *s, int line, int is_inst) {
 }	
 
 
-int search_list(ptr H, char *s) {
-  ptr p;
+int search_list(List H, char *s) {
+  List p;
   if (!H)
     return -1;
   p=H;
@@ -66,8 +66,8 @@ int search_list(ptr H, char *s) {
   return -1;
 }
 
-int verify(ptr H, char *s) {
-  ptr p;
+int verify(List H, char *s) {
+  List p;
   if (!H) return 0;
   p=H;
 

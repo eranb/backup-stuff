@@ -13,9 +13,9 @@ struct {
   {"nope", 5}
 };
 
-ptr extern_list = NULL;
-ptr entry_list = NULL;
-ptr symbol_list = NULL;
+List extern_list = NULL;
+List entry_list = NULL;
+List symbol_list = NULL;
 
 FILE *ext_file;
 FILE *ent_file;
@@ -304,7 +304,7 @@ void cleanlists() {
 
 void normalize_line_numbers() {
   extern int IC;	
-  ptr p = symbol_list;
+  List p = symbol_list;
   if (!p) return;
 
   while (p->next != NULL) {
@@ -315,7 +315,7 @@ void normalize_line_numbers() {
 }
 
 int check_entry_list() {
-  ptr p = entry_list;
+  List p = entry_list;
   if (!p) return 0;
 
   while (p->next != NULL) {
@@ -326,7 +326,7 @@ int check_entry_list() {
 }
 
 int check_extern_list() {
-  ptr p = extern_list;
+  List p = extern_list;
   if (!p) return 0;
 
   while (p->data != NULL) {

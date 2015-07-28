@@ -1,13 +1,13 @@
-typedef struct node *ptr;
-typedef struct node
-{
-	char data[30];
-	int line;
-	int is_inst;
-	ptr next, prev; 		
-} item;
+typedef struct node {
+  char data[30];
+  int line;
+  int is_inst;
+  struct node next,prev;
+} Node;
 
-void clean_list(ptr *);
-void add_2_list(ptr *H, char *s, int num, int is_inst);
-int search_list(ptr H, char *s);
-int verify(ptr H, char *s);
+typedef Node * List;
+
+void clean_list(List *);
+void add_2_list(List *H, char *s, int num, int is_inst);
+int search_list(List H, char *s);
+int verify(List H, char *s);
