@@ -19,7 +19,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
     word[strlen(word)-1]='\0';
   }
   
-  iter_num = iteration_num;
+  current_iteration = iteration_num;
   
   convert_cmd_to_code(word, command);
 
@@ -172,7 +172,7 @@ void get_second_operand(FILE *file) {
     }
     else
     {
-      if (iter_num == 1)
+      if (current_iteration == 1)
       {
         second_operand[0]='1';
         second_operand[1] = '\0';
@@ -297,7 +297,7 @@ void get_first_operand(FILE *file) {
         the_last_first_operand = 3;
       }
     } else {
-      if (iter_num == 1) {
+      if (current_iteration == 1) {
         first_operand[0]='1';
         first_operand[1] = '\0';
         current_command[6] = '0';
