@@ -3,10 +3,12 @@
 #include "instructions.h"
 #include "data_structure.h"
 
-void exec_cmd(FILE *file, FILE * efile, int iteration) {
+void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
   extern int my_index;	
   int i,j,num;
   char tmp[4];
+
+  times_to_code = atoi(&word[strlen(word)-1]);
   
   // based on https://en.wikipedia.org/wiki/De_Morgan%27s_laws
   if (!(times_to_code == 1 || times_to_code == 2)) {
@@ -17,8 +19,8 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
     word[strlen(word)-1]='\0';
   }
   
-  iter_num = iteration;
-  times_to_code = atoi(&word[strlen(word)-1]);
+  iteration = iteration_num;
+  
   convert_cmd_to_code(word, command);
 
   if (command[0] == '\0') {
@@ -27,6 +29,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
     return;
   }
 
+  // double
   for (j=2, i=0; j<6; j++, i++) current_command[j] = command[i];
 
   check_group(command, group);
@@ -169,7 +172,7 @@ void get_second_operand(FILE *file) {
     }
     else
     {
-      if (iter_num == 1)
+      if (iteration == 1)
       {
         second_operand[0]='1';
         second_operand[1] = '\0';
@@ -294,7 +297,7 @@ void get_first_operand(FILE *file) {
         the_last_first_operand = 3;
       }
     } else {
-      if (iter_num == 1) {
+      if (iteration == 1) {
         first_operand[0]='1';
         first_operand[1] = '\0';
         current_command[6] = '0';

@@ -11,7 +11,6 @@ char first_operand[13];
 char second_operand[13];
 char word[MAXLINE];
 char tag[MAXLINE];
-char command[5];
 char group[3];
 char line[MAXLINE];
 char previous_first_operand[MAXLINE];

@@ -1,4 +1,5 @@
-int iter_num = 1;
+
+int iteration = 1;
 int first_operand_exists = 0;
 int second_operand_exists = 0;
 int second_operand_exists_again = 0;
@@ -22,6 +23,7 @@ char group_check;
 char the_last_first_operand = 0;
 char the_last_second_operand = 0;
 char current_command[13];
+char command[5];
 
 int times_to_code = 0;
 
