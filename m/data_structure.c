@@ -35,10 +35,6 @@ void add(List * list, char * data, int line, int itype) {
 }	
 
 int verify(Node *  node, char *s) {
-  List p;
-  if (!node) return 0;
-  p=node;
-
   while (p->data != NULL) {
     if (!(strcmp(s, p->data))) p->instruction = 2;
     p=p->next;
