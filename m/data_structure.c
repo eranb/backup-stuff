@@ -72,7 +72,7 @@ void clean_list(List * list) {
     return;
   
   while (node != NULL){
-    node = *list->next;
+    node = (*list)->next;
     free(*list);
     *list = node;    
   }
