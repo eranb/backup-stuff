@@ -20,10 +20,12 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   
   iter_num = iteration;
 
-  current_command[10] = current_command[11] = '0';
+
   
   convert_cmd_to_code(word, command);
-
+  
+  current_command[10] = current_command[11] = '0';
+  
   if (command[0] == '\0') {
     fprintf(efile, "%d: unknown command\n", line_num);
     got_error = 1;
