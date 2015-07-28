@@ -10,30 +10,33 @@ void add(List * list, char *s, int line, int is_inst) {
     printf("panic: cannot allocate memory...");
     exit(1);
   }
+  
+  strcpy(node->data, s);
+  node->line = line;
+  
   if (is_inst)
     node->instruction = 1;
   else
     node->instruction = 0;
-  strcpy(node->data, s);
-  node->line = line;
 
   if (*list == NULL) {
     *list=node;
     node->next = NULL;
     node->prev = NULL;
-    return;
+  } else {
+    tmp = *list;	
+    while (tmp->next != NULL) {
+      if (!(strcmp(s, tmp->data)))
+        return;
+      tmp = tmp->next;
+    }
+
+    tmp->next = node;
+    node->next = NULL;
+    node->prev = tmp;
+    
   }
 
-  tmp = *list;	
-  while (tmp->next != NULL) {
-    if (!(strcmp(s, tmp->data)))
-      return;
-    tmp = tmp->next;
-  }
-
-  tmp->next = node;
-  node->next = NULL;
-  node->prev = tmp;
 }	
 
 int search_list(List H, char *s) {
