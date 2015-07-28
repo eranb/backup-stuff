@@ -14,7 +14,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   if (!(times_to_code == 1 || times_to_code == 2)) {
     fprintf(efile, "%d: how many times to run the cmd ?\n", line_num); 
     got_error = 1;
-    return
+    return;
   } else {
     word[strlen(word)-1]='\0';
   }
