@@ -554,7 +554,6 @@ void jsr(FILE *file) {
 
 int get_value_of_tag(char *s, int op_kind) {
   int c;
-  int times_to_code;
   extern List symbol_list, extern_list;
   c = find(symbol_list, s);
   if (c == -1) {
