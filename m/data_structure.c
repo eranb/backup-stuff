@@ -2,19 +2,19 @@
 #include "data_structure.h"
 
 void clean_list(List * list) {
-  List p;
+  Node * node;
 
   if(!*list) return;
 
-  p = *list;
+  node = *list;
   
-  if(p->next == NULL) {
-    free(p);
+  if(node->next == NULL) {
+    free(node);
     return;
   } do {	
-    p = *list;
-    *list = p->next;
-    free(p);
+    node = *list;
+    *list = node->next;
+    free(node);
   } while (!*list);
 }
 
