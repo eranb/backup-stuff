@@ -9,25 +9,25 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   int j, num;
   char tmp[4];
 
-  command_arr[10] = command_arr[11] = '0';
+  //command_arr[10] = command_arr[11] = '0';
 
   iter_num = iteration;
 
-  if (word[i] == '1') {	
+  if (word[i] == '1') {
     times_to_code = 1;
     word[i]='\0';
   } else if (word[i] == '2') {
     times_to_code = 2;
     word[i]='\0';
   } else {
-    fprintf(efile, "%d: missing how man times should the command be coded\n", line_num); 
+    fprintf(efile, "%d: command should contain the number of times it should run\n", line_num); 
     got_error = 1;
   }
 
   convert_cmd_to_code(word, command);
 
   if (command[0] == '\0') {
-    fprintf(efile, "at line: %d, error: not an acceptable command\n", line_num);
+    fprintf(efile, "%d: unknown command\n", line_num);
     got_error = 1;
     return;
   }
