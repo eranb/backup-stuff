@@ -18,7 +18,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   }
   
   iter_num = iteration;
-
+  times_to_code = atoi(&word[strlen(word)-1]);
   convert_cmd_to_code(word, command);
 
   if (command[0] == '\0') {
@@ -42,7 +42,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
 
   num = atoi(tmp);
 
-  times_to_code = atoi(&word[strlen(word)-1]);
+
 
   switch(num) {
     case 1110: case 1111: { 
