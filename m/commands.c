@@ -3,7 +3,7 @@
 #include "instructions.h"
 #include "data_structure.h"
 
-void which_command(FILE *file, int iteration) {
+void command_type(FILE *file, int iteration) {
   extern int my_index;	
   int i = strlen(word) - 1;
   int j, num;
