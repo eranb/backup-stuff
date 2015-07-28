@@ -35,6 +35,7 @@ void add(List * list, char * data, int line, int tml) {
   }
 }	
 
+// go over the list and update TML
 int set_tml(Node *  node, char *data) {
   while (node->data != NULL) {
     if (!(strcmp(data, node->data))) node->tml = 2;
