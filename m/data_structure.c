@@ -36,12 +36,12 @@ void add(List * list, char * data, int line, int itype) {
 
 // search shit in list, if it can't find it, it returns -1
 // otherwise retruns its postion 
-int find(List list, char * data) {  
-  if (!list) return -1;
+int find(Node * node, char * data) {  
+  if (!node) return -1;
   
-  while (list->data != NULL) {
-    if (!(strcmp(data, list->data))) return list->line;
-    list=list->next;
+  while (node->data != NULL) {
+    if (!(strcmp(data, node->data))) return node->line;
+    node=node->next;
   }
   
   return -1;
