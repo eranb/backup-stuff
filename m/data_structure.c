@@ -1,19 +1,21 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void clean_list(List *Hptr) {
+void clean_list(List * list) {
   List p;
-  if(!(*Hptr))
-    return;
-  p=*Hptr;
+
+  if(!*list) return;
+
+  p = *list;
+  
   if(p->next == NULL) {
     free(p);
     return;
   } do {	
-    p=*Hptr;
-    *Hptr=p->next;
+    p = *list;
+    *list = p->next;
     free(p);
-  } while (!(*Hptr));
+  } while (!*list);
 }
 
 void add(List * H, char *s, int line, int is_inst) {
