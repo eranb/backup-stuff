@@ -6,7 +6,7 @@ void add(List * list, char * data, int line, int tml) {
   Node *tmp, *node = ( List ) malloc( sizeof( Node ) );
   
   if ( node == NULL ) {
-    printf("panic: cannot allocate memory...");
+    puts("panic: cannot allocate memory...");
     exit(1);
   }
   
