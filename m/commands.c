@@ -8,7 +8,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   int i,j,num;
   char tmp[4];
 
-  current_command[10] = current_command[11] = '0';
+  
   times_to_code = atoi(&word[strlen(word)-1]);
   
   if (!(times_to_code == 1 || times_to_code == 2)) {
@@ -20,6 +20,8 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
   
   iter_num = iteration;
 
+  current_command[10] = current_command[11] = '0';
+  
   convert_cmd_to_code(word, command);
 
   if (command[0] == '\0') {
