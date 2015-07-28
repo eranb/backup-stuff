@@ -1,39 +1,39 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void add(List * list, char *s, int line, int is_inst) {
-  Node * node, tmp;
+void add(List * H, char *s, int line, int is_inst) {
+  List T, p1;
   
-  node = (Node *) malloc(sizeof(Node));
+  T=(List) malloc(sizeof(Node));
   
-  if (node == NULL) {
+  if (T == NULL) {
     printf("panic: cannot allocate memory...");
     exit(1);
   }
   if (is_inst)
-    node->instruction = 1;
+    T->instruction = 1;
   else
-    node->instruction = 0;
-  strcpy(node->data, s);
-  node->line = line;
+    T->instruction = 0;
+  strcpy(T->data, s);
+  T->line = line;
 
-  if (*list == NULL) {
-    *list=node;
-    node->next = NULL;
-    node->prev = NULL;
+  if ((*H) == NULL) {
+    *H=T;
+    T->next = NULL;
+    T->prev = NULL;
     return;
   }
 
-  tmp = *list;	
-  while (tmp->next != NULL) {
-    if (!(strcmp(s, tmp->data)))
+  p1 = *H;	
+  while (p1->next != NULL) {
+    if (!(strcmp(s, p1->data)))
       return;
-    tmp = tmp->next;
+    p1 = p1->next;
   }
 
-  tmp->next = node;
-  node->prev = tmp;
-  node->next = NULL;
+  p1->next = T;
+  T->prev = p1;
+  T->next = NULL;
 }	
 
 int search_list(List H, char *s) {
