@@ -20,7 +20,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration) {
     times_to_code = 2;
     word[i]='\0';
   } else {
-    fprintf(efile, "at line: %d, error: missing how man times should the command be coded\n", line_num); 
+    fprintf(efile, "%d: missing how man times should the command be coded\n", line_num); 
     got_error = 1;
   }
 
