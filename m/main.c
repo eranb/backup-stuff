@@ -105,12 +105,12 @@ int eval(int time) {
           }
         } else {
           if (time == 0) {
-            exec_cmd(temp_file, iteration);
+            exec_cmd(temp_file, error_file, iteration);
             add_symbol(tag, 2, ic);
             reset_str(line, MAXLINE);
             my_index = i = 0;
           } else {
-            exec_cmd(final_file, iteration);
+            exec_cmd(final_file,error_file,iteration);
             my_index = i = 0;
           }
         }

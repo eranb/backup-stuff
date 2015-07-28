@@ -3,7 +3,7 @@
 #include "instructions.h"
 #include "data_structure.h"
 
-void exec_cmd(FILE *file, int iteration) {
+void exec_cmd(FILE *file, File * efile, int iteration) {
   extern int my_index;	
   int i = strlen(word) - 1;
   int j, num;
@@ -20,14 +20,14 @@ void exec_cmd(FILE *file, int iteration) {
     times_to_code = 2;
     word[i]='\0';
   } else {
-    fprintf(error_file, "at line: %d, error: missing how man times should the command be coded\n", line_num); 
+    fprintf(efile, "at line: %d, error: missing how man times should the command be coded\n", line_num); 
     got_error = 1;
   }
 
   convert_cmd_to_code(word, command);
 
   if (command[0] == '\0') {
-    fprintf(error_file, "at line: %d, error: not an acceptable command\n", line_num);
+    fprintf(efile, "at line: %d, error: not an acceptable command\n", line_num);
     got_error = 1;
     return;
   }
