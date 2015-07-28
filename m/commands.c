@@ -24,7 +24,7 @@ void which_command(FILE *file, int iteration) {
     got_error = 1;
   }
 
-  convert_cmd_to_code(word, command); /* check which command */
+  convert_cmd_to_code(word, command);
 
   if (command[0] == '\0') {
     fprintf(error_file, "at line: %d, error: not an acceptable command\n", line_num);
@@ -78,12 +78,7 @@ void which_command(FILE *file, int iteration) {
   return;
 }
 
-
-
-/* a function that finds out what kind of second operand is given, finds its code and stores it in second_operand. also it updates the second operand bits in command_arr */
-
-void get_second_operand(FILE *file)
-{
+void get_second_operand(FILE *file) {
   extern int my_index;
   int minus_flag = 0, i = 0, num;
   char tmp[MAXLINE];
@@ -129,8 +124,7 @@ void get_second_operand(FILE *file)
       the_last_second_operand = -1;
       return;
     }
-    if ((the_last_first_operand == -1)&&(the_last_second_operand == -1))
-    {
+    if ((the_last_first_operand == -1)&&(the_last_second_operand == -1)) {
       fprintf(error_file, "at line: %d, error: there was no operand in the last line\n", line_num);
       got_error = 1;
       the_last_second_operand = -1;
@@ -149,12 +143,12 @@ void get_second_operand(FILE *file)
     switch (group_check)
     {
       case 0: command_arr[8] = command_arr[9] = '0';
-              break;
+      break;
       case 1: command_arr[8] = '0';
-              command_arr[9] = '1';
-              break;
+      command_arr[9] = '1';
+      break;
       case 3: command_arr[8] = command_arr[9] = '1';
-              break;
+      break;
     }
     my_index++;
     second_operand_exists = 1;
@@ -217,29 +211,22 @@ void get_second_operand(FILE *file)
 
 }
 
-
-/* a function that finds out what kind of first operand is given, finds it's code and stores it in second_operand. also it updates the second operand bits in command_arr */
-
-void get_first_operand(FILE *file)
-{
+void get_first_operand(FILE *file) {
   extern int my_index;
   int minus_flag = 0, i = 0, num, c;
   char tmp[MAXLINE];
   char r[2];
   reset_str(tmp, MAXLINE);
-  if (line[my_index] == '#')
-  {
+  if (line[my_index] == '#') {
     command_arr[6] = command_arr[7] = '0';		
     my_index++;
-    if (line[my_index] == '-')
-    {
+    if (line[my_index] == '-') {
       minus_flag = 1;
       my_index++;
     }
     else if (line[my_index] == '+')
       my_index++;
-    else if (!isdigit(line[my_index]))
-    {
+    else if (!isdigit(line[my_index])) {
       fprintf(error_file, "at line: %d, error: was expecting a number, and not %c\n", line_num, line[my_index]);
       return;
     }
@@ -258,86 +245,67 @@ void get_first_operand(FILE *file)
     first_operand_exists = 1;
     the_last_first_operand = 0;
   }
-  else if (line[my_index] == '$')
-  {
+  else if (line[my_index] == '$') {
     my_index++;
-    if (line[my_index] != '$')
-    {
+    if (line[my_index] != '$') {
       fprintf(error_file, "at line: %d, error: not an acceptable operand\n", line_num);
       got_error = 1;
       the_last_first_operand = -1;
       return;
     }
-    else if ((!(isspace(line[my_index+1]))) && (!(line[my_index+1] == ',')))
-    {
+    else if ((!(isspace(line[my_index+1]))) && (!(line[my_index+1] == ','))) {
       fprintf(error_file, "at line: %d, error: not an acceptable operand\n", line_num);
       got_error = 1;
       the_last_first_operand = -1;
       return;
     }
-    if ((the_last_first_operand == -1)&&(the_last_second_operand == -1))
-    {
+    if ((the_last_first_operand == -1)&&(the_last_second_operand == -1)) {
       fprintf(error_file, "at line: %d, error: there was no operand in the last line\n", line_num);
       got_error = 1;
       the_last_first_operand = -1;
       return;
     }
-    if (the_last_first_operand == -1)
-    {
+    if (the_last_first_operand == -1) {
       group_check = the_last_second_operand;
       strcpy(first_operand, previous_second_operand);
-    }
-    else
-    {
+    } else {
       group_check = the_last_first_operand;
       strcpy(first_operand, previous_first_operand);
     }			
-    switch (group_check)
-    {
+    switch (group_check) {
       case 0: command_arr[6] = command_arr[7] = '0';
-              break;
+      break;
       case 1: command_arr[6] = '0';
-              command_arr[7] = '1';
-              break;
+      command_arr[7] = '1';
+      break;
       case 3: command_arr[6] = command_arr[7] = '1';
-              break;
+      break;
     }
     my_index++;
     first_operand_exists = 1;
-  }
-  else
-  {	
+  } else {	
     while (!(isspace(line[my_index])) && (line[my_index] != ','))
       tmp[i++] = line[my_index++];
-    if (((strlen(tmp))==2) && (tmp[0] == 'r') && (isdigit(tmp[1])))
-    {
+    if (((strlen(tmp))==2) && (tmp[0] == 'r') && (isdigit(tmp[1]))) {
       get_register(r, tmp);
-      if ((atoi(r)) || (atoi(r) == 0))
-      {
+      if ((atoi(r)) || (atoi(r) == 0)) {
         reset_str(first_operand, MAXLINE);
         strcpy(first_operand, r);
         command_arr[6]=command_arr[7]='1';
         first_operand_exists = 1;
         the_last_first_operand = 3;
       }
-
-    }
-    else
-    {
-      if (iter_num == 1)
-      {
+    } else {
+      if (iter_num == 1) {
         first_operand[0]='1';
         first_operand[1] = '\0';
         command_arr[6] = '0';
         command_arr[7] = '1';
         first_operand_exists = 1;
         the_last_first_operand = 1;
-      }
-      else
-      {
+      } else {
         c = get_value_of_tag(tmp, 1);
-        if (c == -1)
-        {		
+        if (c == -1) {		
           fprintf(error_file, "at line: %d, wrong operand name: %s\n", line_num, tmp);
           got_error = 1;
           return;
@@ -354,8 +322,7 @@ void get_first_operand(FILE *file)
   while (isspace(line[my_index])) my_index++;
   if (line[my_index] == ',')
     my_index++;
-  else
-  {
+  else {
     fprintf(error_file, "at line : %d, error: wasnt suppose to be anything else than a ',' before the next operand\n", line_num);
     got_error = 1;
     return;
@@ -365,9 +332,7 @@ void get_first_operand(FILE *file)
 
 }
 
-
-void print_command(FILE *file)
-{	
+void print_command(FILE *file) {	
   extern int IC;
   int i;
   char end_result[MAXLINE];
@@ -383,39 +348,31 @@ void print_command(FILE *file)
   convert_binary_string_to_base_4_string(command_arr, end_result);
   reset_str(command_arr, strlen(command_arr));
   strcpy(command_arr, end_result);
-  if (!(got_error))
-  {
+  if (!(got_error)) {
     convert_to_base(IC, 4, command_adress);
     fprintf(file, "%s	%s \n", command_adress,  command_arr);
     IC++;
   }
-  if(strlen(first_operand) == 5 && strlen(second_operand) == 5)
-  {
+  if(strlen(first_operand) == 5 && strlen(second_operand) == 5) {
     flag_combined = 1;		
     reset_str(end_result, MAXLINE);		
     strcat(first_operand, second_operand);
     first_operand[10]=first_operand[11]='0';
     convert_binary_string_to_base_4_string(first_operand, end_result);
     strcpy(first_operand, end_result);
-    if (!(got_error))
-    {
+    if (!got_error) {
       convert_to_base(IC, 4, first_adress);
       fprintf(file, "%s	%s \n", first_adress, first_operand);
     }
     IC++;
-  }
-  else
-  {	
-    if (first_operand_exists)
-    {
+  } else {	
+    if (first_operand_exists) {
       reset_str(end_result, MAXLINE);
-      if(strlen(first_operand) == 5)
-      {
+      if(strlen(first_operand) == 5) {
         for (i=5; i<12; i++)				
           first_operand[i] = '0';		
       }
-      if(flag_first_relocatable)
-      {
+      if(flag_first_relocatable) {
         strcat(first_operand, "10");
         strcat(previous_first_operand, "10");
         flag_first_relocatable = 0;
@@ -424,20 +381,17 @@ void print_command(FILE *file)
       convert_binary_string_to_base_4_string(first_operand, end_result);
       reset_str(first_operand, strlen(first_operand));
       strcpy(first_operand, end_result);
-      if (!(got_error))
-      {
+      if (!(got_error)) {
         convert_to_base(IC, 4, first_adress);
         fprintf(file, "%s	%s \n", first_adress, first_operand);
       }
       IC++;
     }
-    if (second_operand_exists)
-    {
+    if (second_operand_exists) {
       reset_str(end_result, MAXLINE);
       if(strlen(second_operand) == 5)
         second_operand[5]=second_operand[6]='0';		
-      if(flag_second_relocatable)
-      {
+      if(flag_second_relocatable) {
         strcat(second_operand, "10");
         strcat(previous_second_operand, "10");
         flag_second_relocatable = 0;
@@ -446,47 +400,35 @@ void print_command(FILE *file)
       convert_binary_string_to_base_4_string(second_operand, end_result);
       reset_str(second_operand, strlen(second_operand));
       strcpy(second_operand, end_result);
-      if (!(got_error))
-      {
+      if (!(got_error)) {
         convert_to_base(IC, 4, second_adress);
         fprintf(file, "%s	%s \n", second_adress, second_operand);
       }
       IC++;
     }
   }
-  if (times_to_code == 2)
-  {
-    if (!(got_error))
-    {
+  if (times_to_code == 2) {
+    if (!(got_error)) {
       convert_to_base(IC, 4, command_adress);
       fprintf(file, "%s	%s \n", command_adress, command_arr);
     }
     IC++;
-    if (flag_combined == 1)
-    {
-      if (!(got_error))
-      {
+    if (flag_combined == 1) {
+      if (!(got_error)) {
         convert_to_base(IC, 4, first_adress);
         fprintf(file, "%s	%s \n", first_adress, end_result);
-
       }
       IC++;
-    }
-    else
-    {
-      if (first_operand_exists)
-      {
-        if (!(got_error))
-        {	
+    } else {
+      if (first_operand_exists) {
+        if (!(got_error)) {	
           convert_to_base(IC, 4, first_adress);	
           fprintf(file, "%s	%s \n", first_adress, first_operand);
         }	
         IC++;
       }
-      if (second_operand_exists)
-      {	
-        if (!(got_error))	
-        {
+      if (second_operand_exists) {	
+        if (!(got_error))	 {
           convert_to_base(IC, 4, second_adress);	
           fprintf(file, "%s	%s \n", second_adress, second_operand);
         }
@@ -499,17 +441,13 @@ void print_command(FILE *file)
   return;
 }
 
-void deal_with_no_operands(FILE *file)
-{
+void deal_with_no_operands(FILE *file) {
   extern int my_index;	
   command_arr[6]=command_arr[7]=command_arr[8]=command_arr[9]='0';
   the_last_first_operand = -1;
   the_last_second_operand = -1;
-  while (line[my_index] != '\0')
-  {
-    if (isspace(line[my_index]));
-    else
-    {
+  while (line[my_index] != '\0') {
+    if (!isspace(line[my_index])) {
       fprintf(error_file, "at_line: %d, error: wasnt expecting anything after command\n", line_num);
       got_error = 1;	
       return;
@@ -518,17 +456,14 @@ void deal_with_no_operands(FILE *file)
   return;
 }
 
-void mov_addsub(FILE *file)
-{
+void mov_addsub(FILE *file) {
   get_first_operand(file);
   get_second_operand(file);
-  if (command_arr[8] == '0' && command_arr[9] == '0')
-  {
+  if (command_arr[8] == '0' && command_arr[9] == '0') {
     fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
     got_error = 1;
   }
-  else if (command_arr[8] == '1' && command_arr[9] == '0')
-  {
+  else if (command_arr[8] == '1' && command_arr[9] == '0') {
     fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
     got_error = 1;
   }
@@ -536,15 +471,13 @@ void mov_addsub(FILE *file)
 }
 
 
-void cmp(FILE *file)
-{
+void cmp(FILE *file) {
   get_first_operand(file);
   get_second_operand(file);
   return;
 }
 
-void not_clr_inc_dec(FILE *file)
-{
+void not_clr_inc_dec(FILE *file) {
   int i;	
   command_arr[6]=command_arr[7]='0';
   get_second_operand(file);
@@ -564,33 +497,25 @@ void not_clr_inc_dec(FILE *file)
   return;
 }
 
-
-
-void lea(FILE *file)
-{
+void lea(FILE *file) {
   get_first_operand(file);
   get_second_operand(file);
-  if (!(command_arr[6] == '0' && command_arr[7] == '1'))
-  {
+  if (!(command_arr[6] == '0' && command_arr[7] == '1')) {
     fprintf(error_file, "at_line: %d, error: first operand - wrong operand method\n", line_num);
     got_error = 1;
   }
-  if (command_arr[8] == '0' && command_arr[9] == '0')
-  {	
+  if (command_arr[8] == '0' && command_arr[9] == '0') {	
     fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
     got_error = 1;
   }
-  else if (command_arr[8] == '1' && command_arr[9] == '0')
-  {	
+  else if (command_arr[8] == '1' && command_arr[9] == '0') {	
     fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
     got_error = 1;
   }	
   return;
 }
 
-
-void jmp_bne_red(FILE *file)
-{
+void jmp_bne_red(FILE *file) {
   int i;	
   get_second_operand(file);
   the_last_first_operand = -1;
@@ -605,9 +530,7 @@ void jmp_bne_red(FILE *file)
   return;
 }
 
-
-void prn(FILE *file)
-{
+void prn(FILE *file) {
   int i;	
   get_second_operand(file);
   the_last_first_operand = -1;
@@ -617,34 +540,28 @@ void prn(FILE *file)
   return;
 }
 
-
-void jsr(FILE *file)
-{
+void jsr(FILE *file) {
   int i;	
   get_second_operand(file);
   the_last_first_operand = -1;
   command_arr[6]=command_arr[7]='0';
   for (i=0; i<12; i++)
     first_operand[i]='0';
-  if (!(command_arr[8] == '0' && command_arr[9] == '0'))
-  {	
+  if (!(command_arr[8] == '0' && command_arr[9] == '0')) {	
     fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
     got_error = 1;
   }
   return;
 }
 
-int get_value_of_tag(char *s, int op_kind)
-{
+int get_value_of_tag(char *s, int op_kind) {
   int c;
   extern int times_to_code;
   extern ptr symbol_list, extern_list;
   c = search_list(symbol_list, s);
-  if (c == -1)
-  {
+  if (c == -1) {
     c = search_list(extern_list, s);
-    if (c != -1)
-    {	
+    if (c != -1) {	
       if ((op_kind == 2) && (first_operand_exists))
         print_extern(s, op_kind, times_to_code);
       else 

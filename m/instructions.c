@@ -12,9 +12,11 @@ struct {
   {".extern", 4},
   {"nope", 5}
 };
+
 ptr extern_list = NULL;
 ptr entry_list = NULL;
 ptr symbol_list = NULL;
+
 FILE *ext_file;
 FILE *ent_file;
 FILE *error_file;
@@ -22,25 +24,23 @@ FILE *data_file;
 FILE *temp_file;
 FILE *final_file;
 FILE *as_file;
+
 extern int got_error;
 extern int iteration;
 extern int line_num;
 
-/* after finding out a '.' at a beggining of a sentence, this function decides which instruction it is */
 void do_instructions(FILE *file) {	
   int i=0, j, inst_kind=5;
-  while (strcmp(instructions[i].name, "nope")) /* check which instruction we're dealing with */
-  {
+  while (strcmp(instructions[i].name, "nope")) {
     j=strcmp(instructions[i].name, word);
-    if (j == 0)
-    {
+    if (j == 0) {
       inst_kind = instructions[i].value;
       break;
     }
     i+=1;
   }
-  switch(inst_kind) /* call the matching function */
-  {
+  
+  switch(inst_kind) {
     case 1: do_data(file);
             break;
     case 2: do_string(file);
