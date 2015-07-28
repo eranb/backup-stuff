@@ -11,4 +11,4 @@ typedef Node * List;
 void clean(List *);
 void add(List *,char *,int,int);
 int find(List,char *);
-int set_tml(List, char *,int);
+int set_tml(List, chaupdate_tml);

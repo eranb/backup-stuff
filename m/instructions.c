@@ -242,7 +242,7 @@ void print_extern(char *s, int op_kind, int times) {
   complete_to_12(tmp);
   convert_binary_string_to_base_4_string(tmp, line_num);
   fprintf(ext_file, "%s:	%d\n", s, (atoi(line_num)));
-  set_tml(extern_list, s,2);
+  update_tml(extern_list, s,2);
 
   if (times == 2) {
     if (op_kind == 1)
@@ -269,7 +269,7 @@ void print_entry(char *s, int c) {
   complete_to_12(tmp);
   convert_binary_string_to_base_4_string(tmp, line_num);
   fprintf(ent_file, "%s:	%d\n", s, (atoi(line_num)));
-  set_tml(entry_list, s,2);
+update_tmlml(entry_list, s,2);
   return;
 }
 
