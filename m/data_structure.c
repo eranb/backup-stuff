@@ -4,32 +4,35 @@
 void add(List * list, char * data, int line, int itype) {
   Node *node, *tmp;
   
-  node=(List) malloc(sizeof(Node));
+  node = (List) malloc(sizeof(Node));
   
   if (node == NULL) {
     printf("panic: cannot allocate memory...");
     exit(1);
   }
   
+  // some initialization
   strcpy(node->data, data);
   node->line = line;  
   node->instruction = itype;
 
+  // if we are on an empty list
   if (*list == NULL) {
     *list=node;
     node->next = NULL;
     node->prev = NULL;
   } else {
+    // finding where to put it...
     tmp = *list;	
     while (tmp->next != NULL) {
       if (!(strcmp(data, tmp->data))) return;
       tmp = tmp->next;
     }
 
+    // setup next and prev
     tmp->next = node;
     node->next = NULL;
     node->prev = tmp;
-    
   }
 }	
 
