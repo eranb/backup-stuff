@@ -19,7 +19,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
     word[strlen(word)-1]='\0';
   }
   
-  iteration = iteration_num;
+  iter_num = iteration_num;
   
   convert_cmd_to_code(word, command);
 
