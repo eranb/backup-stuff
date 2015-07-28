@@ -3,3 +3,13 @@ docs*
 .DS_Store
 *.class
 *\.dsYM
+a.out
+txt
+*.o
+*.temp
+*.ob
+*.ext
+*.ent
+*.dat
+*.as
+assembler

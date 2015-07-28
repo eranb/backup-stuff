@@ -1,0 +1,11 @@
+read_set A,45,23,6,7,4,3,75,34,-1
+read_set B,5,4,3,2,78,45,43,-1
+union_set A, B, C
+intersect_set A, B, C
+sub_set A, B, D
+print_set A
+print_set B
+print_set C
+print_set D
+print_set E
+halt
