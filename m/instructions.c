@@ -10,7 +10,7 @@ struct {
   {".string", 2},
   {".entry", 3},
   {".extern", 4},
-  {"nope", 5}
+  {"no-op", 5}
 };
 
 List extern_list = NULL;
@@ -30,36 +30,35 @@ extern int iteration;
 extern int line_num;
 
 void do_instructions(FILE *file) {	
-  int i=0, j, inst_kind=5;
-  while (strcmp(instructions[i].name, "nope")) {
-    j=strcmp(instructions[i].name, word);
-    if (j == 0) {
+  int i=0, inst_kind=5;
+  while (strcmp(instructions[i].name, "no-op")) {
+    if (strcmp(instructions[i].name, word) == 0) {
       inst_kind = instructions[i].value;
       break;
     }
-    i+=1;
+    i++;
   }
   
   switch(inst_kind) {
-    case 1: do_data(file);
-            break;
-    case 2: do_string(file);
-            break;
-    case 3: if(iteration == 1)
-              do_entry(file);
-            break;
+    case 1:
+      do_data(file);
+      break;
+    case 2:
+      do_string(file);
+      break;
+    case 3:
+      if(iteration == 1) do_entry(file);
+      break;
     case 4: if(iteration == 1)
-              do_extern(file);
-            break;
-    default: fprintf(error_file, "at line: %d, error: no such instruction\n", line_num);
-             got_error = 1;
-             break;
+      do_extern(file);
+      break;
+    default:
+      fprintf(error_file, "at line: %d, error: no such instruction\n", line_num);
+      got_error = 1;
+      break;
   }
-  return;
 }
 
-
-/* a function that deals with ".data" instruction. prints all the numbers following on the same line as a base 4 strings. */
 void do_data(FILE *file) {
   extern int my_index, DC;
   int first_time_flag = 1, i=0, minus = 0;
