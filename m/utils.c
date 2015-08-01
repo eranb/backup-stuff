@@ -165,14 +165,14 @@ void make_it_12_digits(char *result) {
 
 void make_header(FILE *file, int commands, int data) {
   char command_num[MAX_LINE_SIZE], data_num[MAX_LINE_SIZE];
-  int num;
-  num = commands - 100;
+  int num = commands - 100;
+  
   in_base(num, 4, command_num);
   in_base(data, 4, data_num);
   fprintf(file, "%s	%s\n", command_num, data_num);
 }
 
-void make_final_file(int IC, FILE *data_file, FILE *final_file) {
+void make_file(int IC, FILE *data_file, FILE *final_file) {
   char data_line[MAX_LINE_SIZE];
   char adress[MAX_LINE_SIZE];
   reset_str(adress, MAX_LINE_SIZE);
