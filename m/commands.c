@@ -198,10 +198,11 @@ void get_second_operand(FILE *file) {
 
 void fetch_first_operand(FILE *file) {
   extern int my_index;
-  int minus = 0, i = 0, num, c;
-  char tmp[MAXLINE];
-  char r[2];
+  int minus = 0, i = 0, c;
+  char tmp[MAXLINE],r[2];
+  
   reset_str(tmp, MAXLINE);
+  
   if (line[my_index] == '#') {
     current_command[6] = current_command[7] = '0';		
     my_index++;
@@ -211,14 +212,15 @@ void fetch_first_operand(FILE *file) {
     } else if (line[my_index] == '+')
       my_index++;
     else if (!isdigit(line[my_index])) {
-      fprintf(error_file, "at line: %d, error: was expecting a number, and not %c\n", line_num, line[my_index]);
+      fprintf(error_file, "%d: '%c' isn't a number...\n", line_num, line[my_index]);
       return;
     }
+    
     while (isdigit(line[my_index]))
       tmp[i++]=line[my_index++];
+    
     tmp[i] = '\0';
-    num = atoi(tmp);
-    in_base(num, 2, tmp);
+    in_base(atoi(tmp), 2, tmp);
     strcat(tmp, "00");
     make_it_12_digits(tmp);
     if (minus)
