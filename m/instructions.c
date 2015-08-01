@@ -124,6 +124,7 @@ void do_string(FILE *file) {
   int num;
   char result[MAX_LINE_SIZE];
   reset_str(first_operand, MAX_LINE_SIZE);
+  
   while(isspace(line[my_index])) my_index++; 
 
   if (line[my_index] == '\0') {
@@ -145,17 +146,18 @@ void do_string(FILE *file) {
       got_error = 1;
       return;
     }
+    
     num = line[my_index];
     in_base(num, 2, result);
     make_it_12_digits(result);
     binary_to_base4(result, first_operand);
-    if ((got_error != 1)&&(iteration == 2))
-      fprintf(data_file, "%s\n", first_operand);
+    
+    if ((got_error != 1)&&(iteration == 2)) fprintf(data_file, "%s\n", first_operand);
     my_index++;
     DC++;
   }
-  if (line[my_index] == '\"') /* making sure there is an " at the end, and printing an \0 to finish the string */
-  {
+  
+  if (line[my_index] == '\"') {
     my_index++;
     num = 0;
     in_base(num, 2, result);
@@ -164,34 +166,30 @@ void do_string(FILE *file) {
     if ((got_error != 1)&&(iteration == 2))
       fprintf(data_file, "%s\n", first_operand);
     DC++;
-  }
-  else  /* if there was no " at the ned */
-  {
-    fprintf(error_file, "at line: %d, error: expected a '\"' at the end", line_num);
+  } else {
+    fprintf(error_file, "%d: should be '\"' at the last of the line...", line_num);
     got_error = 1;
     return;
   }
-  while (line[my_index] != '\0') /* if after the " there are more chars */
-  {
-    fprintf(error_file, "at line: %d, error: %c wasnt supposed to be enterd after the \"", line_num, line[my_index]);
+  
+  while (line[my_index] != '\0') {
+    fprintf(error_file, "%d: unexpected %c ( should not be after \" )", line_num, line[my_index]);
     got_error = 1;
   }
-  return;			
 }
 
 void do_entry(FILE *file) {
   extern int my_index;
   int i=0;
   char tmp[30];
+
   reset_str(tmp, 30);
   while (isspace(line[my_index])) my_index++;
-
-  while(isalpha(line[my_index]))
-    tmp[i++] = line[my_index++];
+  while(isalpha(line[my_index])) tmp[i++] = line[my_index++];
   while (isspace(line[my_index])) my_index++;
-  if (line[my_index] != '\0')
-  {
-    fprintf(error_file, "at line: %d, error: wasn't suppose to be anything after the label name\n", line_num);
+
+  if (line[my_index] != '\0') {
+    fprintf(error_file, "%d: expected end of line, after label...\n", line_num);
     got_error = 1;
     return;
   }
@@ -203,12 +201,13 @@ void do_extern(FILE *file) {
   int i=0;
   char tmp[30];
   reset_str(tmp, 30);
+
   while (isspace(line[my_index])) my_index++;
-  while((isalpha(line[my_index]))||(isdigit(line[my_index])))
-    tmp[i++] = line[my_index++];
+  while((isalpha(line[my_index]))||(isdigit(line[my_index]))) tmp[i++] = line[my_index++];
   while (isspace(line[my_index])) my_index++;
+
   if (line[my_index] != '\0') {
-    fprintf(error_file, "at line: %d, error: wasn't suppose to be anything after the label name\n", line_num);
+    fprintf(error_file, "%d: expected end of line, after label...\n", line_num);
     got_error = 1;
     return;
   }
@@ -216,14 +215,14 @@ void do_extern(FILE *file) {
   if(iteration == 1) add(&extern_list, tmp, IC, 1);
 }
 
-void write_extern(char *s, int op_kind, int times) {
+void write_extern(char *s, int operation, int times) {
   extern int IC;
   int i;
   char tmp[30];
   char line_num[30];
   reset_str(tmp, 30);
   reset_str(line_num, 30);
-  i = IC + op_kind;
+  i = IC + operation;
   in_base(i, 2, tmp);
   make_it_12_digits(tmp);
   binary_to_base4(tmp, line_num);
@@ -231,7 +230,7 @@ void write_extern(char *s, int op_kind, int times) {
   update_tml(extern_list, s,2);
 
   if (times == 2) {
-    if (op_kind == 1)
+    if (operation == 1)
       i += 2;
     else
       i += 3;
