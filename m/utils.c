@@ -72,13 +72,9 @@ int in_base(int num, int base, char *result) {
   converted_number[i] = '\0';
   return strcpy(result, converted_number);
 }
-/* gets a command number in base 2 and checks which group it belongs to. the function returns the answer in end. */
-void check_group(char *s, char *end)
-{
-  int i;
-  i = (atoi(s));	
-  switch(i)
-  {
+
+void check_group(char *string, char *end) {
+  switch(atoi(string)) {
     case 0: case 1:	case 10: case 11: case 110: 
       end[1] = '0';
       end[0] = '1';
@@ -99,22 +95,16 @@ void check_group(char *s, char *end)
   }
 }
 
-void fetch_register(char *operand, char *s)
-{
-  int i=0, j;
-  while (strcmp(register_type[i].name, "not a register"))
-  {
-    j=strcmp(register_type[i].name, s);	
-    if (j == 0)
-    {
+void fetch_register(char *operand, char *s) {
+  int i=0;
+  while (strcmp(register_type[i].name, "not a register")) {
+    if (strcmp(register_type[i].name, s) == 0) {
       strcpy(operand, register_type[i].binary_val);
       return;
     }
-    i+=1;
+    i++;
   }
-  for (i=0; i<strlen(operand); i++)
-    operand[i]='\0';
-  return;
+  for (i=0; i<strlen(operand); i++) operand[i]='\0';
 }
 
 /* gets a binary string, converts it to base 4 string and stores it in array */
