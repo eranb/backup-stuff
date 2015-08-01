@@ -249,16 +249,16 @@ void write_extern(char *s, int operation, int times) {
 
 void print_entry(char *string, int c) {
   extern int IC;
-  char tmp[30];
-  char line_num[30];
+  char tmp[30], line_num[30];
+
   reset_str(tmp, 30);
   reset_str(line_num, 30);
+
   in_base(c, 2, tmp);
   make_it_12_digits(tmp);
   binary_to_base4(tmp, line_num);
   fprintf(ent_file, "%s:	%d\n", string, (atoi(line_num)));
   update_tml(entry_list, string,2);
-  return;
 }
 
 void add_symbol(char *s, int inst_or_command, int value) {
