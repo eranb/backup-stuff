@@ -230,7 +230,7 @@ void do_extern(FILE *file) {
   if(iteration == 1) add(&extern_list, tmp, IC, 1);
 }
 
-void print_extern(char *s, int op_kind, int times) {
+void write_extern(char *s, int op_kind, int times) {
   extern int IC;
   int i;
   char tmp[30];

@@ -502,28 +502,25 @@ void lea(FILE *file) {
 }
 
 void jmp(FILE *file) {
-  int i;	
+  int i;
   get_second_operand(file);
   last_first_operand = -1;
   current_command[6]=current_command[7]='0';
-  for (i=0; i<12; i++)
-    first_operand[i]='0';
-  if (current_command[8] == '0' && current_command[9] == '0')
-  {
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+
+  for (i=0; i<12; i++) first_operand[i]='0';
+
+  if (current_command[8] == '0' && current_command[9] == '0') {
+    fprintf(error_file, "%d: wrong second operand...\n", line_num);
     got_error = 1;
   }
-  return;
 }
 
 void prn(FILE *file) {
-  int i;	
+  int i;
   get_second_operand(file);
   last_first_operand = -1;
-  current_command[6]=current_command[7]='0';
-  for (i=0; i<12; i++)
-    first_operand[i]='0';
-  return;
+  current_command[6] = current_command[7] = '0';
+  for (i=0; i<12; i++) first_operand[i]='0';
 }
 
 void jsr(FILE *file) {
@@ -531,26 +528,24 @@ void jsr(FILE *file) {
   get_second_operand(file);
   last_first_operand = -1;
   current_command[6]=current_command[7]='0';
-  for (i=0; i<12; i++)
-    first_operand[i]='0';
+  for (i=0; i<12; i++) first_operand[i]='0';
   if (!(current_command[8] == '0' && current_command[9] == '0')) {	
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+    fprintf(error_file, "%d: wrong second operand\n", line_num);
     got_error = 1;
   }
-  return;
 }
 
 int get_value_of_label(char *s, int op_kind) {
-  int c;
   extern List symbol_list, extern_list;
-  c = find(symbol_list, s);
+  int c = find(symbol_list, s);
+  
   if (c == -1) {
     c = find(extern_list, s);
-    if (c != -1) {	
+    if (c != -1) {
       if ((op_kind == 2) && (first_operand_exists))
-        print_extern(s, op_kind, times_to_code);
+        write_extern(s, op_kind, times_to_code);
       else 
-        print_extern(s, 1, times_to_code);
+        write_extern(s, 1, times_to_code);
       c = 1;
     }
     return c;
