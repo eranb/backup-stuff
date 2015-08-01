@@ -262,10 +262,7 @@ void write_entry(char *string, int c) {
 }
 
 void add_symbol(char *s, int inst_or_command, int value) {
-  char c;
-  c = find(symbol_list, s);
-
-  if (c == -1) {
+  if (find(symbol_list, s) == -1) {
     if (inst_or_command == 2)
       add(&symbol_list, s, value, 0);
     if (inst_or_command == 1)
