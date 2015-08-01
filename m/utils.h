@@ -19,7 +19,7 @@ char previous_second_operand[MAXLINE];
 
 int in_base(int num, int base, char *result);
 void check_group(char *s, char *end);
-void get_register(char *second_operand,char *r);
+void fetch_register(char *second_operand,char *r);
 void convert_binary_string_to_base_4_string(char *s, char *array);
 void reset_str(char *arr, int len);
 void two_complement(char *tmp);

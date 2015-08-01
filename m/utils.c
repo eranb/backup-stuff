@@ -109,7 +109,7 @@ void check_group(char *s, char *end)
   }
 }
 
-void get_register(char *operand, char *s)
+void fetch_register(char *operand, char *s)
 {
   int i=0, j;
   while (strcmp(register_type[i].name, "not a register"))
