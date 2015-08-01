@@ -14,7 +14,7 @@ char label[MAX_LINE_SIZE];
 char command[5];
 char group[3];
 char line[MAX_LINE_SIZE];
-char previous_first_operand[MAX_LINE_SIZE];
+
 char previous_second_operand[MAX_LINE_SIZE];
 
 int in_base(int num, int base, char *result);
