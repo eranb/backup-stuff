@@ -107,7 +107,7 @@ void get_second_operand(FILE *file) {
     strcpy(second_operand, tmp);
     i=0;
     minus = 0;
-    second_operand_exists = 1;
+    got_second_operand = 1;
     the_last_second_operand = 00;
   } else if (line[my_index] == '$') {
     my_index++;
@@ -144,7 +144,7 @@ void get_second_operand(FILE *file) {
       break;
     }
     my_index++;
-    second_operand_exists = 1;
+    got_second_operand = 1;
   }
   else
   {	
@@ -158,7 +158,7 @@ void get_second_operand(FILE *file) {
         reset_str(second_operand, MAXLINE);
         strcpy(second_operand, r);
         current_command[8]=current_command[9]='1';
-        second_operand_exists = 1;
+        got_second_operand = 1;
         the_last_second_operand = 3;
       }
     }
@@ -170,7 +170,7 @@ void get_second_operand(FILE *file) {
         second_operand[1] = '\0';
         current_command[8] = '0';
         current_command[9] = '1';
-        second_operand_exists = 1;
+        got_second_operand = 1;
         the_last_second_operand = 1;
       }
       else
@@ -185,7 +185,7 @@ void get_second_operand(FILE *file) {
         current_command[8] = '0';
         current_command[9] = '1';
         in_base(c, 2, second_operand);
-        second_operand_exists = 1;
+        got_second_operand = 1;
         the_last_second_operand = 1;
       }
     }		
@@ -380,7 +380,7 @@ void write_code(FILE *file) {
       }
       IC++;
     }
-    if (second_operand_exists) {
+    if (got_second_operand) {
       reset_str(end_result, MAXLINE);
       if(strlen(second_operand) == 5)
         second_operand[5]=second_operand[6]='0';		
@@ -420,7 +420,7 @@ void write_code(FILE *file) {
         }	
         IC++;
       }
-      if (second_operand_exists) {	
+      if (got_second_operand) {	
         if (!(got_error))	 {
           in_base(IC, 4, second_adress);	
           fprintf(file, "%s	%s \n", second_adress, second_operand);
@@ -430,7 +430,7 @@ void write_code(FILE *file) {
     }
   }
   first_operand_exists = 0;
-  second_operand_exists = 0;
+  got_second_operand = 0;
   return;
 }
 
