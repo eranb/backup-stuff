@@ -247,7 +247,7 @@ void write_extern(char *s, int operation, int times) {
   }
 }
 
-void print_entry(char *string, int c) {
+void write_entry(char *string, int c) {
   extern int IC;
   char tmp[30], line_num[30];
 
@@ -278,7 +278,7 @@ void search_in_entry_list(char *s) {
   c = find(entry_list, s);
   if (c != -1) {
     c = find(symbol_list, s);
-    print_entry(s, c);
+    write_entry(s, c);
   }
 }
 

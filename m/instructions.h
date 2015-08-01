@@ -4,7 +4,7 @@ void do_string(FILE *file);
 void do_entry(FILE *file);
 void do_extern(FILE *file);
 void write_extern(char *s, int num, int times);
-void print_entry(char *s, int c);
+void write_entry(char *s, int c);
 void cleanlists();
 void add_symbol(char *s, int inst_or_command, int value);
 void search_in_entry_list(char *s);
