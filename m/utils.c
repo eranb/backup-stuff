@@ -115,6 +115,7 @@ void binary_to_base4(char *s, char *array) {
   
   for (eindex=0; s[eindex]!='\0'; eindex++);
   eindex--;
+
   for (j=0; j<=eindex; j+=2, i++) {
     temp[0]=s[j];
     temp[1]=s[j+1];
@@ -136,45 +137,34 @@ void binary_to_base4(char *s, char *array) {
   }
 }
 
-
 void reset_str(char *arr, int len) {
-  int i=0;
-  for (i=0; i<len; i++)
-    arr[i] = '\0';
+  int i;
+  for (i=0; i<len; i++) arr[i] = '\0';
 }
 
-
-
-void two_complement(char *tmp)
-{
-  int i= strlen(tmp) - 1;
-  while (tmp[i] == '0')
-    i--;
+void two_complement(char *tmp) {
+  int i = strlen(tmp) - 1;
+  while (tmp[i] == '0') i--;
   i--;
-  for ( ; i>=0; i--)
-  {	
+  for ( ; i>=0; i--) {	
     if (tmp[i] == '1')
       tmp[i] = '0';
     else
       tmp[i] = '1';
   }
-  return;
 }
-void make_it_12_digits(char *result)
-{
+
+void make_it_12_digits(char *result) {
   int i = strlen(result), j=0;
   char tmp[12];
   reset_str(tmp, 12);
-  for ( ; j <= 11-i; j++)
-    tmp[j] = '0';
+  for ( ; j <= 11-i; j++) tmp[j] = '0';
   strcat(tmp, result);
   strcpy(result, tmp);
 }	
 
-
 void make_header(FILE *file, int commands, int data) {
-  char command_num[MAX_LINE_SIZE];
-  char data_num[MAX_LINE_SIZE];
+  char command_num[MAX_LINE_SIZE], char data_num[MAX_LINE_SIZE];
   int num;
   num = commands - 100;
   in_base(num, 4, command_num);
@@ -182,15 +172,13 @@ void make_header(FILE *file, int commands, int data) {
   fprintf(file, "%s	%s\n", command_num, data_num);
 }
 
-void make_final_file(int IC, FILE *data_file, FILE *final_file)
-{
+void make_final_file(int IC, FILE *data_file, FILE *final_file) {
   char data_line[MAX_LINE_SIZE];
   char adress[MAX_LINE_SIZE];
   reset_str(adress, MAX_LINE_SIZE);
   reset_str(data_line, MAX_LINE_SIZE);
   rewind(data_file);
-  while (!feof(data_file))
-  {
+  while (!feof(data_file)) {
     reset_str(data_line, MAX_LINE_SIZE);		
     fgets(data_line, MAX_LINE_SIZE, data_file);
     in_base(IC, 4, adress);
