@@ -30,16 +30,16 @@ extern int iteration;
 extern int line_num;
 
 void do_instructions(FILE *file) {	
-  int i=0, inst_kind=5;
+  int i=0, instration=5;
   while (strcmp(instructions[i].name, "no-op")) {
     if (strcmp(instructions[i].name, word) == 0) {
-      inst_kind = instructions[i].value;
+      instration = instructions[i].value;
       break;
     }
     i++;
   }
   
-  switch(inst_kind) {
+  switch(instration) {
     case 1:
       do_data(file);
       break;
