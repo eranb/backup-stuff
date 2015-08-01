@@ -271,12 +271,8 @@ void add_symbol(char * string, int inst_or_command, int value) {
 }
 
 void search_in_entry_list(char *s) {
-  int c;
-  c = find(entry_list, s);
-  if (c != -1) {
-    c = find(symbol_list, s);
-    write_entry(s, c);
-  }
+  if (find(entry_list, s) != -1)
+    write_entry(s, find(symbol_list, s));
 }
 
 void cleanlists() {
