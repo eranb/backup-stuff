@@ -327,12 +327,12 @@ void write_code(FILE *file) {
   extern int IC;
   int i;
   char results[MAX_LINE_SIZE];
-  char command_adress[MAX_LINE_SIZE];
+  char addressing[MAX_LINE_SIZE];
   char first_adress[MAX_LINE_SIZE];
   char second_adress[MAX_LINE_SIZE];
   int flag_combined = 0;
   reset_str(results, MAX_LINE_SIZE);
-  reset_str(command_adress, MAX_LINE_SIZE);
+  reset_str(addressing, MAX_LINE_SIZE);
   reset_str(first_adress, MAX_LINE_SIZE);
   reset_str(second_adress, MAX_LINE_SIZE);
   make_it_12_digits(current_command);
@@ -341,8 +341,8 @@ void write_code(FILE *file) {
   strcpy(current_command, results);
 
   if (!got_error) {
-    in_base(IC, 4, command_adress);
-    fprintf(file, "%s	%s \n", command_adress,  current_command);
+    in_base(IC, 4, addressing);
+    fprintf(file, "%s	%s \n", addressing,  current_command);
     IC++;
   }
   
@@ -402,8 +402,8 @@ void write_code(FILE *file) {
   }
   if (times_to_code == 2) {
     if (!(got_error)) {
-      in_base(IC, 4, command_adress);
-      fprintf(file, "%s	%s \n", command_adress, current_command);
+      in_base(IC, 4, addressing);
+      fprintf(file, "%s	%s \n", addressing, current_command);
     }
     IC++;
     if (flag_combined == 1) {
