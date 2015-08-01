@@ -5,7 +5,7 @@
 
 void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
   extern int my_index;	
-  int i,j,num;
+  int i,j;
   char tmp[4];
 
   times_to_code = atoi(&word[strlen(word)-1]);
