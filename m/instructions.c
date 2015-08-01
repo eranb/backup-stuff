@@ -257,7 +257,7 @@ void print_entry(char *string, int c) {
   make_it_12_digits(tmp);
   binary_to_base4(tmp, line_num);
   fprintf(ent_file, "%s:	%d\n", string, (atoi(line_num)));
-  update_tml(entry_list, s,2);
+  update_tml(entry_list, string,2);
   return;
 }
 
