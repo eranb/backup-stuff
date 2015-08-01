@@ -26,5 +26,5 @@ char current_command[13];
 int times_to_code = 0;
 
 void exec_cmd(FILE *,FILE *,int);
-void get_first_operand(FILE *file);
+void fetch_first_operand(FILE *file);
 void get_second_operand(FILE *file);

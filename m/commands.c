@@ -196,7 +196,7 @@ void get_second_operand(FILE *file) {
   return;
 }
 
-void get_first_operand(FILE *file) {
+void fetch_first_operand(FILE *file) {
   extern int my_index;
   int minus = 0, i = 0, num, c;
   char tmp[MAXLINE];
@@ -439,7 +439,7 @@ void no_operands(FILE *file) {
 }
 
 void mov(FILE *file) {
-  get_first_operand(file);
+  fetch_first_operand(file);
   get_second_operand(file);
   if (current_command[8] == '0' && current_command[9] == '0') {
     fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
@@ -454,7 +454,7 @@ void mov(FILE *file) {
 
 
 void cmp(FILE *file) {
-  get_first_operand(file);
+  fetch_first_operand(file);
   get_second_operand(file);
   return;
 }
@@ -480,7 +480,7 @@ void inc(FILE *file) {
 }
 
 void lea(FILE *file) {
-  get_first_operand(file);
+  fetch_first_operand(file);
   get_second_operand(file);
   if (!(current_command[6] == '0' && current_command[7] == '1')) {
     fprintf(error_file, "at_line: %d, error: first operand - wrong operand method\n", line_num);
