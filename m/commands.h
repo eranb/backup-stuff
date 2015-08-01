@@ -8,7 +8,7 @@ extern int got_error;
 extern FILE *error_file;
 extern int line_num;
 
-void print_command();
+void write_code();
 void no_operands();
 void mov();
 void cmp();
