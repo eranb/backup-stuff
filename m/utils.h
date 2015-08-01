@@ -5,17 +5,17 @@
 #include <ctype.h>
 #include <math.h>
 
-#define MAXLINE 70
+#define MAX_LINE_SIZE 70
 
 char first_operand[13];
 char second_operand[13];
-char word[MAXLINE];
-char label[MAXLINE];
+char word[MAX_LINE_SIZE];
+char label[MAX_LINE_SIZE];
 char command[5];
 char group[3];
-char line[MAXLINE];
-char previous_first_operand[MAXLINE];
-char previous_second_operand[MAXLINE];
+char line[MAX_LINE_SIZE];
+char previous_first_operand[MAX_LINE_SIZE];
+char previous_second_operand[MAX_LINE_SIZE];
 
 int in_base(int num, int base, char *result);
 void check_group(char *s, char *end);

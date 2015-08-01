@@ -75,11 +75,11 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
 void get_second_operand(FILE *file) {
   extern int my_index;
   int minus = 0, i = 0, c;
-  char tmp[MAXLINE], result[MAXLINE], r[2];
+  char tmp[MAX_LINE_SIZE], result[MAX_LINE_SIZE], r[2];
   
   reset_str(r, 2);
-  reset_str(tmp, MAXLINE);
-  reset_str(result, MAXLINE);
+  reset_str(tmp, MAX_LINE_SIZE);
+  reset_str(result, MAX_LINE_SIZE);
   
   while (isspace(line[my_index])) my_index++;
   
@@ -152,7 +152,7 @@ void get_second_operand(FILE *file) {
     if ((strlen(tmp))==2 && (tmp[0] == 'r') && isdigit(tmp[1])) {
       fetch_register(r, tmp);
       if (atoi(r) || atoi(r) == 0) {
-        reset_str(second_operand, MAXLINE);
+        reset_str(second_operand, MAX_LINE_SIZE);
         strcpy(second_operand, r);
         current_command[8]=current_command[9]='1';
         got_second_operand = 1;
@@ -184,7 +184,7 @@ void get_second_operand(FILE *file) {
   }
   
   my_index++;
-  reset_str(previous_second_operand, MAXLINE);
+  reset_str(previous_second_operand, MAX_LINE_SIZE);
   strcpy(previous_second_operand, second_operand);
   while (isspace(line[my_index])) my_index++;
   
@@ -199,9 +199,9 @@ void get_second_operand(FILE *file) {
 void fetch_first_operand(FILE *file) {
   extern int my_index;
   int minus = 0, i = 0, c;
-  char tmp[MAXLINE],r[2];
+  char tmp[MAX_LINE_SIZE],r[2];
   
-  reset_str(tmp, MAXLINE);
+  reset_str(tmp, MAX_LINE_SIZE);
   
   if (line[my_index] == '#') {
     current_command[6] = current_command[7] = '0';		
@@ -281,7 +281,7 @@ void fetch_first_operand(FILE *file) {
     if (((strlen(tmp))==2) && (tmp[0] == 'r') && (isdigit(tmp[1]))) {
       fetch_register(r, tmp);
       if ((atoi(r)) || (atoi(r) == 0)) {
-        reset_str(first_operand, MAXLINE);
+        reset_str(first_operand, MAX_LINE_SIZE);
         strcpy(first_operand, r);
         current_command[6]=current_command[7]='1';
         first_operand_exists = 1;
@@ -327,15 +327,15 @@ void fetch_first_operand(FILE *file) {
 void write_code(FILE *file) {	
   extern int IC;
   int i;
-  char end_result[MAXLINE];
-  char command_adress[MAXLINE];
-  char first_adress[MAXLINE];
-  char second_adress[MAXLINE];
+  char end_result[MAX_LINE_SIZE];
+  char command_adress[MAX_LINE_SIZE];
+  char first_adress[MAX_LINE_SIZE];
+  char second_adress[MAX_LINE_SIZE];
   int flag_combined = 0;
-  reset_str(end_result, MAXLINE);
-  reset_str(command_adress, MAXLINE);
-  reset_str(first_adress, MAXLINE);
-  reset_str(second_adress, MAXLINE);
+  reset_str(end_result, MAX_LINE_SIZE);
+  reset_str(command_adress, MAX_LINE_SIZE);
+  reset_str(first_adress, MAX_LINE_SIZE);
+  reset_str(second_adress, MAX_LINE_SIZE);
   make_it_12_digits(current_command);
   convert_binary_string_to_base_4_string(current_command, end_result);
   reset_str(current_command, strlen(current_command));
@@ -347,7 +347,7 @@ void write_code(FILE *file) {
   }
   if(strlen(first_operand) == 5 && strlen(second_operand) == 5) {
     flag_combined = 1;		
-    reset_str(end_result, MAXLINE);		
+    reset_str(end_result, MAX_LINE_SIZE);		
     strcat(first_operand, second_operand);
     first_operand[10]=first_operand[11]='0';
     convert_binary_string_to_base_4_string(first_operand, end_result);
@@ -359,7 +359,7 @@ void write_code(FILE *file) {
     IC++;
   } else {	
     if (first_operand_exists) {
-      reset_str(end_result, MAXLINE);
+      reset_str(end_result, MAX_LINE_SIZE);
       if(strlen(first_operand) == 5) {
         for (i=5; i<12; i++)				
           first_operand[i] = '0';		
@@ -380,7 +380,7 @@ void write_code(FILE *file) {
       IC++;
     }
     if (got_second_operand) {
-      reset_str(end_result, MAXLINE);
+      reset_str(end_result, MAX_LINE_SIZE);
       if(strlen(second_operand) == 5)
         second_operand[5]=second_operand[6]='0';		
       if(flag_second_relocatable) {

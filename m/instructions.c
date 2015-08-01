@@ -63,8 +63,8 @@ void do_instructions(FILE *file) {
 void do_data(FILE *file) {
   extern int my_index, DC;
   int first_time_flag = 1, i=0, minus = 0;
-  char number[MAXLINE];
-  char result[MAXLINE];
+  char number[MAX_LINE_SIZE];
+  char result[MAX_LINE_SIZE];
   unsigned int num;	
   while (line[my_index] != '\0') /* for every number in the line */
   {	
@@ -112,7 +112,7 @@ void do_data(FILE *file) {
     make_it_12_digits(result);
     if (minus)
       two_complement(result);
-    reset_str(first_operand, MAXLINE);
+    reset_str(first_operand, MAX_LINE_SIZE);
     convert_binary_string_to_base_4_string(result, first_operand);
     if ((got_error != 1)&&(iteration == 2))
       fprintf(data_file, "%s\n", first_operand);
@@ -131,8 +131,8 @@ void do_data(FILE *file) {
 void do_string(FILE *file) {
   extern int my_index, DC;	
   int num;
-  char result[MAXLINE];
-  reset_str(first_operand, MAXLINE);
+  char result[MAX_LINE_SIZE];
+  reset_str(first_operand, MAX_LINE_SIZE);
   while(isspace(line[my_index]))	
     my_index++; 
   if (line[my_index] == '\0') /* if there is no string at all */

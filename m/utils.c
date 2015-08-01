@@ -195,8 +195,8 @@ void make_it_12_digits(char *result)
 
 
 void make_header(FILE *file, int commands, int data) {
-  char command_num[MAXLINE];
-  char data_num[MAXLINE];
+  char command_num[MAX_LINE_SIZE];
+  char data_num[MAX_LINE_SIZE];
   int num;
   num = commands - 100;
   in_base(num, 4, command_num);
@@ -206,15 +206,15 @@ void make_header(FILE *file, int commands, int data) {
 
 void make_final_file(int IC, FILE *data_file, FILE *final_file)
 {
-  char data_line[MAXLINE];
-  char adress[MAXLINE];
-  reset_str(adress, MAXLINE);
-  reset_str(data_line, MAXLINE);
+  char data_line[MAX_LINE_SIZE];
+  char adress[MAX_LINE_SIZE];
+  reset_str(adress, MAX_LINE_SIZE);
+  reset_str(data_line, MAX_LINE_SIZE);
   rewind(data_file);
   while (!feof(data_file))
   {
-    reset_str(data_line, MAXLINE);		
-    fgets(data_line, MAXLINE, data_file);
+    reset_str(data_line, MAX_LINE_SIZE);		
+    fgets(data_line, MAX_LINE_SIZE, data_file);
     in_base(IC, 4, adress);
     if (data_line[0] != '\0')
       fprintf(final_file, "%s	%s", adress, data_line);

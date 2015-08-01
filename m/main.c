@@ -62,15 +62,15 @@ int run() {
 int eval(int time) {
   int ic, dc, tmp, i = 0;
 
-  reset_str(line, MAXLINE);
-  reset_str(word, MAXLINE);
-  reset_str(label, MAXLINE);
+  reset_str(line, MAX_LINE_SIZE);
+  reset_str(word, MAX_LINE_SIZE);
+  reset_str(label, MAX_LINE_SIZE);
   reset_str(command, 5);
   reset_str(group, 3);
 
   while (!feof(as_file)) {                       
-    reset_str(line, MAXLINE);
-    fgets(line, MAXLINE, as_file);
+    reset_str(line, MAX_LINE_SIZE);
+    fgets(line, MAX_LINE_SIZE, as_file);
     tmp = strlen(line) - 1;
     line[tmp] = '\0';
     line_num++;
@@ -83,7 +83,7 @@ int eval(int time) {
             ic = IC;
             dc = DC;
             word[i] = '\0';
-            reset_str(label, MAXLINE);
+            reset_str(label, MAX_LINE_SIZE);
             strcpy(label, word);
             i = read_word(i);
           } else {
@@ -97,7 +97,7 @@ int eval(int time) {
           if (time == 0) {
             add_symbol(label, 1, dc);
             do_instructions(temp_file);
-            reset_str(line, MAXLINE);
+            reset_str(line, MAX_LINE_SIZE);
             my_index = i = 0;
           } else {
             do_instructions(final_file);
@@ -107,7 +107,7 @@ int eval(int time) {
           if (time == 0) {
             exec_cmd(temp_file, error_file, iteration);
             add_symbol(label, 2, ic);
-            reset_str(line, MAXLINE);
+            reset_str(line, MAX_LINE_SIZE);
             my_index = i = 0;
           } else {
             exec_cmd(final_file,error_file,iteration);
