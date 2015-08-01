@@ -50,13 +50,13 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
       inc();
       break;
     } case 1110: case 1111: { 
-      deal_with_no_operands();
+      no_operands();
       break;
     }case 110: {
       lea();
       break;
     } case 1001: case 1010: case 1011: {
-      jmp_bne_red();
+      jmp();
       break;
     } case 1101: {
       jsr();
@@ -434,7 +434,7 @@ void print_command(FILE *file) {
   return;
 }
 
-void deal_with_no_operands(FILE *file) {
+void no_operands(FILE *file) {
   extern int my_index;	
   current_command[6]=current_command[7]=current_command[8]=current_command[9]='0';
   the_last_first_operand = -1;
@@ -506,7 +506,7 @@ void lea(FILE *file) {
   return;
 }
 
-void jmp_bne_red(FILE *file) {
+void jmp(FILE *file) {
   int i;	
   get_second_operand(file);
   the_last_first_operand = -1;

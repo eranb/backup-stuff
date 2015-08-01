@@ -9,12 +9,12 @@ extern FILE *error_file;
 extern int line_num;
 
 void print_command();
-void deal_with_no_operands();
+void no_operands();
 void mov();
 void cmp();
 void inc();
 void lea();
-void jmp_bne_red();
+void jmp();
 void prn();
 void jsr();
 
