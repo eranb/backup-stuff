@@ -284,9 +284,8 @@ void clean_lists() {
 void normalize_line_numbers() {
   extern int IC;	
   List p = symbol_list;
-  if (!p) return;
 
-  while (p->next != NULL) {
+  while (!(p == NULL || p->next == NULL)) {
     if (p->tml == 1) p->line += IC;
     p=p->next;
   }
