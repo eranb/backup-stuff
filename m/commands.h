@@ -28,4 +28,6 @@ int times_to_code = 0;
 void exec_cmd(FILE *,FILE *,int);
 void fetch_first_operand(FILE *file);
 void get_second_operand(FILE *file);
+
 char previous_first_operand[MAX_LINE_SIZE];
+char previous_second_operand[MAX_LINE_SIZE];
