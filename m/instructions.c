@@ -62,7 +62,7 @@ void do_instructions(FILE *file) {
 /* a function that deals with ".data" instruction. prints all the numbers following on the same line as a base 4 strings. */
 void do_data(FILE *file) {
   extern int my_index, DC;
-  int first_time_flag = 1, i=0, minus_flag = 0;
+  int first_time_flag = 1, i=0, minus = 0;
   char number[MAXLINE];
   char result[MAXLINE];
   unsigned int num;	
@@ -87,7 +87,7 @@ void do_data(FILE *file) {
     }
     if (line[my_index] == '-') /* if its a minus number, we'd have to use complementation to 2 */
     {
-      minus_flag = 1;
+      minus = 1;
       my_index++;
     }
     else if (line[my_index] == '+')
@@ -108,16 +108,16 @@ void do_data(FILE *file) {
 
     number[i] = '\0';
     num = atoi(number);
-    convert_to_base(num, 2, result);
+    in_base(num, 2, result);
     complete_to_12(result);
-    if (minus_flag)
+    if (minus)
       two_complement(result);
     reset_str(first_operand, MAXLINE);
     convert_binary_string_to_base_4_string(result, first_operand);
     if ((got_error != 1)&&(iteration == 2))
       fprintf(data_file, "%s\n", first_operand);
     i=0;
-    minus_flag = 0;	
+    minus = 0;	
     while (isspace(line[my_index])) my_index++;
     if(line[my_index] == ',')
       my_index++;
@@ -160,7 +160,7 @@ void do_string(FILE *file) {
       return;
     }
     num = (int) line[my_index];
-    convert_to_base(num, 2, result);
+    in_base(num, 2, result);
     complete_to_12(result);
     convert_binary_string_to_base_4_string(result, first_operand);
     if ((got_error != 1)&&(iteration == 2))
@@ -172,7 +172,7 @@ void do_string(FILE *file) {
   {
     my_index++;
     num = 0;
-    convert_to_base(num, 2, result);
+    in_base(num, 2, result);
     complete_to_12(result);
     convert_binary_string_to_base_4_string(result, first_operand);
     if ((got_error != 1)&&(iteration == 2))
@@ -238,7 +238,7 @@ void print_extern(char *s, int op_kind, int times) {
   reset_str(tmp, 30);
   reset_str(line_num, 30);
   i = IC + op_kind;
-  convert_to_base(i, 2, tmp);
+  in_base(i, 2, tmp);
   complete_to_12(tmp);
   convert_binary_string_to_base_4_string(tmp, line_num);
   fprintf(ext_file, "%s:	%d\n", s, (atoi(line_num)));
@@ -251,7 +251,7 @@ void print_extern(char *s, int op_kind, int times) {
       i += 3;
     reset_str(tmp, 30);
     reset_str(line_num, 30);
-    convert_to_base(i, 2, tmp);
+    in_base(i, 2, tmp);
     complete_to_12(tmp);
     convert_binary_string_to_base_4_string(tmp, line_num);
     fprintf(ext_file, "%s:	%d\n", s, (atoi(line_num)));
@@ -265,7 +265,7 @@ void print_entry(char *s, int c) {
   char line_num[30];
   reset_str(tmp, 30);
   reset_str(line_num, 30);
-  convert_to_base(c, 2, tmp);
+  in_base(c, 2, tmp);
   complete_to_12(tmp);
   convert_binary_string_to_base_4_string(tmp, line_num);
   fprintf(ent_file, "%s:	%d\n", s, (atoi(line_num)));
