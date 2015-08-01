@@ -99,21 +99,24 @@ void do_data(FILE *file) {
 
     in_base(atoi(number), 2, result);
     make_it_12_digits(result);
-    if (minus)
-      two_complement(result);
+
+    if (minus) two_complement(result);
     reset_str(first_operand, MAX_LINE_SIZE);
+
     binary_to_base4(result, first_operand);
-    if ((got_error != 1)&&(iteration == 2))
+
+    if ( (got_error != 1) && (iteration == 2) )
       fprintf(data_file, "%s\n", first_operand);
+
     i=0;
-    minus = 0;	
+    minus = 0;
+
     while (isspace(line[my_index])) my_index++;
-    if(line[my_index] == ',')
-      my_index++;
+
+    if(line[my_index] == ',') my_index++;
     while (isspace(line[my_index])) my_index++;
     DC++;
   }
-  return;			
 }
 
 /* a function that deals with ".string" instruction. prints all the letters following on the same line as a base 4 strings. */
