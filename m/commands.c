@@ -326,14 +326,13 @@ void fetch_first_operand(FILE *file) {
 void write_code(FILE *file) {	
   extern int IC;
   int i;
-  char results[MAX_LINE_SIZE],addressing[MAX_LINE_SIZE];
-  char address[MAX_LINE_SIZE];
-  char second_adress[MAX_LINE_SIZE];
+  char results[MAX_LINE_SIZE], addressing[MAX_LINE_SIZE], address[MAX_LINE_SIZE];
+  char second_address[MAX_LINE_SIZE];
   int flag_combined = 0;
   reset_str(results, MAX_LINE_SIZE);
   reset_str(addressing, MAX_LINE_SIZE);
   reset_str(address, MAX_LINE_SIZE);
-  reset_str(second_adress, MAX_LINE_SIZE);
+  reset_str(second_address, MAX_LINE_SIZE);
   make_it_12_digits(current_command);
   convert_binary_string_to_base_4_string(current_command, results);
   reset_str(current_command, strlen(current_command));
@@ -393,8 +392,8 @@ void write_code(FILE *file) {
       reset_str(second_operand, strlen(second_operand));
       strcpy(second_operand, results);
       if (!(got_error)) {
-        in_base(IC, 4, second_adress);
-        fprintf(file, "%s	%s \n", second_adress, second_operand);
+        in_base(IC, 4, second_address);
+        fprintf(file, "%s	%s \n", second_address, second_operand);
       }
       IC++;
     }
@@ -421,8 +420,8 @@ void write_code(FILE *file) {
       }
       if (got_second_operand) {	
         if (!(got_error))	 {
-          in_base(IC, 4, second_adress);	
-          fprintf(file, "%s	%s \n", second_adress, second_operand);
+          in_base(IC, 4, second_address);	
+          fprintf(file, "%s	%s \n", second_address, second_operand);
         }
         IC++;
       }
