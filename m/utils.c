@@ -38,20 +38,18 @@ struct {
   {"not a register", NULL}
 };
 
-void command_to_code(char *s, char *end) {
-  int i=0, j;
-  while (strcmp(cmd_type[i].name, "not a command"))
-  {
-    j=strcmp(cmd_type[i].name, s);	
-    if (j == 0)
-    {
+void command_to_code(char *string, char *end) {
+  int i=0;
+  
+  while (strcmp(cmd_type[i].name, "not a command")) {
+    if (strcmp(cmd_type[i].name, string) == 0) {
       strcpy(end, cmd_type[i].binary_val);
       return;
     }
     i+=1;
   }
-  for (i=0; i<strlen(end); i++)
-    end[i]='\0';
+  
+  for (i=0; i<strlen(end); i++) end[i]='\0';
   return;
 }
 
