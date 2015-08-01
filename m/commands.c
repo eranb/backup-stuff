@@ -367,10 +367,10 @@ void write_code(FILE *file) {
           first_operand[i] = '0';		
       }
       
-      if(flag_first_relocatable) {
+      if(first_relocatable) {
         strcat(first_operand, "10");
         strcat(previous_first_operand, "10");
-        flag_first_relocatable = 0;
+        first_relocatable = 0;
       }
       
       make_it_12_digits(first_operand);
@@ -565,7 +565,7 @@ int get_value_of_label(char *s, int op_kind) {
     return c;
   }
   if (op_kind == 1)
-    flag_first_relocatable = 1;
+    first_relocatable = 1;
   if (op_kind == 2)
     flag_second_relocatable = 2;
   return c;
