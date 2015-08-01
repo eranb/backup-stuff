@@ -1,7 +1,7 @@
 int current_iteration = 1;
 int first_operand_exists = 0;
-int second_operand_exists = 0;
-int second_operand_exists_again = 0;
+int got_second_operand = 0;
+int got_second_operand_again = 0;
 int flag_second_relocatable = 0;
 int flag_first_relocatable = 0;
 extern int got_error;
