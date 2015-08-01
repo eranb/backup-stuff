@@ -112,10 +112,10 @@ void do_data(FILE *file) {
     make_it_12_digits(result);
     if (minus)
       two_complement(result);
-    reset_str(first_operand, MAXLINE);
-    convert_binary_string_to_base_4_string(result, first_operand);
+    reset_str(fetch_first_operand, MAXLINE);
+    convert_binary_string_to_base_4_string(result, fetch_first_operand);
     if ((got_error != 1)&&(iteration == 2))
-      fprintf(data_file, "%s\n", first_operand);
+      fprintf(data_file, "%s\n", fetch_first_operand);
     i=0;
     minus = 0;	
     while (isspace(line[my_index])) my_index++;
@@ -132,7 +132,7 @@ void do_string(FILE *file) {
   extern int my_index, DC;	
   int num;
   char result[MAXLINE];
-  reset_str(first_operand, MAXLINE);
+  reset_str(fetch_first_operand, MAXLINE);
   while(isspace(line[my_index]))	
     my_index++; 
   if (line[my_index] == '\0') /* if there is no string at all */
@@ -162,9 +162,9 @@ void do_string(FILE *file) {
     num = (int) line[my_index];
     in_base(num, 2, result);
     make_it_12_digits(result);
-    convert_binary_string_to_base_4_string(result, first_operand);
+    convert_binary_string_to_base_4_string(result, fetch_first_operand);
     if ((got_error != 1)&&(iteration == 2))
-      fprintf(data_file, "%s\n", first_operand);
+      fprintf(data_file, "%s\n", fetch_first_operand);
     my_index++;
     DC++;
   }
@@ -174,9 +174,9 @@ void do_string(FILE *file) {
     num = 0;
     in_base(num, 2, result);
     make_it_12_digits(result);
-    convert_binary_string_to_base_4_string(result, first_operand);
+    convert_binary_string_to_base_4_string(result, fetch_first_operand);
     if ((got_error != 1)&&(iteration == 2))
-      fprintf(data_file, "%s\n", first_operand);
+      fprintf(data_file, "%s\n", fetch_first_operand);
     DC++;
   }
   else  /* if there was no " at the ned */

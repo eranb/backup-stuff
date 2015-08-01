@@ -7,14 +7,14 @@
 
 #define MAXLINE 70
 
-char first_operand[13];
+char fetch_first_operand[13];
 char second_operand[13];
 char word[MAXLINE];
 char label[MAXLINE];
 char command[5];
 char group[3];
 char line[MAXLINE];
-char previous_first_operand[MAXLINE];
+char previous_fetch_first_operand[MAXLINE];
 char previous_second_operand[MAXLINE];
 
 int in_base(int num, int base, char *result);

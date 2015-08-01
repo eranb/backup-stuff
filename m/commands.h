@@ -1,5 +1,5 @@
 int current_iteration = 1;
-int first_operand_exists = 0;
+int fetch_first_operand_exists = 0;
 int got_second_operand = 0;
 int got_second_operand_again = 0;
 int flag_second_relocatable = 0;
@@ -19,12 +19,12 @@ void prn();
 void jsr();
 
 char group_check;
-char last_first_operand = 0;
+char last_fetch_first_operand = 0;
 char last_second_operand = 0;
 char current_command[13];
 
 int times_to_code = 0;
 
 void exec_cmd(FILE *,FILE *,int);
-void get_first_operand(FILE *file);
+void get_fetch_first_operand(FILE *file);
 void get_second_operand(FILE *file);
