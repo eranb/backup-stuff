@@ -460,8 +460,8 @@ void no_operands(FILE *file) {
 void mov(FILE *file) {
   fetch_first_operand(file);
   get_second_operand(file);
-  if ((current_command[8] == '0' && current_command[9] == '0')
-      || (current_command[8] == '1' && current_command[9] == '0')) {
+  if (  (current_command[8] == '0' && current_command[9] == '0')
+      ||(current_command[8] == '1' && current_command[9] == '0')) {
     fprintf(error_file, "%d: wrong second operand...\n", line_num);
     got_error = 1;
   }
