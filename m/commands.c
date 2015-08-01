@@ -108,29 +108,29 @@ void get_second_operand(FILE *file) {
     i=0;
     minus = 0;
     got_second_operand = 1;
-    the_last_second_operand = 00;
+    last_second_operand = 00;
   } else if (line[my_index] == '$') {
     my_index++;
     if (line[my_index] != '$') {
       fprintf(error_file, "at line: %d, error: not an acceptable operand\n", line_num);
       got_error = 1;
-      the_last_second_operand = -1;
+      last_second_operand = -1;
       return;
     }
-    if ((the_last_first_operand == -1)&&(the_last_second_operand == -1)) {
+    if ((the_last_first_operand == -1)&&(last_second_operand == -1)) {
       fprintf(error_file, "at line: %d, error: there was no operand in the last line\n", line_num);
       got_error = 1;
-      the_last_second_operand = -1;
+      last_second_operand = -1;
       return;
     }
-    if (the_last_second_operand == -1)
+    if (last_second_operand == -1)
     {
       group_check = the_last_first_operand;
       strcpy(second_operand, previous_first_operand);
     }
     else
     {
-      group_check = the_last_second_operand;
+      group_check = last_second_operand;
       strcpy(second_operand, previous_second_operand);
     }			
     switch (group_check)
@@ -159,7 +159,7 @@ void get_second_operand(FILE *file) {
         strcpy(second_operand, r);
         current_command[8]=current_command[9]='1';
         got_second_operand = 1;
-        the_last_second_operand = 3;
+        last_second_operand = 3;
       }
     }
     else
@@ -171,7 +171,7 @@ void get_second_operand(FILE *file) {
         current_command[8] = '0';
         current_command[9] = '1';
         got_second_operand = 1;
-        the_last_second_operand = 1;
+        last_second_operand = 1;
       }
       else
       {
@@ -186,7 +186,7 @@ void get_second_operand(FILE *file) {
         current_command[9] = '1';
         in_base(c, 2, second_operand);
         got_second_operand = 1;
-        the_last_second_operand = 1;
+        last_second_operand = 1;
       }
     }		
   }
@@ -252,14 +252,14 @@ void get_first_operand(FILE *file) {
       the_last_first_operand = -1;
       return;
     }
-    if ((the_last_first_operand == -1)&&(the_last_second_operand == -1)) {
+    if ((the_last_first_operand == -1)&&(last_second_operand == -1)) {
       fprintf(error_file, "at line: %d, error: there was no operand in the last line\n", line_num);
       got_error = 1;
       the_last_first_operand = -1;
       return;
     }
     if (the_last_first_operand == -1) {
-      group_check = the_last_second_operand;
+      group_check = last_second_operand;
       strcpy(first_operand, previous_second_operand);
     } else {
       group_check = the_last_first_operand;
@@ -438,7 +438,7 @@ void no_operands(FILE *file) {
   extern int my_index;	
   current_command[6]=current_command[7]=current_command[8]=current_command[9]='0';
   the_last_first_operand = -1;
-  the_last_second_operand = -1;
+  last_second_operand = -1;
   while (!(line[my_index] == '\0' || isspace( line[my_index] ))) {
     fprintf(error_file, "at_line: %d, error: wasnt expecting anything after command\n", line_num);
     got_error = 1;	
