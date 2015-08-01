@@ -289,14 +289,12 @@ void normalize_line_numbers() {
     if (p->tml == 1) p->line += IC;
     p=p->next;
   }
-  return;
 }
 
 int check_entry_list() {
   List p = entry_list;
-  if (!p) return 0;
 
-  while (p->next != NULL) {
+  while (!(p == NULL || p->next == NULL)) {
     if (p->tml != 2) return 2;
     p=p->next;
   }
