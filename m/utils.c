@@ -182,7 +182,7 @@ void two_complement(char *tmp)
   }
   return;
 }
-void complete_to_12(char *result)
+void make_it_12_digits(char *result)
 {
   int i = strlen(result), j=0;
   char tmp[12];

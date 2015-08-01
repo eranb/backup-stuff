@@ -102,7 +102,7 @@ void get_second_operand(FILE *file) {
     
     in_base(atoi(tmp), 2, tmp);
     strcat(tmp, "00");
-    complete_to_12(tmp);
+    make_it_12_digits(tmp);
     if (minus) two_complement(tmp);
     strcpy(second_operand, tmp);
     i=0;
@@ -229,7 +229,7 @@ void get_first_operand(FILE *file) {
     num = atoi(tmp);
     in_base(num, 2, tmp);
     strcat(tmp, "00");
-    complete_to_12(tmp);
+    make_it_12_digits(tmp);
     if (minus)
       two_complement(tmp);
     strcpy(first_operand, tmp);
@@ -337,7 +337,7 @@ void write_code(FILE *file) {
   reset_str(command_adress, MAXLINE);
   reset_str(first_adress, MAXLINE);
   reset_str(second_adress, MAXLINE);
-  complete_to_12(current_command);
+  make_it_12_digits(current_command);
   convert_binary_string_to_base_4_string(current_command, end_result);
   reset_str(current_command, strlen(current_command));
   strcpy(current_command, end_result);
@@ -370,7 +370,7 @@ void write_code(FILE *file) {
         strcat(previous_first_operand, "10");
         flag_first_relocatable = 0;
       }
-      complete_to_12(first_operand);
+      make_it_12_digits(first_operand);
       convert_binary_string_to_base_4_string(first_operand, end_result);
       reset_str(first_operand, strlen(first_operand));
       strcpy(first_operand, end_result);
@@ -389,7 +389,7 @@ void write_code(FILE *file) {
         strcat(previous_second_operand, "10");
         flag_second_relocatable = 0;
       }
-      complete_to_12(second_operand);
+      make_it_12_digits(second_operand);
       convert_binary_string_to_base_4_string(second_operand, end_result);
       reset_str(second_operand, strlen(second_operand));
       strcpy(second_operand, end_result);
