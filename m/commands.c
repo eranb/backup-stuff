@@ -480,17 +480,11 @@ void inc(FILE *file) {
   last_first_operand = -1;
   for (i=0; i<12; i++)
     first_operand[i]='0';
-  if (current_command[8] == '0' && current_command[9] == '0')
-  {
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+  if (  (current_command[8] == '0' && current_command[9] == '0') 
+      ||(current_command[8] == '1' && current_command[9] == '0')) {
+    fprintf(error_file, "%d: wrong second operand\n", line_num);
     got_error = 1;
   }
-  else if (current_command[8] == '1' && current_command[9] == '0')
-  {	
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
-    got_error = 1;
-  }
-  return;
 }
 
 void lea(FILE *file) {
