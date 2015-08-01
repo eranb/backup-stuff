@@ -74,17 +74,17 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
 
 void get_second_operand(FILE *file) {
   extern int my_index;
-  int minus = 0, i = 0, num;
-  char tmp[MAXLINE];
-  char result[MAXLINE];
-  char r[2];
-  int c;
+  int minus = 0, i, num, c;
+  char tmp[MAXLINE],result[MAXLINE],r[2];
+  
   reset_str(r, 2);
   reset_str(tmp, MAXLINE);
   reset_str(result, MAXLINE);
+  
   while (isspace(line[my_index])) my_index++;
+  
   if (line[my_index] == '#') {
-    current_command[8] = current_command[9] = '0';		
+    current_command[8] = current_command[9] = '0';
     my_index++;
     if (line[my_index] == '-') {
       minus = 1;
@@ -92,12 +92,11 @@ void get_second_operand(FILE *file) {
     } else if (line[my_index] == '+') {
       my_index++;
     } else if (!isdigit(line[my_index])) {
-      fprintf(error_file, "at line: %d, error: was expecting a number, and not %c\n", line_num, line[my_index]);
+      fprintf(error_file, "%d: expected number ( not '%c')\n", line_num, line[my_index]);
       return;
     }
 
-    while (isdigit(line[my_index]))
-      tmp[i++]=line[my_index++];
+    while (isdigit(line[my_index])) tmp[i++]=line[my_index++];
 
     tmp[i] = '\0';
     num = atoi(tmp);
