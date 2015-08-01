@@ -164,7 +164,7 @@ void make_it_12_digits(char *result) {
 }	
 
 void make_header(FILE *file, int commands, int data) {
-  char command_num[MAX_LINE_SIZE], char data_num[MAX_LINE_SIZE];
+  char command_num[MAX_LINE_SIZE], data_num[MAX_LINE_SIZE];
   int num;
   num = commands - 100;
   in_base(num, 4, command_num);
