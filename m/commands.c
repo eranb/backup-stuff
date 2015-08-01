@@ -66,8 +66,9 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
       break;
     } 
   }
-    current_command[10] = current_command[11] = '0';
-  print_command(file);
+  
+  current_command[10] = current_command[11] = '0';
+  write_code(file);
   return;
 }
 
@@ -325,7 +326,7 @@ void get_first_operand(FILE *file) {
 
 }
 
-void print_command(FILE *file) {	
+void write_code(FILE *file) {	
   extern int IC;
   int i;
   char end_result[MAXLINE];
