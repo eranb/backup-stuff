@@ -29,7 +29,6 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
     return;
   }
 
-  // double
   for (j=2, i=0; j<6; j++, i++) current_command[j] = command[i];
 
   check_group(command, group);
@@ -37,15 +36,10 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
   current_command[1]=group[1];
   while (isspace(line[my_index])) my_index++;
 
-  i=2;
-  j=0;
-
-  for ( ; i<6; i++)
+  for ( i=2, j=0; i<6; i++)
     tmp[j++]=current_command[i];
 
   num = atoi(tmp);
-
-
 
   switch(num) {
     case 1110: case 1111: { 
