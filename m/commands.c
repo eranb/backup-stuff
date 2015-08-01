@@ -74,7 +74,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
 
 void get_second_operand(FILE *file) {
   extern int my_index;
-  int minus_flag = 0, i = 0, num;
+  int minus = 0, i = 0, num;
   char tmp[MAXLINE];
   char result[MAXLINE];
   char r[2];
@@ -87,7 +87,7 @@ void get_second_operand(FILE *file) {
     current_command[8] = current_command[9] = '0';		
     my_index++;
     if (line[my_index] == '-') {
-      minus_flag = 1;
+      minus = 1;
       my_index++;
     } else if (line[my_index] == '+') {
       my_index++;
@@ -104,10 +104,10 @@ void get_second_operand(FILE *file) {
     convert_to_base(num, 2, tmp);
     strcat(tmp, "00");
     complete_to_12(tmp);
-    if (minus_flag) two_complement(tmp);
+    if (minus) two_complement(tmp);
     strcpy(second_operand, tmp);
     i=0;
-    minus_flag = 0;
+    minus = 0;
     second_operand_exists = 1;
     the_last_second_operand = 00;
   } else if (line[my_index] == '$') {
@@ -207,7 +207,7 @@ void get_second_operand(FILE *file) {
 
 void get_first_operand(FILE *file) {
   extern int my_index;
-  int minus_flag = 0, i = 0, num, c;
+  int minus = 0, i = 0, num, c;
   char tmp[MAXLINE];
   char r[2];
   reset_str(tmp, MAXLINE);
@@ -215,7 +215,7 @@ void get_first_operand(FILE *file) {
     current_command[6] = current_command[7] = '0';		
     my_index++;
     if (line[my_index] == '-') {
-      minus_flag = 1;
+      minus = 1;
       my_index++;
     }
     else if (line[my_index] == '+')
@@ -231,11 +231,11 @@ void get_first_operand(FILE *file) {
     convert_to_base(num, 2, tmp);
     strcat(tmp, "00");
     complete_to_12(tmp);
-    if (minus_flag)
+    if (minus)
       two_complement(tmp);
     strcpy(first_operand, tmp);
     i=0;
-    minus_flag = 0;
+    minus = 0;
     first_operand_exists = 1;
     the_last_first_operand = 0;
   }
