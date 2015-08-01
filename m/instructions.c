@@ -218,10 +218,13 @@ void do_extern(FILE *file) {
 void write_extern(char *s, int operation, int times) {
   extern int IC;
   int i;
+
   char tmp[30];
   char line_num[30];
+
   reset_str(tmp, 30);
   reset_str(line_num, 30);
+
   i = IC + operation;
   in_base(i, 2, tmp);
   make_it_12_digits(tmp);
@@ -234,17 +237,17 @@ void write_extern(char *s, int operation, int times) {
       i += 2;
     else
       i += 3;
+
     reset_str(tmp, 30);
     reset_str(line_num, 30);
     in_base(i, 2, tmp);
     make_it_12_digits(tmp);
     binary_to_base4(tmp, line_num);
-    fprintf(ext_file, "%s:	%d\n", s, (atoi(line_num)));
+    fprintf(ext_file, "%s:	%d\n", s, atoi(line_num));
   }
-  return;
 }
 
-void print_entry(char *s, int c) {
+void print_entry(char *string, int c) {
   extern int IC;
   char tmp[30];
   char line_num[30];
@@ -253,7 +256,7 @@ void print_entry(char *s, int c) {
   in_base(c, 2, tmp);
   make_it_12_digits(tmp);
   binary_to_base4(tmp, line_num);
-  fprintf(ent_file, "%s:	%d\n", s, (atoi(line_num)));
+  fprintf(ent_file, "%s:	%d\n", string, (atoi(line_num)));
   update_tml(entry_list, s,2);
   return;
 }
