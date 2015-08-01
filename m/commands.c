@@ -41,7 +41,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
 
   switch(atoi(tmp)) {
     case 0: case 10: case 11: {
-      mov_addsub();
+      mov();
       break;
     } case 1: { 
       cmp();
@@ -447,7 +447,7 @@ void deal_with_no_operands(FILE *file) {
   return;
 }
 
-void mov_addsub(FILE *file) {
+void mov(FILE *file) {
   get_first_operand(file);
   get_second_operand(file);
   if (current_command[8] == '0' && current_command[9] == '0') {

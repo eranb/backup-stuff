@@ -10,7 +10,7 @@ extern int line_num;
 
 void print_command();
 void deal_with_no_operands();
-void mov_addsub();
+void mov();
 void cmp();
 void not_clr_inc_dec();
 void lea();
