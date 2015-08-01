@@ -53,7 +53,7 @@ void do_instructions(FILE *file) {
       do_extern(file);
       break;
     default:
-      fprintf(error_file, "at line: %d, error: no such instruction\n", line_num);
+      fprintf(error_file, "%d: unknown instruction...\n", line_num);
       got_error = 1;
       break;
   }
@@ -61,43 +61,34 @@ void do_instructions(FILE *file) {
 
 void do_data(FILE *file) {
   extern int my_index, DC;
-  int first_time_flag = 1, i=0, minus = 0;
-  char number[MAX_LINE_SIZE];
-  char result[MAX_LINE_SIZE];
-  unsigned int num;	
-  while (line[my_index] != '\0') /* for every number in the line */
-  {	
-    while(isspace(line[my_index]))	/* skip spaces */
-      my_index++;
-    if (first_time_flag)	/* make sure theres at least one number */		{ 
-      if (line[my_index] == '\0')
-      {
-        fprintf(error_file, "at line: %d, error: expected at least one number\n", line_num);
+  int first_time = 1, i=0, minus = 0;
+  char number[MAX_LINE_SIZE], result[MAX_LINE_SIZE];
+  unsigned int num;
+
+  while (line[my_index] != '\0') {	
+    while(isspace(line[my_index])) my_index++;
+    if (first_time) { 
+      if (line[my_index] == '\0') {
+        fprintf(error_file, "%d: expected at least one number\n", line_num);
+        got_error = 1;
+        return;
+      } else if (line[my_index] == ',') {
+        fprintf(error_file, "%d: expected at least one number before ','\n", line_num);
         got_error = 1;
         return;
       }
-      else if (line[my_index] == ',')
-      {
-        fprintf(error_file, "at line: %d, error: expected at least one number before ','\n", line_num);
-        got_error = 1;
-        return;
-      }
-      first_time_flag=0;
+      first_time=0;
     }
-    if (line[my_index] == '-') /* if its a minus number, we'd have to use complementation to 2 */
-    {
+    if (line[my_index] == '-') {
       minus = 1;
       my_index++;
-    }
-    else if (line[my_index] == '+')
+    } else if (line[my_index] == '+')
       my_index++;
     else if (line[my_index] == ',')
       my_index++;			
-    while( (!isspace(line[my_index])) && (line[my_index] != '\0') && (line[my_index] != ',')) /* get the next number, digit by digit */
-    {			
-      if(!isdigit(line[my_index]))
-      {
-        fprintf(error_file, "at line: %d, error: supposed to be a number\n", line_num);
+    while( (!isspace(line[my_index])) && (line[my_index] != '\0') && (line[my_index] != ',')) {			
+      if(!isdigit(line[my_index])) {
+        fprintf(error_file, "%d: expected a number...\n", line_num);
         got_error = 1;
         return;
       }
