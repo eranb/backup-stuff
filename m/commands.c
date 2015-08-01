@@ -39,13 +39,8 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
   for ( i=2, j=0; i<6; i++)
     tmp[j++]=current_command[i];
 
-  num = atoi(tmp);
-
-  switch(num) {
-    case 1110: case 1111: { 
-      deal_with_no_operands();
-      break;
-    } case 0: case 10: case 11: {
+  switch(atoi(tmp)) {
+    case 0: case 10: case 11: {
       mov_addsub();
       break;
     } case 1: { 
@@ -54,19 +49,22 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
     } case 100: case 101: case 111: case 1000: {		
       not_clr_inc_dec();
       break;
-    } case 110: {
+    } case 1110: case 1111: { 
+      deal_with_no_operands();
+      break;
+    }case 110: {
       lea();
       break;
     } case 1001: case 1010: case 1011: {
       jmp_bne_red();
       break;
-    } case 1100: {
-      prn();
-      break;
     } case 1101: {
       jsr();
       break;
-    }
+    } case 1100: {
+      prn();
+      break;
+    } 
   }
     current_command[10] = current_command[11] = '0';
   print_command(file);
