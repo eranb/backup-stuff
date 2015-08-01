@@ -126,13 +126,13 @@ void get_second_operand(FILE *file) {
     }
     
     if (last_second_operand == -1) {
-      group_sign = last_first_operand;
+      group_check = last_first_operand;
       strcpy(second_operand, previous_first_operand);
     } else {
-      group_sign = last_second_operand;
+      group_check = last_second_operand;
       strcpy(second_operand, previous_second_operand);
     }			
-    switch (group_sign)
+    switch (group_check)
     {
       case 0: current_command[8] = current_command[9] = '0';
       break;
@@ -258,13 +258,13 @@ void get_first_operand(FILE *file) {
       return;
     }
     if (last_first_operand == -1) {
-      group_sign = last_second_operand;
+      group_check = last_second_operand;
       strcpy(first_operand, previous_second_operand);
     } else {
-      group_sign = last_first_operand;
+      group_check = last_first_operand;
       strcpy(first_operand, previous_first_operand);
     }			
-    switch (group_sign) {
+    switch (group_check) {
       case 0: current_command[6] = current_command[7] = '0';
       break;
       case 1: current_command[6] = '0';
