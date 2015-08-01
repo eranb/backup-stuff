@@ -131,9 +131,9 @@ void get_second_operand(FILE *file) {
     } else {
       group_check = last_second_operand;
       strcpy(second_operand, previous_second_operand);
-    }			
-    switch (group_check)
-    {
+    }
+    
+    switch (group_check) {
       case 0: current_command[8] = current_command[9] = '0';
       break;
       case 1: current_command[8] = '0';
@@ -142,45 +142,38 @@ void get_second_operand(FILE *file) {
       case 3: current_command[8] = current_command[9] = '1';
       break;
     }
+    
     my_index++;
     got_second_operand = 1;
-  }
-  else
-  {	
+  } else {
     while (!(isspace(line[my_index])) && (line[my_index] != '\0'))
       tmp[i++] = line[my_index++];
-    if ((strlen(tmp))==2 && (tmp[0] == 'r') && isdigit(tmp[1]))
-    {
+    
+    if ((strlen(tmp))==2 && (tmp[0] == 'r') && isdigit(tmp[1])) {
       get_register(r, tmp);
-      if ((atoi(r)) || (atoi(r) == 0))
-      {
+      if (atoi(r) || atoi(r) == 0) {
         reset_str(second_operand, MAXLINE);
         strcpy(second_operand, r);
         current_command[8]=current_command[9]='1';
         got_second_operand = 1;
         last_second_operand = 3;
       }
-    }
-    else
-    {
-      if (current_iteration == 1)
-      {
+    } else {
+      if (current_iteration == 1) {
         second_operand[0]='1';
         second_operand[1] = '\0';
         current_command[8] = '0';
         current_command[9] = '1';
         got_second_operand = 1;
         last_second_operand = 1;
-      }
-      else
-      {
+      } else {
         c = get_value_of_tag(tmp, 2);
-        if (c == -1)
-        {		
+        if (c == -1) {
           fprintf(error_file, "at line: %d, wrong operand name: %s\n", line_num, tmp);
           got_error = 1;
           return;
         }
+        
         current_command[8] = '0';
         current_command[9] = '1';
         in_base(c, 2, second_operand);
