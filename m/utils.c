@@ -173,17 +173,17 @@ void make_header(FILE *file, int commands, int data) {
 }
 
 void make_file(int IC, FILE *data_file, FILE *final_file) {
-  char data_line[MAX_LINE_SIZE];
-  char adress[MAX_LINE_SIZE];
-  reset_str(adress, MAX_LINE_SIZE);
+  char data_line[MAX_LINE_SIZE], address[MAX_LINE_SIZE];
+
+  reset_str(address, MAX_LINE_SIZE);
   reset_str(data_line, MAX_LINE_SIZE);
   rewind(data_file);
+
   while (!feof(data_file)) {
     reset_str(data_line, MAX_LINE_SIZE);		
     fgets(data_line, MAX_LINE_SIZE, data_file);
-    in_base(IC, 4, adress);
-    if (data_line[0] != '\0')
-      fprintf(final_file, "%s	%s", adress, data_line);
+    in_base(IC, 4, address);
+    if (data_line[0] != '\0') fprintf(final_file, "%s	%s", address, data_line);
     IC++;
   }
 }
