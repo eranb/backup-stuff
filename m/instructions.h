@@ -5,7 +5,7 @@ void do_entry(FILE *file);
 void do_extern(FILE *file);
 void write_extern(char *s, int num, int times);
 void write_entry(char *s, int c);
-void cleanlists();
+void clean_lists();
 void add_symbol(char *s, int inst_or_command, int value);
 void search_in_entry_list(char *s);
 int get_value_of_label(char *s, int a);

@@ -275,7 +275,7 @@ void search_in_entry_list(char *s) {
     write_entry(s, find(symbol_list, s));
 }
 
-void cleanlists() {
+void clean_lists() {
   clean(&symbol_list);
   clean(&entry_list);
   clean(&extern_list);
