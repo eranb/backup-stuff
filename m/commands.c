@@ -298,7 +298,7 @@ void fetch_first_operand(FILE *file) {
       } else {
         c = get_value_of_label(tmp, 1);
         if (c == -1) {		
-          fprintf(error_file, "at line: %d, wrong operand name: %s\n", line_num, tmp);
+          fprintf(error_file, "%d: unknown operand '%s'\n", line_num, tmp);
           got_error = 1;
           return;
         }
@@ -315,43 +315,44 @@ void fetch_first_operand(FILE *file) {
   if (line[my_index] == ',')
     my_index++;
   else {
-    fprintf(error_file, "at line : %d, error: wasnt suppose to be anything else than a ',' before the next operand\n", line_num);
+    fprintf(error_file, "%d: expected ',' not %c\n", line_num,line[my_index]);
     got_error = 1;
     return;
   }
   while (isspace(line[my_index])) my_index++;
   return;
-
 }
 
 void write_code(FILE *file) {	
   extern int IC;
   int i;
-  char end_result[MAX_LINE_SIZE];
+  char results[MAX_LINE_SIZE];
   char command_adress[MAX_LINE_SIZE];
   char first_adress[MAX_LINE_SIZE];
   char second_adress[MAX_LINE_SIZE];
   int flag_combined = 0;
-  reset_str(end_result, MAX_LINE_SIZE);
+  reset_str(results, MAX_LINE_SIZE);
   reset_str(command_adress, MAX_LINE_SIZE);
   reset_str(first_adress, MAX_LINE_SIZE);
   reset_str(second_adress, MAX_LINE_SIZE);
   make_it_12_digits(current_command);
-  convert_binary_string_to_base_4_string(current_command, end_result);
+  convert_binary_string_to_base_4_string(current_command, results);
   reset_str(current_command, strlen(current_command));
-  strcpy(current_command, end_result);
-  if (!(got_error)) {
+  strcpy(current_command, results);
+
+  if (!got_error) {
     in_base(IC, 4, command_adress);
     fprintf(file, "%s	%s \n", command_adress,  current_command);
     IC++;
   }
+  
   if(strlen(first_operand) == 5 && strlen(second_operand) == 5) {
     flag_combined = 1;		
-    reset_str(end_result, MAX_LINE_SIZE);		
+    reset_str(results, MAX_LINE_SIZE);		
     strcat(first_operand, second_operand);
     first_operand[10]=first_operand[11]='0';
-    convert_binary_string_to_base_4_string(first_operand, end_result);
-    strcpy(first_operand, end_result);
+    convert_binary_string_to_base_4_string(first_operand, results);
+    strcpy(first_operand, results);
     if (!got_error) {
       in_base(IC, 4, first_adress);
       fprintf(file, "%s	%s \n", first_adress, first_operand);
@@ -359,7 +360,7 @@ void write_code(FILE *file) {
     IC++;
   } else {	
     if (first_operand_exists) {
-      reset_str(end_result, MAX_LINE_SIZE);
+      reset_str(results, MAX_LINE_SIZE);
       if(strlen(first_operand) == 5) {
         for (i=5; i<12; i++)				
           first_operand[i] = '0';		
@@ -370,9 +371,9 @@ void write_code(FILE *file) {
         flag_first_relocatable = 0;
       }
       make_it_12_digits(first_operand);
-      convert_binary_string_to_base_4_string(first_operand, end_result);
+      convert_binary_string_to_base_4_string(first_operand, results);
       reset_str(first_operand, strlen(first_operand));
-      strcpy(first_operand, end_result);
+      strcpy(first_operand, results);
       if (!(got_error)) {
         in_base(IC, 4, first_adress);
         fprintf(file, "%s	%s \n", first_adress, first_operand);
@@ -380,7 +381,7 @@ void write_code(FILE *file) {
       IC++;
     }
     if (got_second_operand) {
-      reset_str(end_result, MAX_LINE_SIZE);
+      reset_str(results, MAX_LINE_SIZE);
       if(strlen(second_operand) == 5)
         second_operand[5]=second_operand[6]='0';		
       if(flag_second_relocatable) {
@@ -389,9 +390,9 @@ void write_code(FILE *file) {
         flag_second_relocatable = 0;
       }
       make_it_12_digits(second_operand);
-      convert_binary_string_to_base_4_string(second_operand, end_result);
+      convert_binary_string_to_base_4_string(second_operand, results);
       reset_str(second_operand, strlen(second_operand));
-      strcpy(second_operand, end_result);
+      strcpy(second_operand, results);
       if (!(got_error)) {
         in_base(IC, 4, second_adress);
         fprintf(file, "%s	%s \n", second_adress, second_operand);
@@ -408,7 +409,7 @@ void write_code(FILE *file) {
     if (flag_combined == 1) {
       if (!(got_error)) {
         in_base(IC, 4, first_adress);
-        fprintf(file, "%s	%s \n", first_adress, end_result);
+        fprintf(file, "%s	%s \n", first_adress, results);
       }
       IC++;
     } else {
