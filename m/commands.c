@@ -100,7 +100,7 @@ void get_second_operand(FILE *file) {
 
     tmp[i] = '\0';
     num = atoi(tmp);
-    convert_to_base(num, 2, tmp);
+    in_base(num, 2, tmp);
     strcat(tmp, "00");
     complete_to_12(tmp);
     if (minus) two_complement(tmp);
@@ -184,7 +184,7 @@ void get_second_operand(FILE *file) {
         }
         current_command[8] = '0';
         current_command[9] = '1';
-        convert_to_base(c, 2, second_operand);
+        in_base(c, 2, second_operand);
         second_operand_exists = 1;
         the_last_second_operand = 1;
       }
@@ -227,7 +227,7 @@ void get_first_operand(FILE *file) {
       tmp[i++]=line[my_index++];
     tmp[i] = '\0';
     num = atoi(tmp);
-    convert_to_base(num, 2, tmp);
+    in_base(num, 2, tmp);
     strcat(tmp, "00");
     complete_to_12(tmp);
     if (minus)
@@ -305,7 +305,7 @@ void get_first_operand(FILE *file) {
         }
         current_command[6] = '0';
         current_command[7] = '1';
-        convert_to_base(c, 2, first_operand);
+        in_base(c, 2, first_operand);
         first_operand_exists = 1;
         the_last_first_operand = 1;
       }
@@ -342,7 +342,7 @@ void write_code(FILE *file) {
   reset_str(current_command, strlen(current_command));
   strcpy(current_command, end_result);
   if (!(got_error)) {
-    convert_to_base(IC, 4, command_adress);
+    in_base(IC, 4, command_adress);
     fprintf(file, "%s	%s \n", command_adress,  current_command);
     IC++;
   }
@@ -354,7 +354,7 @@ void write_code(FILE *file) {
     convert_binary_string_to_base_4_string(first_operand, end_result);
     strcpy(first_operand, end_result);
     if (!got_error) {
-      convert_to_base(IC, 4, first_adress);
+      in_base(IC, 4, first_adress);
       fprintf(file, "%s	%s \n", first_adress, first_operand);
     }
     IC++;
@@ -375,7 +375,7 @@ void write_code(FILE *file) {
       reset_str(first_operand, strlen(first_operand));
       strcpy(first_operand, end_result);
       if (!(got_error)) {
-        convert_to_base(IC, 4, first_adress);
+        in_base(IC, 4, first_adress);
         fprintf(file, "%s	%s \n", first_adress, first_operand);
       }
       IC++;
@@ -394,7 +394,7 @@ void write_code(FILE *file) {
       reset_str(second_operand, strlen(second_operand));
       strcpy(second_operand, end_result);
       if (!(got_error)) {
-        convert_to_base(IC, 4, second_adress);
+        in_base(IC, 4, second_adress);
         fprintf(file, "%s	%s \n", second_adress, second_operand);
       }
       IC++;
@@ -402,27 +402,27 @@ void write_code(FILE *file) {
   }
   if (times_to_code == 2) {
     if (!(got_error)) {
-      convert_to_base(IC, 4, command_adress);
+      in_base(IC, 4, command_adress);
       fprintf(file, "%s	%s \n", command_adress, current_command);
     }
     IC++;
     if (flag_combined == 1) {
       if (!(got_error)) {
-        convert_to_base(IC, 4, first_adress);
+        in_base(IC, 4, first_adress);
         fprintf(file, "%s	%s \n", first_adress, end_result);
       }
       IC++;
     } else {
       if (first_operand_exists) {
         if (!(got_error)) {	
-          convert_to_base(IC, 4, first_adress);	
+          in_base(IC, 4, first_adress);	
           fprintf(file, "%s	%s \n", first_adress, first_operand);
         }	
         IC++;
       }
       if (second_operand_exists) {	
         if (!(got_error))	 {
-          convert_to_base(IC, 4, second_adress);	
+          in_base(IC, 4, second_adress);	
           fprintf(file, "%s	%s \n", second_adress, second_operand);
         }
         IC++;
