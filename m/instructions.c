@@ -63,22 +63,22 @@ void do_data(FILE *file) {
   extern int my_index, DC;
   int first_time = 1, i=0, minus = 0;
   char number[MAX_LINE_SIZE], result[MAX_LINE_SIZE];
-  unsigned int num;
 
   while (line[my_index] != '\0') {	
     while(isspace(line[my_index])) my_index++;
     if (first_time) { 
       if (line[my_index] == '\0') {
-        fprintf(error_file, "%d: expected at least one number\n", line_num);
+        fprintf(error_file, "%d: should be at least one number...\n", line_num);
         got_error = 1;
         return;
       } else if (line[my_index] == ',') {
-        fprintf(error_file, "%d: expected at least one number before ','\n", line_num);
+        fprintf(error_file, "%d: should be at least one number before ','...\n", line_num);
         got_error = 1;
         return;
       }
       first_time=0;
     }
+    
     if (line[my_index] == '-') {
       minus = 1;
       my_index++;
@@ -94,11 +94,10 @@ void do_data(FILE *file) {
       }
       number[i++] = line[my_index++];
     }
-    /* converting the number we got to a base 4 string, 12 bits long */
 
     number[i] = '\0';
-    num = atoi(number);
-    in_base(num, 2, result);
+
+    in_base(atoi(number), 2, result);
     make_it_12_digits(result);
     if (minus)
       two_complement(result);
