@@ -99,8 +99,8 @@ void get_second_operand(FILE *file) {
     while (isdigit(line[my_index])) tmp[i++]=line[my_index++];
 
     tmp[i] = '\0';
-    num = atoi(tmp);
-    in_base(num, 2, tmp);
+    
+    in_base(atoi(tmp), 2, tmp);
     strcat(tmp, "00");
     complete_to_12(tmp);
     if (minus) two_complement(tmp);
