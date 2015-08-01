@@ -108,18 +108,18 @@ void fetch_register(char *operand, char *s) {
 }
 
 void binary_to_base4(char *s, char *array) {
-  int i=0, j, end_index, my_num;
+  int i=0, j, eindex, my_num;
   char temp[3];
+  
   temp[2] = '\0';
-  for (end_index=0; s[end_index]!='\0'; end_index++);
+  
+  for (eindex=0; s[eindex]!='\0'; eindex++);
   end_index--;
-  for (j=0; j<=end_index; j+=2, i++)
-  {
+  for (j=0; j<=eindex; j+=2, i++) {
     temp[0]=s[j];
     temp[1]=s[j+1];
     my_num=atoi(temp);
-    switch (my_num)
-    {
+    switch (my_num) {
       case 0: 
         array[i]='0';
         break;
