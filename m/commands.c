@@ -196,7 +196,7 @@ void get_second_operand(FILE *file) {
   return;
 }
 
-void get_fetch_first_operand(FILE *file) {
+void fetch_first_operand(FILE *file) {
   extern int my_index;
   int minus = 0, i = 0, num, c;
   char tmp[MAXLINE];
