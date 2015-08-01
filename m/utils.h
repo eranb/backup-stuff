@@ -17,7 +17,7 @@ char line[MAXLINE];
 char previous_first_operand[MAXLINE];
 char previous_second_operand[MAXLINE];
 
-int convert_to_base(int num, int base, char *result);
+int in_base(int num, int base, char *result);
 void check_group(char *s, char *end);
 void get_register(char *second_operand,char *r);
 void convert_binary_string_to_base_4_string(char *s, char *array);

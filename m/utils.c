@@ -60,7 +60,7 @@ void convert_cmd_to_code(char *s, char *end)
 
 
 /* gets a number in base 10 and converts it to base. returns the answer in result. */
-int convert_to_base(int num, int base, char *result)
+int in_base(int num, int base, char *result)
 {
   char base_digits[10]={'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
   int converted_number_backwards[60];
@@ -199,8 +199,8 @@ void make_header(FILE *file, int commands, int data) {
   char data_num[MAXLINE];
   int num;
   num = commands - 100;
-  convert_to_base(num, 4, command_num);
-  convert_to_base(data, 4, data_num);
+  in_base(num, 4, command_num);
+  in_base(data, 4, data_num);
   fprintf(file, "%s	%s\n", command_num, data_num);
 }
 
@@ -215,7 +215,7 @@ void make_final_file(int IC, FILE *data_file, FILE *final_file)
   {
     reset_str(data_line, MAXLINE);		
     fgets(data_line, MAXLINE, data_file);
-    convert_to_base(IC, 4, adress);
+    in_base(IC, 4, adress);
     if (data_line[0] != '\0')
       fprintf(final_file, "%s	%s", adress, data_line);
     IC++;
