@@ -107,21 +107,17 @@ void fetch_register(char *operand, char *s) {
   for (i=0; i<strlen(operand); i++) operand[i]='\0';
 }
 
-/* gets a binary string, converts it to base 4 string and stores it in array */
-void binary_to_base4(char *s, char *array)
-{
-  int i=0, j, end_index, num2;
+void binary_to_base4(char *string, char *array) {
+  int i=0, j, end_index;
   char temp[3];
   temp[2] = '\0';
   for (end_index=0; s[end_index]!='\0'; end_index++);
   end_index--;
-  for (j=0; j<=end_index; j+=2, i++)
-  {
-    temp[0]=s[j];
-    temp[1]=s[j+1];
-    num2=atoi(temp);
-    switch (num2)
-    {
+
+  for (j=0; j<=end_index; j+=2, i++) {
+    temp[0]=string[j];
+    temp[1]=string[j+1];
+    switch (atoi(temp)) {
       case 0: 
         array[i]='0';
         break;
