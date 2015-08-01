@@ -261,12 +261,12 @@ void write_entry(char *string, int c) {
   update_tml(entry_list, string,2);
 }
 
-void add_symbol(char *s, int inst_or_command, int value) {
-  if (find(symbol_list, s) == -1) {
+void add_symbol(char * string, int inst_or_command, int value) {
+  if (find(symbol_list, string) == -1) {
     if (inst_or_command == 2)
-      add(&symbol_list, s, value, 0);
+      add(&symbol_list, string, value, 0);
     if (inst_or_command == 1)
-      add(&symbol_list, s, value, 1);
+      add(&symbol_list, string, value, 1);
   }
 }
 
