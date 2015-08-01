@@ -112,12 +112,12 @@ void get_second_operand(FILE *file) {
   } else if (line[my_index] == '$') {
     my_index++;
     if (line[my_index] != '$') {
-      fprintf(error_file, "at line: %d, error: not an acceptable operand\n", line_num);
+      fprintf(error_file, "%d: expected a second $\n", line_num);
       got_error = 1;
       last_second_operand = -1;
       return;
     }
-    if ((the_last_first_operand == -1)&&(last_second_operand == -1)) {
+    if ((last_first_operand == -1)&&(last_second_operand == -1)) {
       fprintf(error_file, "at line: %d, error: there was no operand in the last line\n", line_num);
       got_error = 1;
       last_second_operand = -1;
@@ -125,7 +125,7 @@ void get_second_operand(FILE *file) {
     }
     if (last_second_operand == -1)
     {
-      group_check = the_last_first_operand;
+      group_check = last_first_operand;
       strcpy(second_operand, previous_first_operand);
     }
     else
@@ -236,33 +236,33 @@ void get_first_operand(FILE *file) {
     i=0;
     minus = 0;
     first_operand_exists = 1;
-    the_last_first_operand = 0;
+    last_first_operand = 0;
   }
   else if (line[my_index] == '$') {
     my_index++;
     if (line[my_index] != '$') {
       fprintf(error_file, "at line: %d, error: not an acceptable operand\n", line_num);
       got_error = 1;
-      the_last_first_operand = -1;
+      last_first_operand = -1;
       return;
     }
     else if ((!(isspace(line[my_index+1]))) && (!(line[my_index+1] == ','))) {
       fprintf(error_file, "at line: %d, error: not an acceptable operand\n", line_num);
       got_error = 1;
-      the_last_first_operand = -1;
+      last_first_operand = -1;
       return;
     }
-    if ((the_last_first_operand == -1)&&(last_second_operand == -1)) {
+    if ((last_first_operand == -1)&&(last_second_operand == -1)) {
       fprintf(error_file, "at line: %d, error: there was no operand in the last line\n", line_num);
       got_error = 1;
-      the_last_first_operand = -1;
+      last_first_operand = -1;
       return;
     }
-    if (the_last_first_operand == -1) {
+    if (last_first_operand == -1) {
       group_check = last_second_operand;
       strcpy(first_operand, previous_second_operand);
     } else {
-      group_check = the_last_first_operand;
+      group_check = last_first_operand;
       strcpy(first_operand, previous_first_operand);
     }			
     switch (group_check) {
@@ -286,7 +286,7 @@ void get_first_operand(FILE *file) {
         strcpy(first_operand, r);
         current_command[6]=current_command[7]='1';
         first_operand_exists = 1;
-        the_last_first_operand = 3;
+        last_first_operand = 3;
       }
     } else {
       if (current_iteration == 1) {
@@ -295,7 +295,7 @@ void get_first_operand(FILE *file) {
         current_command[6] = '0';
         current_command[7] = '1';
         first_operand_exists = 1;
-        the_last_first_operand = 1;
+        last_first_operand = 1;
       } else {
         c = get_value_of_tag(tmp, 1);
         if (c == -1) {		
@@ -307,7 +307,7 @@ void get_first_operand(FILE *file) {
         current_command[7] = '1';
         in_base(c, 2, first_operand);
         first_operand_exists = 1;
-        the_last_first_operand = 1;
+        last_first_operand = 1;
       }
     }		
   }
@@ -437,7 +437,7 @@ void write_code(FILE *file) {
 void no_operands(FILE *file) {
   extern int my_index;	
   current_command[6]=current_command[7]=current_command[8]=current_command[9]='0';
-  the_last_first_operand = -1;
+  last_first_operand = -1;
   last_second_operand = -1;
   while (!(line[my_index] == '\0' || isspace( line[my_index] ))) {
     fprintf(error_file, "at_line: %d, error: wasnt expecting anything after command\n", line_num);
@@ -472,7 +472,7 @@ void inc(FILE *file) {
   int i;	
   current_command[6]=current_command[7]='0';
   get_second_operand(file);
-  the_last_first_operand = -1;
+  last_first_operand = -1;
   for (i=0; i<12; i++)
     first_operand[i]='0';
   if (current_command[8] == '0' && current_command[9] == '0')
@@ -509,7 +509,7 @@ void lea(FILE *file) {
 void jmp(FILE *file) {
   int i;	
   get_second_operand(file);
-  the_last_first_operand = -1;
+  last_first_operand = -1;
   current_command[6]=current_command[7]='0';
   for (i=0; i<12; i++)
     first_operand[i]='0';
@@ -524,7 +524,7 @@ void jmp(FILE *file) {
 void prn(FILE *file) {
   int i;	
   get_second_operand(file);
-  the_last_first_operand = -1;
+  last_first_operand = -1;
   current_command[6]=current_command[7]='0';
   for (i=0; i<12; i++)
     first_operand[i]='0';
@@ -534,7 +534,7 @@ void prn(FILE *file) {
 void jsr(FILE *file) {
   int i;	
   get_second_operand(file);
-  the_last_first_operand = -1;
+  last_first_operand = -1;
   current_command[6]=current_command[7]='0';
   for (i=0; i<12; i++)
     first_operand[i]='0';

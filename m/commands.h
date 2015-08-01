@@ -19,7 +19,7 @@ void prn();
 void jsr();
 
 char group_check;
-char the_last_first_operand = 0;
+char last_first_operand = 0;
 char last_second_operand = 0;
 char current_command[13];
 
