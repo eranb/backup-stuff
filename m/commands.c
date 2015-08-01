@@ -554,3 +554,21 @@ int get_value_of_label(char *s, int operation_type) {
   if (operation_type == 2) second_relocatable = 2;
   return c;
 }
+
+void convert_cmd_to_code(char *s, char *end) {
+  int i=0, j;
+  while (strcmp(cmd_type[i].name, "not a command"))
+  {
+    j=strcmp(cmd_type[i].name, s);	
+    if (j == 0)
+    {
+      strcpy(end, cmd_type[i].binary_val);
+      return;
+    }
+    i+=1;
+  }
+  for (i=0; i<strlen(end); i++)
+    end[i]='\0';
+  return;
+}
+
