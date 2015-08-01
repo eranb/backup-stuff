@@ -70,7 +70,7 @@ int in_base(int num, int base, char *result) {
     index--;
   }
   converted_number[i] = '\0';
-  return strcpy(result, converted_number);
+  return (int)strcpy(result, converted_number);
 }
 /* gets a command number in base 2 and checks which group it belongs to. the function returns the answer in end. */
 void check_group(char *s, char *end)
