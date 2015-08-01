@@ -167,9 +167,9 @@ void get_second_operand(FILE *file) {
         got_second_operand = 1;
         last_second_operand = 1;
       } else {
-        c = get_value_of_tag(tmp, 2);
+        c = get_value_of_label(tmp, 2);
         if (c == -1) {
-          fprintf(error_file, "at line: %d, wrong operand name: %s\n", line_num, tmp);
+          fprintf(error_file, "%d: bad operand '%s'\n", line_num, tmp);
           got_error = 1;
           return;
         }
@@ -182,12 +182,13 @@ void get_second_operand(FILE *file) {
       }
     }		
   }
+  
   my_index++;
   reset_str(previous_second_operand, MAXLINE);
   strcpy(previous_second_operand, second_operand);
   while (isspace(line[my_index])) my_index++;
-  if (line[my_index] != '\0')
-  {		
+  
+  if (line[my_index] != '\0') {		
     fprintf(error_file, "at line: %d, error:wasnt expecting anything after second operand\n", line_num);
     got_error = 1;
     return;
@@ -289,7 +290,7 @@ void get_first_operand(FILE *file) {
         first_operand_exists = 1;
         last_first_operand = 1;
       } else {
-        c = get_value_of_tag(tmp, 1);
+        c = get_value_of_label(tmp, 1);
         if (c == -1) {		
           fprintf(error_file, "at line: %d, wrong operand name: %s\n", line_num, tmp);
           got_error = 1;
@@ -537,7 +538,7 @@ void jsr(FILE *file) {
   return;
 }
 
-int get_value_of_tag(char *s, int op_kind) {
+int get_value_of_label(char *s, int op_kind) {
   int c;
   extern List symbol_list, extern_list;
   c = find(symbol_list, s);

@@ -8,7 +8,7 @@ void print_entry(char *s, int c);
 void cleanlists();
 void add_symbol(char *s, int inst_or_command, int value);
 void search_in_entry_list(char *s);
-int get_value_of_tag(char *s, int a);
+int get_value_of_label(char *s, int a);
 void normalize_line_numbers();
 int check_entry_list();
 int check_extern_list();
