@@ -119,39 +119,33 @@ void do_data(FILE *file) {
   }
 }
 
-/* a function that deals with ".string" instruction. prints all the letters following on the same line as a base 4 strings. */
 void do_string(FILE *file) {
   extern int my_index, DC;	
   int num;
   char result[MAX_LINE_SIZE];
   reset_str(first_operand, MAX_LINE_SIZE);
-  while(isspace(line[my_index]))	
-    my_index++; 
-  if (line[my_index] == '\0') /* if there is no string at all */
-  {
-    fprintf(error_file, "at line: %d, error: expected at least one character\n", line_num);
+  while(isspace(line[my_index])) my_index++; 
+
+  if (line[my_index] == '\0') {
+    fprintf(error_file, "%d: should be at least one character...\n", line_num);
     got_error = 1;
     return;
-  }
-  else if (line[my_index] == '\"')	/* make sure we start with " */
+  } else if (line[my_index] == '\"')
     my_index++;				
-  else
-  {		
-    fprintf(error_file, "at line: %d, error: was expecting a \"\n", line_num);	/* if its something else than " */
+  else {		
+    fprintf(error_file, "%d: expected new line...", line_num);
     got_error = 1;
     return;
   }
-  while (line[my_index] != '\"')		/* printing all the string */
-  {	
-    while (isspace(line[my_index]))	
-      my_index++;		
-    if (!isalpha(line[my_index]))
-    {
-      fprintf(error_file, "at line: %d, error: was not expecting %c\n", line_num, line[my_index]);
+  
+  while (line[my_index] != '\"') {	
+    while (isspace(line[my_index])) my_index++;
+    if (!isalpha(line[my_index])) {
+      fprintf(error_file, "%d: didn't expected %c...\n", line_num, line[my_index]);
       got_error = 1;
       return;
     }
-    num = (int) line[my_index];
+    num = line[my_index];
     in_base(num, 2, result);
     make_it_12_digits(result);
     binary_to_base4(result, first_operand);
