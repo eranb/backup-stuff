@@ -14,7 +14,7 @@ char tag[MAXLINE];
 char command[5];
 char group[3];
 char line[MAXLINE];
-char previous_first_operand[MAXLINE];
+char last_first_operand[MAXLINE];
 char previous_second_operand[MAXLINE];
 
 int in_base(int num, int base, char *result);

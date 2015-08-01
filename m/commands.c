@@ -75,7 +75,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
 void get_second_operand(FILE *file) {
   extern int my_index;
   int minus = 0, i = 0, c;
-  char tmp[MAXLINE],result[MAXLINE],r[2];
+  char tmp[MAXLINE], result[MAXLINE], r[2];
   
   reset_str(r, 2);
   reset_str(tmp, MAXLINE);
@@ -117,23 +117,22 @@ void get_second_operand(FILE *file) {
       last_second_operand = -1;
       return;
     }
-    if ((last_first_operand == -1)&&(last_second_operand == -1)) {
-      fprintf(error_file, "at line: %d, error: there was no operand in the last line\n", line_num);
+    
+    if ((last_first_operand == -1) && (last_second_operand == -1)) {
+      fprintf(error_file, "%d: can't find the previous argument\n", line_num);
       got_error = 1;
       last_second_operand = -1;
       return;
     }
-    if (last_second_operand == -1)
-    {
-      group_check = last_first_operand;
-      strcpy(second_operand, previous_first_operand);
-    }
-    else
-    {
-      group_check = last_second_operand;
+    
+    if (last_second_operand == -1) {
+      group_sign = last_first_operand;
+      strcpy(second_operand, last_first_operand);
+    } else {
+      group_sign = last_second_operand;
       strcpy(second_operand, previous_second_operand);
     }			
-    switch (group_check)
+    switch (group_sign)
     {
       case 0: current_command[8] = current_command[9] = '0';
       break;
@@ -259,13 +258,13 @@ void get_first_operand(FILE *file) {
       return;
     }
     if (last_first_operand == -1) {
-      group_check = last_second_operand;
+      group_sign = last_second_operand;
       strcpy(first_operand, previous_second_operand);
     } else {
-      group_check = last_first_operand;
-      strcpy(first_operand, previous_first_operand);
+      group_sign = last_first_operand;
+      strcpy(first_operand, last_first_operand);
     }			
-    switch (group_check) {
+    switch (group_sign) {
       case 0: current_command[6] = current_command[7] = '0';
       break;
       case 1: current_command[6] = '0';
@@ -311,7 +310,7 @@ void get_first_operand(FILE *file) {
       }
     }		
   }
-  strcpy(previous_first_operand, first_operand);
+  strcpy(last_first_operand, first_operand);
   while (isspace(line[my_index])) my_index++;
   if (line[my_index] == ',')
     my_index++;
@@ -367,7 +366,7 @@ void write_code(FILE *file) {
       }
       if(flag_first_relocatable) {
         strcat(first_operand, "10");
-        strcat(previous_first_operand, "10");
+        strcat(last_first_operand, "10");
         flag_first_relocatable = 0;
       }
       make_it_12_digits(first_operand);
