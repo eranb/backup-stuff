@@ -326,14 +326,13 @@ void fetch_first_operand(FILE *file) {
 void write_code(FILE *file) {	
   extern int IC;
   int i;
-  char results[MAX_LINE_SIZE];
-  char addressing[MAX_LINE_SIZE];
-  char first_adress[MAX_LINE_SIZE];
+  char results[MAX_LINE_SIZE],addressing[MAX_LINE_SIZE];
+  char address[MAX_LINE_SIZE];
   char second_adress[MAX_LINE_SIZE];
   int flag_combined = 0;
   reset_str(results, MAX_LINE_SIZE);
   reset_str(addressing, MAX_LINE_SIZE);
-  reset_str(first_adress, MAX_LINE_SIZE);
+  reset_str(address, MAX_LINE_SIZE);
   reset_str(second_adress, MAX_LINE_SIZE);
   make_it_12_digits(current_command);
   convert_binary_string_to_base_4_string(current_command, results);
@@ -354,8 +353,8 @@ void write_code(FILE *file) {
     convert_binary_string_to_base_4_string(first_operand, results);
     strcpy(first_operand, results);
     if (!got_error) {
-      in_base(IC, 4, first_adress);
-      fprintf(file, "%s	%s \n", first_adress, first_operand);
+      in_base(IC, 4, address);
+      fprintf(file, "%s	%s \n", address, first_operand);
     }
     IC++;
   } else {	
@@ -375,8 +374,8 @@ void write_code(FILE *file) {
       reset_str(first_operand, strlen(first_operand));
       strcpy(first_operand, results);
       if (!(got_error)) {
-        in_base(IC, 4, first_adress);
-        fprintf(file, "%s	%s \n", first_adress, first_operand);
+        in_base(IC, 4, address);
+        fprintf(file, "%s	%s \n", address, first_operand);
       }
       IC++;
     }
@@ -408,15 +407,15 @@ void write_code(FILE *file) {
     IC++;
     if (flag_combined == 1) {
       if (!(got_error)) {
-        in_base(IC, 4, first_adress);
-        fprintf(file, "%s	%s \n", first_adress, results);
+        in_base(IC, 4, address);
+        fprintf(file, "%s	%s \n", address, results);
       }
       IC++;
     } else {
       if (first_operand_exists) {
         if (!(got_error)) {	
-          in_base(IC, 4, first_adress);	
-          fprintf(file, "%s	%s \n", first_adress, first_operand);
+          in_base(IC, 4, address);	
+          fprintf(file, "%s	%s \n", address, first_operand);
         }	
         IC++;
       }
