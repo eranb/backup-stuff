@@ -53,29 +53,24 @@ void command_to_code(char *string, char *end) {
   return;
 }
 
-
-/* gets a number in base 10 and converts it to base. returns the answer in result. */
-int in_base(int num, int base, char *result)
-{
-  char base_digits[10]={'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-  int converted_number_backwards[60];
+int in_base(int num, int base, char *result) {
+  char digits[10]={'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+  int tmp[60];
   char converted_number[60];
   int index=0, i=0;
-  while (num != 0)
-  {
-    converted_number_backwards[index] = num%base;
+  while (num != 0) {
+    tmp[index] = num%base;
     num = num/base;
     index++;
   }
   index--;
-  while (index>=0)
-  {
-    converted_number[i] = base_digits[converted_number_backwards[index]];
+  while (index>=0) {
+    converted_number[i] = digits[tmp[index]];
     i++;
     index--;
   }
   converted_number[i] = '\0';
-  return (int)strcpy(result, converted_number);
+  return strcpy(result, converted_number);
 }
 /* gets a command number in base 2 and checks which group it belongs to. the function returns the answer in end. */
 void check_group(char *s, char *end)
