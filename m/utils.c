@@ -128,7 +128,7 @@ void fetch_register(char *operand, char *s)
 }
 
 /* gets a binary string, converts it to base 4 string and stores it in array */
-void convert_binary_string_to_base_4_string(char *s, char *array)
+void binary_to_base4(char *s, char *array)
 {
   int i=0, j, end_index, num2;
   char temp[3];

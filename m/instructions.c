@@ -113,7 +113,7 @@ void do_data(FILE *file) {
     if (minus)
       two_complement(result);
     reset_str(first_operand, MAX_LINE_SIZE);
-    convert_binary_string_to_base_4_string(result, first_operand);
+    binary_to_base4(result, first_operand);
     if ((got_error != 1)&&(iteration == 2))
       fprintf(data_file, "%s\n", first_operand);
     i=0;
@@ -162,7 +162,7 @@ void do_string(FILE *file) {
     num = (int) line[my_index];
     in_base(num, 2, result);
     make_it_12_digits(result);
-    convert_binary_string_to_base_4_string(result, first_operand);
+    binary_to_base4(result, first_operand);
     if ((got_error != 1)&&(iteration == 2))
       fprintf(data_file, "%s\n", first_operand);
     my_index++;
@@ -174,7 +174,7 @@ void do_string(FILE *file) {
     num = 0;
     in_base(num, 2, result);
     make_it_12_digits(result);
-    convert_binary_string_to_base_4_string(result, first_operand);
+    binary_to_base4(result, first_operand);
     if ((got_error != 1)&&(iteration == 2))
       fprintf(data_file, "%s\n", first_operand);
     DC++;
@@ -240,7 +240,7 @@ void print_extern(char *s, int op_kind, int times) {
   i = IC + op_kind;
   in_base(i, 2, tmp);
   make_it_12_digits(tmp);
-  convert_binary_string_to_base_4_string(tmp, line_num);
+  binary_to_base4(tmp, line_num);
   fprintf(ext_file, "%s:	%d\n", s, (atoi(line_num)));
   update_tml(extern_list, s,2);
 
@@ -253,7 +253,7 @@ void print_extern(char *s, int op_kind, int times) {
     reset_str(line_num, 30);
     in_base(i, 2, tmp);
     make_it_12_digits(tmp);
-    convert_binary_string_to_base_4_string(tmp, line_num);
+    binary_to_base4(tmp, line_num);
     fprintf(ext_file, "%s:	%d\n", s, (atoi(line_num)));
   }
   return;
@@ -267,7 +267,7 @@ void print_entry(char *s, int c) {
   reset_str(line_num, 30);
   in_base(c, 2, tmp);
   make_it_12_digits(tmp);
-  convert_binary_string_to_base_4_string(tmp, line_num);
+  binary_to_base4(tmp, line_num);
   fprintf(ent_file, "%s:	%d\n", s, (atoi(line_num)));
   update_tml(entry_list, s,2);
   return;

@@ -325,16 +325,18 @@ void fetch_first_operand(FILE *file) {
 
 void write_code(FILE *file) {	
   extern int IC;
-  int i;
+  int i, tzozamen = 0; // togther in Yeidsh
   char results[MAX_LINE_SIZE], addressing[MAX_LINE_SIZE], address[MAX_LINE_SIZE];
   char second_address[MAX_LINE_SIZE];
-  int tzozamen = 0;
+
   reset_str(results, MAX_LINE_SIZE);
   reset_str(addressing, MAX_LINE_SIZE);
   reset_str(address, MAX_LINE_SIZE);
   reset_str(second_address, MAX_LINE_SIZE);
+
   make_it_12_digits(current_command);
-  convert_binary_string_to_base_4_string(current_command, results);
+  binary_to_base4(current_command, results);
+
   reset_str(current_command, strlen(current_command));
   strcpy(current_command, results);
 
@@ -349,7 +351,7 @@ void write_code(FILE *file) {
     reset_str(results, MAX_LINE_SIZE);		
     strcat(first_operand, second_operand);
     first_operand[10]=first_operand[11]='0';
-    convert_binary_string_to_base_4_string(first_operand, results);
+    binary_to_base4(first_operand, results);
     strcpy(first_operand, results);
     if (!got_error) {
       in_base(IC, 4, address);
@@ -369,7 +371,7 @@ void write_code(FILE *file) {
         flag_first_relocatable = 0;
       }
       make_it_12_digits(first_operand);
-      convert_binary_string_to_base_4_string(first_operand, results);
+      binary_to_base4(first_operand, results);
       reset_str(first_operand, strlen(first_operand));
       strcpy(first_operand, results);
       if (!(got_error)) {
@@ -388,7 +390,7 @@ void write_code(FILE *file) {
         flag_second_relocatable = 0;
       }
       make_it_12_digits(second_operand);
-      convert_binary_string_to_base_4_string(second_operand, results);
+      binary_to_base4(second_operand, results);
       reset_str(second_operand, strlen(second_operand));
       strcpy(second_operand, results);
       if (!(got_error)) {
