@@ -74,7 +74,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
 
 void get_second_operand(FILE *file) {
   extern int my_index;
-  int minus = 0, i, num, c;
+  int minus = 0, i = 0, num, c;
   char tmp[MAXLINE],result[MAXLINE],r[2];
   
   reset_str(r, 2);
