@@ -38,7 +38,7 @@ struct {
   {"not a register", NULL}
 };
 
-void convert_cmd_to_code(char *s, char *end) {
+void command_to_code(char *s, char *end) {
   int i=0, j;
   while (strcmp(cmd_type[i].name, "not a command"))
   {

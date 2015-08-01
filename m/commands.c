@@ -21,7 +21,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
   
   current_iteration = iteration_num;
   
-  convert_cmd_to_code(word, command);
+  command_to_code(word, command);
 
   if (command[0] == '\0') {
     fprintf(efile, "%d: unknown command\n", line_num);
