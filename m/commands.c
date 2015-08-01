@@ -150,7 +150,7 @@ void get_second_operand(FILE *file) {
       tmp[i++] = line[my_index++];
     
     if ((strlen(tmp))==2 && (tmp[0] == 'r') && isdigit(tmp[1])) {
-      get_register(r, tmp);
+      fetch_register(r, tmp);
       if (atoi(r) || atoi(r) == 0) {
         reset_str(second_operand, MAXLINE);
         strcpy(second_operand, r);
@@ -220,60 +220,66 @@ void fetch_first_operand(FILE *file) {
       tmp[i++]=line[my_index++];
     
     tmp[i] = '\0';
+    
     in_base(atoi(tmp), 2, tmp);
     strcat(tmp, "00");
     make_it_12_digits(tmp);
-    if (minus)
-      two_complement(tmp);
+    
+    if (minus) two_complement(tmp);
+    
     strcpy(first_operand, tmp);
+    
     i=0;
     minus = 0;
     first_operand_exists = 1;
     last_first_operand = 0;
-  }
-  else if (line[my_index] == '$') {
+  } else if (line[my_index] == '$') {
     my_index++;
     if (line[my_index] != '$') {
-      fprintf(error_file, "at line: %d, error: not an acceptable operand\n", line_num);
+      fprintf(error_file, "%d: invalid operand\n", line_num);
+      got_error = 1;
+      last_first_operand = -1;
+      return;
+    } else if ((!(isspace(line[my_index+1]))) && (!(line[my_index+1] == ','))) {
+      fprintf(error_file, "%d: invalid operand\n", line_num);
       got_error = 1;
       last_first_operand = -1;
       return;
     }
-    else if ((!(isspace(line[my_index+1]))) && (!(line[my_index+1] == ','))) {
-      fprintf(error_file, "at line: %d, error: not an acceptable operand\n", line_num);
-      got_error = 1;
-      last_first_operand = -1;
-      return;
-    }
+    
     if ((last_first_operand == -1)&&(last_second_operand == -1)) {
-      fprintf(error_file, "at line: %d, error: there was no operand in the last line\n", line_num);
+      fprintf(error_file, "%d: missing operand in the last line...\n", line_num);
       got_error = 1;
       last_first_operand = -1;
       return;
     }
+    
     if (last_first_operand == -1) {
       group_check = last_second_operand;
       strcpy(first_operand, previous_second_operand);
     } else {
       group_check = last_first_operand;
       strcpy(first_operand, previous_first_operand);
-    }			
+    }
+    
     switch (group_check) {
       case 0: current_command[6] = current_command[7] = '0';
-      break;
+        break;
       case 1: current_command[6] = '0';
-      current_command[7] = '1';
+        current_command[7] = '1';
       break;
-      case 3: current_command[6] = current_command[7] = '1';
+        case 3: current_command[6] = current_command[7] = '1';
       break;
     }
+    
     my_index++;
     first_operand_exists = 1;
+    
   } else {	
     while (!(isspace(line[my_index])) && (line[my_index] != ','))
       tmp[i++] = line[my_index++];
     if (((strlen(tmp))==2) && (tmp[0] == 'r') && (isdigit(tmp[1]))) {
-      get_register(r, tmp);
+      fetch_register(r, tmp);
       if ((atoi(r)) || (atoi(r) == 0)) {
         reset_str(first_operand, MAXLINE);
         strcpy(first_operand, r);
