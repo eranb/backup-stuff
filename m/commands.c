@@ -535,24 +535,22 @@ void jsr(FILE *file) {
   }
 }
 
-int get_value_of_label(char *s, int op_kind) {
+int get_value_of_label(char *s, int operation_type) {
   extern List symbol_list, extern_list;
   int c = find(symbol_list, s);
   
   if (c == -1) {
     c = find(extern_list, s);
     if (c != -1) {
-      if ((op_kind == 2) && (first_operand_exists))
-        write_extern(s, op_kind, times_to_code);
+      if ((operation_type == 2) && (first_operand_exists))
+        write_extern(s, operation_type, times_to_code);
       else 
         write_extern(s, 1, times_to_code);
       c = 1;
     }
     return c;
   }
-  if (op_kind == 1)
-    first_relocatable = 1;
-  if (op_kind == 2)
-    second_relocatable = 2;
+  if (operation_type == 1) first_relocatable = 1;
+  if (operation_type == 2) second_relocatable = 2;
   return c;
 }
