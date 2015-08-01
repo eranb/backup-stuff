@@ -47,7 +47,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
       cmp();
       break;
     } case 100: case 101: case 111: case 1000: {		
-      not_clr_inc_dec();
+      inc();
       break;
     } case 1110: case 1111: { 
       deal_with_no_operands();
@@ -468,7 +468,7 @@ void cmp(FILE *file) {
   return;
 }
 
-void not_clr_inc_dec(FILE *file) {
+void inc(FILE *file) {
   int i;	
   current_command[6]=current_command[7]='0';
   get_second_operand(file);
