@@ -328,7 +328,7 @@ void write_code(FILE *file) {
   int i;
   char results[MAX_LINE_SIZE], addressing[MAX_LINE_SIZE], address[MAX_LINE_SIZE];
   char second_address[MAX_LINE_SIZE];
-  int flag_combined = 0;
+  int tzozamen = 0;
   reset_str(results, MAX_LINE_SIZE);
   reset_str(addressing, MAX_LINE_SIZE);
   reset_str(address, MAX_LINE_SIZE);
@@ -345,7 +345,7 @@ void write_code(FILE *file) {
   }
   
   if(strlen(first_operand) == 5 && strlen(second_operand) == 5) {
-    flag_combined = 1;		
+    tzozamen = 1;		
     reset_str(results, MAX_LINE_SIZE);		
     strcat(first_operand, second_operand);
     first_operand[10]=first_operand[11]='0';
@@ -404,7 +404,7 @@ void write_code(FILE *file) {
       fprintf(file, "%s	%s \n", addressing, current_command);
     }
     IC++;
-    if (flag_combined == 1) {
+    if (tzozamen == 1) {
       if (!(got_error)) {
         in_base(IC, 4, address);
         fprintf(file, "%s	%s \n", address, results);
