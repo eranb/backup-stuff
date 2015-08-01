@@ -384,14 +384,15 @@ void write_code(FILE *file) {
       }
       IC++;
     }
+    
     if (got_second_operand) {
       reset_str(results, MAX_LINE_SIZE);
       if(strlen(second_operand) == 5)
         second_operand[5]=second_operand[6]='0';		
-      if(flag_second_relocatable) {
+      if(second_relocatable) {
         strcat(second_operand, "10");
         strcat(previous_second_operand, "10");
-        flag_second_relocatable = 0;
+        second_relocatable = 0;
       }
       make_it_12_digits(second_operand);
       binary_to_base4(second_operand, results);
@@ -567,6 +568,6 @@ int get_value_of_label(char *s, int op_kind) {
   if (op_kind == 1)
     first_relocatable = 1;
   if (op_kind == 2)
-    flag_second_relocatable = 2;
+    second_relocatable = 2;
   return c;
 }
