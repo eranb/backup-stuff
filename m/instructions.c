@@ -287,7 +287,7 @@ void normalize_line_numbers() {
 
   while (!(p == NULL || p->next == NULL)) {
     if (p->tml == 1) p->line += IC;
-    p=p->next;
+    p = p->next;
   }
 }
 
@@ -296,7 +296,7 @@ int check_entry_list() {
 
   while (!(p == NULL || p->next == NULL)) {
     if (p->tml != 2) return 2;
-    p=p->next;
+    p = p->next;
   }
   return 1;
 }
