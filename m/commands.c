@@ -127,7 +127,7 @@ void get_second_operand(FILE *file) {
     
     if (last_second_operand == -1) {
       group_sign = last_first_operand;
-      strcpy(second_operand, last_first_operand);
+      strcpy(second_operand, previous_first_operand);
     } else {
       group_sign = last_second_operand;
       strcpy(second_operand, previous_second_operand);
@@ -262,7 +262,7 @@ void get_first_operand(FILE *file) {
       strcpy(first_operand, previous_second_operand);
     } else {
       group_sign = last_first_operand;
-      strcpy(first_operand, last_first_operand);
+      strcpy(first_operand, previous_first_operand);
     }			
     switch (group_sign) {
       case 0: current_command[6] = current_command[7] = '0';
@@ -310,7 +310,7 @@ void get_first_operand(FILE *file) {
       }
     }		
   }
-  strcpy(last_first_operand, first_operand);
+  strcpy(previous_first_operand, first_operand);
   while (isspace(line[my_index])) my_index++;
   if (line[my_index] == ',')
     my_index++;
@@ -366,7 +366,7 @@ void write_code(FILE *file) {
       }
       if(flag_first_relocatable) {
         strcat(first_operand, "10");
-        strcat(last_first_operand, "10");
+        strcat(previous_first_operand, "10");
         flag_first_relocatable = 0;
       }
       make_it_12_digits(first_operand);
