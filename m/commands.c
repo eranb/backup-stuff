@@ -1,5 +1,6 @@
-#include "utils.h"
 #include "commands.h"
+#include "utils.h"
+
 #include "instructions.h"
 #include "data_structure.h"
 
