@@ -114,7 +114,7 @@ void binary_to_base4(char *s, char *array) {
   temp[2] = '\0';
   
   for (eindex=0; s[eindex]!='\0'; eindex++);
-  end_index--;
+  eindex--;
   for (j=0; j<=eindex; j+=2, i++) {
     temp[0]=s[j];
     temp[1]=s[j+1];
