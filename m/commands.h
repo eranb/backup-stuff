@@ -29,4 +29,3 @@ void exec_cmd(FILE *,FILE *,int);
 void fetch_first_operand(FILE *file);
 void get_second_operand(FILE *file);
 char previous_first_operand[MAX_LINE_SIZE];
-void convert_cmd_to_code(char *, char *);

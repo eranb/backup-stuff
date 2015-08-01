@@ -26,3 +26,4 @@ void two_complement(char *tmp);
 void make_it_12_digits(char *result);
 void make_header(FILE *file, int commands, int data);
 void make_final_file(int IC, FILE *data_file, FILE *final_file);
+void convert_cmd_to_code(char *, char *);

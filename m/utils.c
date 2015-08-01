@@ -38,6 +38,23 @@ struct {
   {"not a register", NULL}
 };
 
+void convert_cmd_to_code(char *s, char *end) {
+  int i=0, j;
+  while (strcmp(cmd_type[i].name, "not a command"))
+  {
+    j=strcmp(cmd_type[i].name, s);	
+    if (j == 0)
+    {
+      strcpy(end, cmd_type[i].binary_val);
+      return;
+    }
+    i+=1;
+  }
+  for (i=0; i<strlen(end); i++)
+    end[i]='\0';
+  return;
+}
+
 
 /* gets a number in base 10 and converts it to base. returns the answer in result. */
 int in_base(int num, int base, char *result)
