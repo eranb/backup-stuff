@@ -64,7 +64,7 @@ int eval(int time) {
 
   reset_str(line, MAXLINE);
   reset_str(word, MAXLINE);
-  reset_str(tag, MAXLINE);
+  reset_str(label, MAXLINE);
   reset_str(command, 5);
   reset_str(group, 3);
 
@@ -83,8 +83,8 @@ int eval(int time) {
             ic = IC;
             dc = DC;
             word[i] = '\0';
-            reset_str(tag, MAXLINE);
-            strcpy(tag, word);
+            reset_str(label, MAXLINE);
+            strcpy(label, word);
             i = read_word(i);
           } else {
             word[i] = '\0'; 
@@ -95,7 +95,7 @@ int eval(int time) {
 
         if (word[0] == '.') {
           if (time == 0) {
-            add_symbol(tag, 1, dc);
+            add_symbol(label, 1, dc);
             do_instructions(temp_file);
             reset_str(line, MAXLINE);
             my_index = i = 0;
@@ -106,7 +106,7 @@ int eval(int time) {
         } else {
           if (time == 0) {
             exec_cmd(temp_file, error_file, iteration);
-            add_symbol(tag, 2, ic);
+            add_symbol(label, 2, ic);
             reset_str(line, MAXLINE);
             my_index = i = 0;
           } else {

@@ -205,7 +205,7 @@ void do_entry(FILE *file) {
   while (isspace(line[my_index])) my_index++;
   if (line[my_index] != '\0')
   {
-    fprintf(error_file, "at line: %d, error: wasn't suppose to be anything after the tag name\n", line_num);
+    fprintf(error_file, "at line: %d, error: wasn't suppose to be anything after the label name\n", line_num);
     got_error = 1;
     return;
   }
@@ -222,7 +222,7 @@ void do_extern(FILE *file) {
     tmp[i++] = line[my_index++];
   while (isspace(line[my_index])) my_index++;
   if (line[my_index] != '\0') {
-    fprintf(error_file, "at line: %d, error: wasn't suppose to be anything after the tag name\n", line_num);
+    fprintf(error_file, "at line: %d, error: wasn't suppose to be anything after the label name\n", line_num);
     got_error = 1;
     return;
   }
