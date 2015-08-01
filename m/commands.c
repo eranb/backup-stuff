@@ -362,10 +362,10 @@ void write_code(FILE *file) {
     if (first_operand_exists) {
       reset_str(results, MAX_LINE_SIZE);
       
-      if(strlen(first_operand) == 5) {
+      if(strlen(first_operand) == 5)
         for (i=5; i<12; i++)				
-          first_operand[i] = '0';		
-      }
+          first_operand[i] = '0';
+      
       
       if(first_relocatable) {
         strcat(first_operand, "10");
@@ -398,35 +398,38 @@ void write_code(FILE *file) {
       binary_to_base4(second_operand, results);
       reset_str(second_operand, strlen(second_operand));
       strcpy(second_operand, results);
-      if (!(got_error)) {
+      if (!got_error) {
         in_base(IC, 4, second_address);
         fprintf(file, "%s	%s \n", second_address, second_operand);
       }
       IC++;
     }
   }
+  
   if (times_to_code == 2) {
-    if (!(got_error)) {
+    if (!got_error) {
       in_base(IC, 4, addressing);
       fprintf(file, "%s	%s \n", addressing, current_command);
     }
+    
     IC++;
+    
     if (tzozamen == 1) {
-      if (!(got_error)) {
+      if (!got_error) {
         in_base(IC, 4, address);
         fprintf(file, "%s	%s \n", address, results);
       }
       IC++;
     } else {
       if (first_operand_exists) {
-        if (!(got_error)) {	
+        if (!got_error) {	
           in_base(IC, 4, address);	
           fprintf(file, "%s	%s \n", address, first_operand);
         }	
         IC++;
       }
       if (got_second_operand) {	
-        if (!(got_error))	 {
+        if (!got_error) {
           in_base(IC, 4, second_address);	
           fprintf(file, "%s	%s \n", second_address, second_operand);
         }
@@ -444,28 +447,25 @@ void no_operands(FILE *file) {
   current_command[6]=current_command[7]=current_command[8]=current_command[9]='0';
   last_first_operand = -1;
   last_second_operand = -1;
+  
   while (!(line[my_index] == '\0' || isspace( line[my_index] ))) {
-    fprintf(error_file, "at_line: %d, error: wasnt expecting anything after command\n", line_num);
+    fprintf(error_file, "%d: expected end of line...\n", line_num);
     got_error = 1;	
     return;
   }
+  
   return;
 }
 
 void mov(FILE *file) {
   fetch_first_operand(file);
   get_second_operand(file);
-  if (current_command[8] == '0' && current_command[9] == '0') {
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+  if ((current_command[8] == '0' && current_command[9] == '0')
+      || (current_command[8] == '1' && current_command[9] == '0')) {
+    fprintf(error_file, "%d: wrong second operand...\n", line_num);
     got_error = 1;
   }
-  else if (current_command[8] == '1' && current_command[9] == '0') {
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
-    got_error = 1;
-  }
-  return;
 }
-
 
 void cmp(FILE *file) {
   fetch_first_operand(file);
