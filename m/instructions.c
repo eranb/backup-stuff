@@ -303,11 +303,10 @@ int check_entry_list() {
 
 int check_extern_list() {
   List p = extern_list;
-  if (!p) return 0;
 
-  while (p->data != NULL) {
+  while (!(p == NULL || p->next == NULL)) {
     if (p->tml != 2) return 2;
-    p=p->next;
+    p = p->next;
   }
 
   return 1;
