@@ -21,7 +21,7 @@ void exec_cmd(FILE *file, FILE * efile, int iteration_num) {
   
   current_iteration = iteration_num;
   
-  convert_cmd_to_code(word, command);
+  command_to_code(word, command);
 
   if (command[0] == '\0') {
     fprintf(efile, "%d: unknown command\n", line_num);
@@ -325,17 +325,18 @@ void fetch_first_operand(FILE *file) {
 
 void write_code(FILE *file) {	
   extern int IC;
-  int i;
-  char results[MAX_LINE_SIZE],addressing[MAX_LINE_SIZE];
-  char address[MAX_LINE_SIZE];
-  char second_adress[MAX_LINE_SIZE];
-  int flag_combined = 0;
+  int i, tzozamen = 0; // togther in Yeidsh
+  char results[MAX_LINE_SIZE], addressing[MAX_LINE_SIZE], address[MAX_LINE_SIZE];
+  char second_address[MAX_LINE_SIZE];
+
   reset_str(results, MAX_LINE_SIZE);
   reset_str(addressing, MAX_LINE_SIZE);
   reset_str(address, MAX_LINE_SIZE);
-  reset_str(second_adress, MAX_LINE_SIZE);
+  reset_str(second_address, MAX_LINE_SIZE);
+
   make_it_12_digits(current_command);
-  convert_binary_string_to_base_4_string(current_command, results);
+  binary_to_base4(current_command, results);
+
   reset_str(current_command, strlen(current_command));
   strcpy(current_command, results);
 
@@ -346,11 +347,11 @@ void write_code(FILE *file) {
   }
   
   if(strlen(first_operand) == 5 && strlen(second_operand) == 5) {
-    flag_combined = 1;		
+    tzozamen = 1;		
     reset_str(results, MAX_LINE_SIZE);		
     strcat(first_operand, second_operand);
     first_operand[10]=first_operand[11]='0';
-    convert_binary_string_to_base_4_string(first_operand, results);
+    binary_to_base4(first_operand, results);
     strcpy(first_operand, results);
     if (!got_error) {
       in_base(IC, 4, address);
@@ -360,69 +361,77 @@ void write_code(FILE *file) {
   } else {	
     if (first_operand_exists) {
       reset_str(results, MAX_LINE_SIZE);
-      if(strlen(first_operand) == 5) {
+      
+      if(strlen(first_operand) == 5)
         for (i=5; i<12; i++)				
-          first_operand[i] = '0';		
-      }
-      if(flag_first_relocatable) {
+          first_operand[i] = '0';
+      
+      
+      if(first_relocatable) {
         strcat(first_operand, "10");
         strcat(previous_first_operand, "10");
-        flag_first_relocatable = 0;
+        first_relocatable = 0;
       }
+      
       make_it_12_digits(first_operand);
-      convert_binary_string_to_base_4_string(first_operand, results);
+      binary_to_base4(first_operand, results);
       reset_str(first_operand, strlen(first_operand));
       strcpy(first_operand, results);
-      if (!(got_error)) {
+      
+      if (!got_error) {
         in_base(IC, 4, address);
         fprintf(file, "%s	%s \n", address, first_operand);
       }
       IC++;
     }
+    
     if (got_second_operand) {
       reset_str(results, MAX_LINE_SIZE);
       if(strlen(second_operand) == 5)
         second_operand[5]=second_operand[6]='0';		
-      if(flag_second_relocatable) {
+      if(second_relocatable) {
         strcat(second_operand, "10");
         strcat(previous_second_operand, "10");
-        flag_second_relocatable = 0;
+        second_relocatable = 0;
       }
       make_it_12_digits(second_operand);
-      convert_binary_string_to_base_4_string(second_operand, results);
+      binary_to_base4(second_operand, results);
       reset_str(second_operand, strlen(second_operand));
       strcpy(second_operand, results);
-      if (!(got_error)) {
-        in_base(IC, 4, second_adress);
-        fprintf(file, "%s	%s \n", second_adress, second_operand);
+      if (!got_error) {
+        in_base(IC, 4, second_address);
+        fprintf(file, "%s	%s \n", second_address, second_operand);
       }
       IC++;
     }
   }
+  
   if (times_to_code == 2) {
-    if (!(got_error)) {
+    if (!got_error) {
       in_base(IC, 4, addressing);
       fprintf(file, "%s	%s \n", addressing, current_command);
     }
+    
     IC++;
-    if (flag_combined == 1) {
-      if (!(got_error)) {
+    
+    if (tzozamen == 1) {
+      if (!got_error) {
         in_base(IC, 4, address);
         fprintf(file, "%s	%s \n", address, results);
       }
       IC++;
     } else {
       if (first_operand_exists) {
-        if (!(got_error)) {	
+        if (!got_error) {	
           in_base(IC, 4, address);	
           fprintf(file, "%s	%s \n", address, first_operand);
         }	
         IC++;
       }
       if (got_second_operand) {	
-        if (!(got_error))	 {
-          in_base(IC, 4, second_adress);	
-          fprintf(file, "%s	%s \n", second_adress, second_operand);
+        if (!got_error) {
+          in_base(IC, 4, second_address);	
+          fprintf(file, "%s	%s \n", second_address, second_operand);
         }
         IC++;
       }
@@ -438,28 +447,25 @@ void no_operands(FILE *file) {
   current_command[6]=current_command[7]=current_command[8]=current_command[9]='0';
   last_first_operand = -1;
   last_second_operand = -1;
+  
   while (!(line[my_index] == '\0' || isspace( line[my_index] ))) {
-    fprintf(error_file, "at_line: %d, error: wasnt expecting anything after command\n", line_num);
+    fprintf(error_file, "%d: expected end of line...\n", line_num);
     got_error = 1;	
     return;
   }
+  
   return;
 }
 
 void mov(FILE *file) {
   fetch_first_operand(file);
   get_second_operand(file);
-  if (current_command[8] == '0' && current_command[9] == '0') {
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+  if (  (current_command[8] == '0' && current_command[9] == '0')
+      ||(current_command[8] == '1' && current_command[9] == '0')) {
+    fprintf(error_file, "%d: wrong second operand...\n", line_num);
     got_error = 1;
   }
-  else if (current_command[8] == '1' && current_command[9] == '0') {
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
-    got_error = 1;
-  }
-  return;
 }
-
 
 void cmp(FILE *file) {
   fetch_first_operand(file);
@@ -474,60 +480,47 @@ void inc(FILE *file) {
   last_first_operand = -1;
   for (i=0; i<12; i++)
     first_operand[i]='0';
-  if (current_command[8] == '0' && current_command[9] == '0')
-  {
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+  if (  (current_command[8] == '0' && current_command[9] == '0')
+      ||(current_command[8] == '1' && current_command[9] == '0')) {
+    fprintf(error_file, "%d: wrong second operand...\n", line_num);
     got_error = 1;
   }
-  else if (current_command[8] == '1' && current_command[9] == '0')
-  {	
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
-    got_error = 1;
-  }
-  return;
 }
 
 void lea(FILE *file) {
   fetch_first_operand(file);
   get_second_operand(file);
   if (!(current_command[6] == '0' && current_command[7] == '1')) {
-    fprintf(error_file, "at_line: %d, error: first operand - wrong operand method\n", line_num);
+    fprintf(error_file, "%d: wrong first operand...\n", line_num);
     got_error = 1;
   }
-  if (current_command[8] == '0' && current_command[9] == '0') {	
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+  if ((current_command[8] == '0' && current_command[9] == '0')
+      ||(current_command[8] == '1' && current_command[9] == '0')) {	
+    fprintf(error_file, "%d: wrong second operand...\n", line_num);
     got_error = 1;
   }
-  else if (current_command[8] == '1' && current_command[9] == '0') {	
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
-    got_error = 1;
-  }	
-  return;
 }
 
 void jmp(FILE *file) {
-  int i;	
+  int i;
   get_second_operand(file);
   last_first_operand = -1;
   current_command[6]=current_command[7]='0';
-  for (i=0; i<12; i++)
-    first_operand[i]='0';
-  if (current_command[8] == '0' && current_command[9] == '0')
-  {
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+
+  for (i=0; i<12; i++) first_operand[i]='0';
+
+  if (current_command[8] == '0' && current_command[9] == '0') {
+    fprintf(error_file, "%d: wrong second operand...\n", line_num);
     got_error = 1;
   }
-  return;
 }
 
 void prn(FILE *file) {
-  int i;	
+  int i;
   get_second_operand(file);
   last_first_operand = -1;
-  current_command[6]=current_command[7]='0';
-  for (i=0; i<12; i++)
-    first_operand[i]='0';
-  return;
+  current_command[6] = current_command[7] = '0';
+  for (i=0; i<12; i++) first_operand[i]='0';
 }
 
 void jsr(FILE *file) {
@@ -535,33 +528,29 @@ void jsr(FILE *file) {
   get_second_operand(file);
   last_first_operand = -1;
   current_command[6]=current_command[7]='0';
-  for (i=0; i<12; i++)
-    first_operand[i]='0';
+  for (i=0; i<12; i++) first_operand[i]='0';
   if (!(current_command[8] == '0' && current_command[9] == '0')) {	
-    fprintf(error_file, "at_line: %d, error: second operand - wrong operand method\n", line_num);
+    fprintf(error_file, "%d: wrong second operand\n", line_num);
     got_error = 1;
   }
-  return;
 }
 
-int get_value_of_label(char *s, int op_kind) {
-  int c;
+int get_value_of_label(char *s, int operation_type) {
   extern List symbol_list, extern_list;
-  c = find(symbol_list, s);
+  int c = find(symbol_list, s);
+  
   if (c == -1) {
     c = find(extern_list, s);
-    if (c != -1) {	
-      if ((op_kind == 2) && (first_operand_exists))
-        print_extern(s, op_kind, times_to_code);
+    if (c != -1) {
+      if ((operation_type == 2) && (first_operand_exists))
+        write_extern(s, operation_type, times_to_code);
       else 
-        print_extern(s, 1, times_to_code);
+        write_extern(s, 1, times_to_code);
       c = 1;
     }
     return c;
   }
-  if (op_kind == 1)
-    flag_first_relocatable = 1;
-  if (op_kind == 2)
-    flag_second_relocatable = 2;
+  if (operation_type == 1) first_relocatable = 1;
+  if (operation_type == 2) second_relocatable = 2;
   return c;
 }

@@ -38,57 +38,43 @@ struct {
   {"not a register", NULL}
 };
 
-
-/* gets a string and decides which command it is. returns the command value in base 2  in the string "end", or it empties the string "end". */
-void convert_cmd_to_code(char *s, char *end)
-{
-  int i=0, j;
-  while (strcmp(cmd_type[i].name, "not a command"))
-  {
-    j=strcmp(cmd_type[i].name, s);	
-    if (j == 0)
-    {
+void command_to_code(char *string, char *end) {
+  int i=0;
+  
+  while (strcmp(cmd_type[i].name, "not a command")) {
+    if (strcmp(cmd_type[i].name, string) == 0) {
       strcpy(end, cmd_type[i].binary_val);
       return;
     }
     i+=1;
   }
-  for (i=0; i<strlen(end); i++)
-    end[i]='\0';
+  
+  for (i=0; i<strlen(end); i++) end[i]='\0';
   return;
 }
 
-
-/* gets a number in base 10 and converts it to base. returns the answer in result. */
-int in_base(int num, int base, char *result)
-{
-  char base_digits[10]={'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-  int converted_number_backwards[60];
+int in_base(int num, int base, char *result) {
+  char digits[10]={'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+  int tmp[60];
   char converted_number[60];
   int index=0, i=0;
-  while (num != 0)
-  {
-    converted_number_backwards[index] = num%base;
+  while (num != 0) {
+    tmp[index] = num%base;
     num = num/base;
     index++;
   }
   index--;
-  while (index>=0)
-  {
-    converted_number[i] = base_digits[converted_number_backwards[index]];
+  while (index>=0) {
+    converted_number[i] = digits[tmp[index]];
     i++;
     index--;
   }
   converted_number[i] = '\0';
-  return (int)strcpy(result, converted_number);
+  return strcpy(result, converted_number);
 }
-/* gets a command number in base 2 and checks which group it belongs to. the function returns the answer in end. */
-void check_group(char *s, char *end)
-{
-  int i;
-  i = (atoi(s));	
-  switch(i)
-  {
+
+void check_group(char *string, char *end) {
+  switch(atoi(string)) {
     case 0: case 1:	case 10: case 11: case 110: 
       end[1] = '0';
       end[0] = '1';
@@ -109,39 +95,32 @@ void check_group(char *s, char *end)
   }
 }
 
-void fetch_register(char *operand, char *s)
-{
-  int i=0, j;
-  while (strcmp(register_type[i].name, "not a register"))
-  {
-    j=strcmp(register_type[i].name, s);	
-    if (j == 0)
-    {
+void fetch_register(char *operand, char *s) {
+  int i=0;
+  while (strcmp(register_type[i].name, "not a register")) {
+    if (strcmp(register_type[i].name, s) == 0) {
       strcpy(operand, register_type[i].binary_val);
       return;
     }
-    i+=1;
+    i++;
   }
-  for (i=0; i<strlen(operand); i++)
-    operand[i]='\0';
-  return;
+  for (i=0; i<strlen(operand); i++) operand[i]='\0';
 }
 
-/* gets a binary string, converts it to base 4 string and stores it in array */
-void convert_binary_string_to_base_4_string(char *s, char *array)
-{
-  int i=0, j, end_index, num2;
+void binary_to_base4(char *s, char *array) {
+  int i=0, j, eindex, my_num;
   char temp[3];
+  
   temp[2] = '\0';
-  for (end_index=0; s[end_index]!='\0'; end_index++);
-  end_index--;
-  for (j=0; j<=end_index; j+=2, i++)
-  {
+  
+  for (eindex=0; s[eindex]!='\0'; eindex++);
+  eindex--;
+
+  for (j=0; j<=eindex; j+=2, i++) {
     temp[0]=s[j];
     temp[1]=s[j+1];
-    num2=atoi(temp);
-    switch (num2)
-    {
+    my_num=atoi(temp);
+    switch (my_num) {
       case 0: 
         array[i]='0';
         break;
@@ -158,68 +137,53 @@ void convert_binary_string_to_base_4_string(char *s, char *array)
   }
 }
 
-
 void reset_str(char *arr, int len) {
-  int i=0;
-  for (i=0; i<len; i++)
-    arr[i] = '\0';
+  int i;
+  for (i=0; i<len; i++) arr[i] = '\0';
 }
 
-
-
-void two_complement(char *tmp)
-{
-  int i= strlen(tmp) - 1;
-  while (tmp[i] == '0')
-    i--;
+void two_complement(char *tmp) {
+  int i = strlen(tmp) - 1;
+  while (tmp[i] == '0') i--;
   i--;
-  for ( ; i>=0; i--)
-  {	
+  for ( ; i>=0; i--) {	
     if (tmp[i] == '1')
       tmp[i] = '0';
     else
       tmp[i] = '1';
   }
-  return;
 }
-void make_it_12_digits(char *result)
-{
+
+void make_it_12_digits(char *result) {
   int i = strlen(result), j=0;
   char tmp[12];
   reset_str(tmp, 12);
-  for ( ; j <= 11-i; j++)
-    tmp[j] = '0';
+  for ( ; j <= 11-i; j++) tmp[j] = '0';
   strcat(tmp, result);
   strcpy(result, tmp);
 }	
 
-
 void make_header(FILE *file, int commands, int data) {
-  char command_num[MAX_LINE_SIZE];
-  char data_num[MAX_LINE_SIZE];
-  int num;
-  num = commands - 100;
+  char command_num[MAX_LINE_SIZE], data_num[MAX_LINE_SIZE];
+  int num = commands - 100;
+  
   in_base(num, 4, command_num);
   in_base(data, 4, data_num);
   fprintf(file, "%s	%s\n", command_num, data_num);
 }
 
-void make_final_file(int IC, FILE *data_file, FILE *final_file)
-{
-  char data_line[MAX_LINE_SIZE];
-  char adress[MAX_LINE_SIZE];
-  reset_str(adress, MAX_LINE_SIZE);
+void make_file(int IC, FILE *data_file, FILE *final_file) {
+  char data_line[MAX_LINE_SIZE], address[MAX_LINE_SIZE];
+
+  reset_str(address, MAX_LINE_SIZE);
   reset_str(data_line, MAX_LINE_SIZE);
   rewind(data_file);
-  while (!feof(data_file))
-  {
+
+  while (!feof(data_file)) {
     reset_str(data_line, MAX_LINE_SIZE);		
     fgets(data_line, MAX_LINE_SIZE, data_file);
-    in_base(IC, 4, adress);
-    if (data_line[0] != '\0')
-      fprintf(final_file, "%s	%s", adress, data_line);
+    in_base(IC, 4, address);
+    if (data_line[0] != '\0') fprintf(final_file, "%s	%s", address, data_line);
     IC++;
   }
 }
-
-

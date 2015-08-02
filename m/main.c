@@ -41,7 +41,7 @@ int run() {
 
     eval(1);
 
-    if (got_error == 0) make_final_file(IC, data_file, final_file);
+    if (got_error == 0) make_file(IC, data_file, final_file);
   }
 
   if ( check_entry_list() == 2 ) {
@@ -54,7 +54,7 @@ int run() {
     got_error = 1;
   }
 
-  cleanlists();
+  clean_lists();
 
   return 1;
 }
