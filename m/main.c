@@ -157,7 +157,7 @@ char * with_extension(char * baseName, char * ext) {
 FILE * init_file(char * fileName,char * mode) {
   FILE * file = fopen(fileName,mode);
   if (!file) {
-    printf("Failed to open file %s",fileName);
+    printf("Failed to open file %s\n",fileName);
     exit(1);
   }
   return file;

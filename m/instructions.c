@@ -2,6 +2,7 @@
 #include "instructions.h"
 #include "data_structure.h"
 
+//Definition of unique "struct" for dealing with all the instruction
 struct {
   char *name;
   int value;
@@ -13,10 +14,12 @@ struct {
   {"no-op", 5}
 };
 
+//three kinds of list
 List extern_list = NULL;
 List entry_list = NULL;
 List symbol_list = NULL;
 
+//Different kinds of files 
 FILE *ext_file;
 FILE *ent_file;
 FILE *error_file;
@@ -29,6 +32,7 @@ extern int got_error;
 extern int iteration;
 extern int line_num;
 
+//functions which check the type of the instructions and refer to the suitable function who deals with this specific instructions
 void do_instructions(FILE *file) {	
   int i=0, instration=5;
   while (strcmp(instructions[i].name, "no-op")) {
@@ -59,6 +63,7 @@ void do_instructions(FILE *file) {
   }
 }
 
+//deals with data instructions
 void do_data(FILE *file) {
   extern int my_index, DC;
   int first_time = 1, i=0, minus = 0;
@@ -119,6 +124,7 @@ void do_data(FILE *file) {
   }
 }
 
+//deals with string instructions
 void do_string(FILE *file) {
   extern int my_index, DC;	
   int num;
@@ -178,6 +184,7 @@ void do_string(FILE *file) {
   }
 }
 
+//deals with entry instructions
 void do_entry(FILE *file) {
   extern int my_index;
   int i=0;
@@ -196,6 +203,7 @@ void do_entry(FILE *file) {
   add(&entry_list, tmp, 0, 1);
 }
 
+//deals with extern instructions
 void do_extern(FILE *file) {
   extern int my_index, IC, iteration;
   int i=0;
@@ -261,6 +269,7 @@ void write_entry(char *string, int c) {
   update_tml(entry_list, string,2);
 }
 
+//add symbol to symbol list
 void add_symbol(char * string, int inst_or_command, int value) {
   if (find(symbol_list, string) == -1) {
     if (inst_or_command == 2)
@@ -270,11 +279,13 @@ void add_symbol(char * string, int inst_or_command, int value) {
   }
 }
 
+//search string in entry list
 void search_in_entry_list(char *s) {
   if (find(entry_list, s) != -1)
     write_entry(s, find(symbol_list, s));
 }
 
+//initialize the lists
 void clean_lists() {
   clean(&symbol_list);
   clean(&entry_list);
