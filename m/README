@@ -1,0 +1,8 @@
+# Build
+make
+
+# Run
+./assembler kelet
+
+# See results
+cat kelet.ob
